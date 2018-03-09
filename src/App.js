@@ -1,7 +1,12 @@
 import React, { Component } from 'react';
 import { BrowserRouter as Router, Route, Link } from "react-router-dom";
+import { FormattedMessage, injectIntl } from 'react-intl';
 
 import { Game } from './components/Game.js'
+
+/*****************/
+/****Component****/
+/*****************/
 
 class App extends Component {
 
@@ -20,7 +25,9 @@ class App extends Component {
 
     return (
         <div>
-            <h1 style={gameStyle}>Love letter</h1>
+            <h1 style={gameStyle}>
+                <FormattedMessage id="App.title" />
+            </h1>
 
             <Router>
                 <div style={gameStyle.page}>
@@ -34,4 +41,5 @@ class App extends Component {
   }
 }
 
-export default App;
+
+export default injectIntl(App);

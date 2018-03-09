@@ -1,9 +1,12 @@
 import React, { Component } from 'react';
+import { FormattedMessage } from 'react-intl'
 
-export class Game extends React.Component {
+export class Game extends Component {
   render() {
     return (
-        <p>Hello World</p>
+        <p>
+            <FormattedMessage id="Game.welcome" />
+        </p>
     );
   }
 }

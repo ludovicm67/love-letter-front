@@ -7,5 +7,3 @@ Pour accéder au back-end de l'application :
 
 `npm install` pour installer les dépendances du projet
 `npm start` pour lancer l'application
-
-`npm build:langs` pour enregistrer les nouvelles locales de l'application

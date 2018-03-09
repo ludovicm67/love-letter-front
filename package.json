@@ -18,7 +18,7 @@
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
-    "build:langs": "babel src/utils/translator.js | node",
+    "build:langs": "babel utils/translator.js | node",
     "test": "react-scripts test --env=jsdom",
     "eject": "react-scripts eject"
   },

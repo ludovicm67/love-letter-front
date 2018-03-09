@@ -1,11 +1,11 @@
 import React, { Component } from 'react';
-import { FormattedMessage, injectIntl } from 'react-intl'
+import { FormattedMessage } from 'react-intl'
 
-export class Game extends React.Component {
+export class Game extends Component {
   render() {
     return (
         <p>
-            <FormattedMessage id={'Game.default'} defaultMessage={'Hello world'} />
+            <FormattedMessage id="Game.welcome" />
         </p>
     );
   }

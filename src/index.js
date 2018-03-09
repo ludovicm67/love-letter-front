@@ -2,32 +2,33 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import App from './App';
 
-
 /****************************/
 /****Internationalization****/
 /****************************/
 
 import { IntlProvider, addLocaleData } from 'react-intl';
+
+import messages from './messages';
+
 import en from 'react-intl/locale-data/en';
 import fr from 'react-intl/locale-data/fr';
-import de from 'react-intl/locale-data/de';
 
-//import des chaînes traduites
-import localeData from './build/locales/data.json';
+import { flattenMessages } from './utils'
 
-addLocaleData([...en, ...de, ...fr]);
+addLocaleData([...en, ...fr]);
 
-const language = (navigator.languages && navigator.languages[0]) ||
-                     navigator.language ||
-                     navigator.userLanguage;
+let locale =
+    (navigator.languages && navigator.languages[0])
+    || navigator.language
+    || navigator.userLanguage
+    || 'fr-FR';
 
-const languageWithoutRegionCode = language.toLowerCase().split(/[_-]+/)[0];
-
-const messages = localeData[languageWithoutRegionCode] || localeData[language] || localeData.fr;
-
+/***********/
+/****App****/
+/***********/
 
 ReactDOM.render(
-    <IntlProvider locale={language} messages={messages}>
+    <IntlProvider locale={locale} messages={flattenMessages(messages[locale])}>
         <App />
     </IntlProvider>,
     document.getElementById('root')

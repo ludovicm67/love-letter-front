@@ -26,7 +26,7 @@ class App extends Component {
     return (
         <div>
             <h1 style={gameStyle}>
-                <FormattedMessage id={'App.title'} defaultMessage={'Love Letter'} />
+                <FormattedMessage id="App.title" />
             </h1>
 
             <Router>

@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { BrowserRouter as Router, Route, Link } from "react-router-dom";
 import { FormattedMessage, injectIntl } from 'react-intl';
 
-import { Game } from './components/Game.js'
+import { Login } from './scenes/Login/';
 
 /*****************/
 /****Component****/
@@ -11,7 +11,7 @@ import { Game } from './components/Game.js'
 class App extends Component {
 
   render() {
-    var gameStyle = {
+    var appStyle = {
         textAlign: "center",
 
         page: {
@@ -25,15 +25,21 @@ class App extends Component {
 
     return (
         <div>
-            <h1 style={gameStyle}>
+            <h1 style={appStyle}>
                 <FormattedMessage id="App.title" />
             </h1>
 
             <Router>
-                <div style={gameStyle.page}>
-                    <Link to="/">Ici</Link>
+                <div style={appStyle.page}>
 
-                    <Route exact path="/" component={Game} />
+                    <Link to="/login">
+                        <FormattedMessage id="App.testLink" />
+                    </Link>
+
+                    <Route exact path="/login" component={Login} />
+
+                    <Route exact path="/" component={Login} />
+
                 </div>
             </Router>
         </div>

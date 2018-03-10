@@ -1,20 +1,32 @@
 export default {
     'fr': { //fr-FR ?
         App: {
-            title: 'Love Letter (fr)'
+            title: 'Love Letter',
+            testLink: 'Se connecter !'
         },
-
-        Game: {
-            welcome: 'Hello world ! (fr)'
+        Login: {
+            title: 'Se connecter',
+            Form: {
+                pseudoLabel: 'Votre pseudo :',
+                passwordLabel: 'Votre mot de passe :',
+                submitButton: 'Se connecter'
+            }
         }
+
     },
     'en': { //en-EN ?
         App: {
-            title: 'Love Letter (en)'
+            title: 'Love Letter',
+            testLink: 'Login!'
         },
-
-        Game: {
-            welcome: 'Hello world ! (en)'
+        Login: {
+            title: 'Login',
+            Form: {
+                pseudoLabel: 'Your login:',
+                passwordLabel: 'Your password:',
+                submitButton: 'Login'
+            }
         }
+
     }
 }

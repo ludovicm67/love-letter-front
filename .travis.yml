@@ -1,0 +1,17 @@
+language: node_js
+node_js:
+  - 6
+
+script:
+  - npm run build
+
+# See http://surge.sh/help/adding-a-200-page-for-client-side-routing
+before_deploy:
+  - mv ./build/index.html ./build/200.html
+
+deploy:
+  provider: surge
+  project: ./build/
+  domain: love-letter-game.surge.sh
+  on: master
+  skip_cleanup: true

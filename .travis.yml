@@ -12,6 +12,6 @@ before_deploy:
 deploy:
   provider: surge
   project: ./build/
-  domain: love-letter-game.surge.sh
+  domain: love-letter.ludovic-muller.fr
   on: master
   skip_cleanup: true

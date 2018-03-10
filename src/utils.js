@@ -1,4 +1,4 @@
-import axios from 'axios';
+// import axios from 'axios';
 
 /************/
 /***CONSTS***/
@@ -35,7 +35,7 @@ export const flattenMessages = ((nestedMessages, prefix = '') => {
 /***API***/
 /*********/
 
-const API_URL = 'https://back.love-letter.ludovic-muller.fr/';
+// const API_URL = 'https://back.love-letter.ludovic-muller.fr/';
 
 //exemple
 // export const getData() {

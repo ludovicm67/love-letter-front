@@ -1,8 +1,10 @@
 import React, { Component } from 'react';
-import { BrowserRouter as Router, Route, Link } from "react-router-dom";
+import { BrowserRouter as Router, Route } from "react-router-dom";
 import { FormattedMessage, injectIntl } from 'react-intl';
 
 import { Login } from './scenes/Login/';
+import { Register } from './scenes/Register/';
+import { Menu } from './scenes/Menu/';
 
 /*****************/
 /****Component****/
@@ -32,13 +34,10 @@ class App extends Component {
             <Router>
                 <div style={appStyle.page}>
 
-                    <Link to="/login">
-                        <FormattedMessage id="App.testLink" />
-                    </Link>
-
                     <Route exact path="/login" component={Login} />
+                    <Route exact path="/register" component={Register} />
 
-                    <Route exact path="/" component={Login} />
+                    <Route exact path="/" component={Menu} />
 
                 </div>
             </Router>

@@ -18,18 +18,39 @@ export default {
             title: 'Créer un compte',
             linkToLogin: 'Je préférerais me connecter, en fait !'
         },
-        Accueil: {
+        MainMenu: {
             title: 'Menu',
             linkToJouer: 'Lancer une nouvelle partie',
-            linkToRejoindre: 'Rejoindre une partie'
+            linkToRejoindre: 'Rejoindre une partie',
+            linkToRankings: 'Classements',
+            linkToHelp: 'Aide',
+            linkToOptions: 'Options'
         },
-        Jouer: {
+        NewGame: {
             title: 'Création de partie',
+            backToMenu: 'Retour au menu',
+            startLink: 'Jouer'
+        },
+        JoinGame: {
+            title: 'Rejoindre une partie',
+            backToMenu: 'Retour au menu',
+            joinLink: 'Rejoindre'
+        },
+        Rankings : {
+            title: 'Classement',
             backToMenu: 'Retour au menu'
         },
-        Rejoindre: {
-            title: 'Rejoindre une partie',
+        Help: {
+            title: 'Aide',
             backToMenu: 'Retour au menu'
+        },
+        Options: {
+            title: 'Options',
+            backToMenu: 'Retour au menu'
+        },
+        Game: {
+            title: 'Love Letter',
+            backToMenu: 'Quitter la partie'
         }
 
     },
@@ -52,18 +73,39 @@ export default {
             title: 'Create an account',
             linkToRegister: 'I\'d rather login !'
         },
-        Accueil: {
+        MainMenu: {
             title: 'Menu',
-            linkToJouer: 'Launch a new game'
+            linkToJouer: 'Launch a new game',
+            linkToRejoindre: 'Join a game',
+            linkToRankings: 'Rankings',
+            linkToHelp: 'Help',
+            linkToOptions: 'Options'
         },
-        Jouer: {
+        NewGame: {
             title: 'Create a new game',
-            backToMenu: 'Back to menu'
+            backToMenu: 'Back to menu',
+            startLink: 'Jouer'
         },
-        Rejoindre: {
+        JoinGame: {
             title: 'Join a game',
             backToMenu: 'Back to menu',
-            linkToRejoindre: 'Rejoindre une partie'
+            joinLink: 'Join'
+        },
+        Rankings : {
+            title: 'Rankings',
+            backToMenu: 'Back to menu'
+        },
+        Help: {
+            title: 'Help',
+            backToMenu: 'Back to menu'
+        },
+        Options: {
+            title : 'Options',
+            backToMenu: 'Back to menu'
+        },
+        Game: {
+            title: 'Love Letter',
+            backToMenu: 'Quit'
         }
 
     }

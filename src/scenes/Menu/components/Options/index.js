@@ -2,19 +2,15 @@ import React, { Component } from 'react';
 import { Link } from "react-router-dom";
 import { FormattedMessage } from 'react-intl';
 
-/*********************/
-/***NOUVELLE PARTIE***/
-/*********************/
-
-export default class Jouer extends Component {
+export default class Options extends Component {
 
     render() {
         return (
         <div>
-            <h1><FormattedMessage id="Jouer.title" /></h1>
+            <h1><FormattedMessage id="Options.title" /></h1>
 
             <Link to="/">
-                <FormattedMessage id="Jouer.backToMenu" />
+                <FormattedMessage id="Options.backToMenu" />
             </Link>
         </div>
     );

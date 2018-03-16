@@ -2,19 +2,15 @@ import React, { Component } from 'react';
 import { Link } from "react-router-dom";
 import { FormattedMessage } from 'react-intl';
 
-/*********************/
-/***NOUVELLE PARTIE***/
-/*********************/
-
-export default class Rejoindre extends Component {
+export default class Help extends Component {
 
     render() {
         return (
         <div>
-            <h1><FormattedMessage id="Rejoindre.title" /></h1>
+            <h1><FormattedMessage id="Help.title" /></h1>
 
             <Link to="/">
-                <FormattedMessage id="Rejoindre.backToMenu" />
+                <FormattedMessage id="Help.backToMenu" />
             </Link>
         </div>
     );

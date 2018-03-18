@@ -44,6 +44,8 @@ export const api_register = (name, password, email) => {
         name: name,
         password: password,
         email: email
+    }, {
+        headers: {'Content-Type': 'application/x-www-form-urlencoded'}
     })
     .then(function (response) {
         console.log(response);

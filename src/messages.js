@@ -9,14 +9,20 @@ export default {
             linkToRegister: 'J\'ai d\'abord besoin d\'un compte !',
             fakeConnection: 'Connexion',
             Form: {
-                pseudoLabel: 'Votre pseudo :',
+                nameLabel: 'Votre nom :',
                 passwordLabel: 'Votre mot de passe :',
                 submitButton: 'Se connecter'
             }
         },
         Register: {
             title: 'Créer un compte',
-            linkToLogin: 'Je préférerais me connecter, en fait !'
+            linkToLogin: 'Je préférerais me connecter, en fait !',
+            Form: {
+                emailLabel: 'Votre adresse email',
+                nameLabel: 'Votre nom :',
+                passwordLabel: 'Votre mot de passe :',
+                submitButton: 'Se connecter'
+            }
         },
         MainMenu: {
             title: 'Menu',
@@ -64,14 +70,20 @@ export default {
             linkToRegister: 'I need an account first !',
             fakeConnection: 'Connection',
             Form: {
-                pseudoLabel: 'Your login:',
+                nameLabel: 'Your login:',
                 passwordLabel: 'Your password:',
                 submitButton: 'Login'
             }
         },
         Register: {
             title: 'Create an account',
-            linkToRegister: 'I\'d rather login !'
+            linkToRegister: 'I\'d rather login !',
+            Form: {
+                emailLabel: 'Your email address',
+                nameLabel: 'Your name:',
+                passwordLabel: 'Your password:',
+                submitButton: 'Login'
+            }
         },
         MainMenu: {
             title: 'Menu',

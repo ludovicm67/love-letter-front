@@ -10,16 +10,12 @@ import { Form } from './components/Form/';
 
 export class Login extends Component {
 
-    getFormData() {
-        console.log("hellooow !");
-    }
-
     render() {
         return (
         <div>
             <h1><FormattedMessage id="Login.title" /></h1>
 
-            <Form getFormData={this.getFormData} />
+            <Form />
 
             <Link to="/register">
                 <FormattedMessage id="Login.linkToRegister" />

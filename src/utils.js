@@ -1,4 +1,4 @@
-// import axios from 'axios';
+import axios from 'axios';
 
 /************/
 /***CONSTS***/
@@ -35,10 +35,22 @@ export const flattenMessages = ((nestedMessages, prefix = '') => {
 /***API***/
 /*********/
 
-// const API_URL = 'https://back.love-letter.ludovic-muller.fr/';
+const API_URL = 'https://back.love-letter.ludovic-muller.fr/api/';
 
-//exemple
-// export const getData() {
-//     const url = `${API_URL}/something`;
-//     return axios.get(url).then(response => response.data);
-// }
+export const api_register = (name, password, email) => {
+    const url = `${API_URL}/register`;
+
+    axios.post(url, {
+        name: name,
+        password: password,
+        email: email
+    })
+    .then(function (response) {
+        console.log(response);
+        //localStorage
+    })
+    .catch(function (error) {
+        console.log(error);
+        //retourner un message d'erreur quelconque
+    });
+}

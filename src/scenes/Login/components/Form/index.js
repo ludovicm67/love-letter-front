@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import { FormattedMessage } from 'react-intl';
-import PropTypes from 'prop-types';
 
 /**********************/
 /***FORMULAIRE LOGIN***/
@@ -10,10 +9,10 @@ export class Form extends Component {
   render() {
     return (
         <form>
-            <label id="pseudo">
-                <FormattedMessage id="Login.Form.pseudoLabel" />
+            <label id="name">
+                <FormattedMessage id="Login.Form.nameLabel" />
             </label>
-            <input id="pseudo" name="pseudo" />
+            <input id="name" name="name" />
 
             <label id="password">
                 <FormattedMessage id="Login.Form.passwordLabel" />
@@ -27,7 +26,3 @@ export class Form extends Component {
     );
   }
 }
-
-Form.propTypes = {
-  getFormData: PropTypes.func
-};

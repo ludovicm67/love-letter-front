@@ -21,7 +21,14 @@ let locale =
     (navigator.languages && navigator.languages[0])
     || navigator.language
     || navigator.userLanguage
-    || 'fr-FR';
+    || 'fr';
+
+//ignore region code & set french to default language
+if (locale.substring(0,2) === 'en') {
+    locale = 'en';
+} else {
+    locale = 'fr';
+}
 
 /***********/
 /****App****/

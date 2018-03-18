@@ -19,6 +19,7 @@ export default {
             linkToLogin: 'Je préférerais me connecter, en fait !',
             Form: {
                 emailLabel: 'Votre adresse email',
+                emailError: 'Veuillez entrer une adresse mail valide',
                 nameLabel: 'Votre nom :',
                 passwordLabel: 'Votre mot de passe :',
                 submitButton: 'Se connecter'
@@ -80,6 +81,7 @@ export default {
             linkToRegister: 'I\'d rather login !',
             Form: {
                 emailLabel: 'Your email address',
+                emailError: 'Please enter a valid email address',
                 nameLabel: 'Your name:',
                 passwordLabel: 'Your password:',
                 submitButton: 'Login'

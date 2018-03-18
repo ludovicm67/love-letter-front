@@ -1,20 +1,28 @@
 import React, { Component } from 'react';
 import { FormattedMessage } from 'react-intl';
+import {defineMessages, injectIntl, formatMessage} from 'react-intl';
 
-import { api_register } from '../../../../utils';
+import { api_register, mailRegex } from '../../../../utils';
+
+const messages = defineMessages({
+    emailError: {
+        id: 'Register.Form.emailError'
+    }
+});
 
 /*************************/
 /***FORMULAIRE REGISTER***/
 /*************************/
 
-export default class Form extends Component {
+class Form extends Component {
 
     constructor() {
         super();
         this.state = {
             email: '',
             name: '',
-            password: ''
+            password: '',
+            validEmail: ''
         };
 
         this.handleRegister = this.handleRegister.bind(this);
@@ -24,7 +32,6 @@ export default class Form extends Component {
     }
 
     handleRegister () {
-        console.log(this.state);
         api_register(
             this.state.name,
             this.state.password,
@@ -33,7 +40,15 @@ export default class Form extends Component {
     }
 
     handleEmailChange = (e) => {
+        let { formatMessage } = this.props.intl;
+
         this.setState({email: e.target.value});
+
+        if(mailRegex.test(e.target.value)) {
+            this.setState({validEmail: ''});
+        } else {
+            this.setState({validEmail: formatMessage(messages.emailError)});
+        }
     }
     handleNameChange = (e) => {
         this.setState({name: e.target.value});
@@ -43,27 +58,38 @@ export default class Form extends Component {
     }
 
     render() {
-    return (
-        <form>
-            <label id="email">
-                <FormattedMessage id="Register.Form.emailLabel" />
-            </label>
-            <input id="email" name="email" value={this.state.email} onChange={this.handleEmailChange} />
+        let { state, handleEmailChange, handleNameChange, handlePasswordChange, handleRegister } = this;
 
-            <label id="name">
-                <FormattedMessage id="Register.Form.nameLabel" />
-            </label>
-            <input id="name" name="name" value={this.state.name} onChange={this.handleNameChange} />
+        let formStyle = {
+            errors: {
+                color: 'red'
+            }
+        }
 
-            <label id="password">
-                <FormattedMessage id="Register.Form.passwordLabel" />
-            </label>
-            <input id="password" name="password" type="password" value={this.state.password} onChange={this.handlePasswordChange}/>
+        return (
+            <form>
+                <label id="email">
+                    <FormattedMessage id="Register.Form.emailLabel" />
+                </label>
+                <input id="email" required name="email" value={state.email} onChange={handleEmailChange} />
+                <span style={formStyle.errors}>{state.validEmail}</span>
 
-            <button type="button" onClick={this.handleRegister}>
-                <FormattedMessage id="Register.Form.submitButton" />
-            </button>
-        </form>
-    );
+                <label id="name">
+                    <FormattedMessage id="Register.Form.nameLabel" />
+                </label>
+                <input id="name" required name="name" value={state.name} onChange={handleNameChange} />
+
+                <label id="password">
+                    <FormattedMessage id="Register.Form.passwordLabel" />
+                </label>
+                <input id="password" required name="password" type="password" value={state.password} onChange={handlePasswordChange}/>
+
+                <button type="button" onClick={handleRegister}>
+                    <FormattedMessage id="Register.Form.submitButton" />
+                </button>
+            </form>
+        );
   }
 }
+
+export default injectIntl(Form);

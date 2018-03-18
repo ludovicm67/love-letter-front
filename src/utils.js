@@ -35,7 +35,7 @@ export const flattenMessages = ((nestedMessages, prefix = '') => {
 /***API***/
 /*********/
 
-const API_URL = 'https://back.love-letter.ludovic-muller.fr/api/';
+const API_URL = 'https://back.love-letter.ludovic-muller.fr/api';
 
 export const api_register = (name, password, email) => {
     const url = `${API_URL}/register`;

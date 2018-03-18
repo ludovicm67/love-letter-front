@@ -70,7 +70,8 @@ export const api_register = (name, password, email) => {
             register();
 
         } else {
-            throw 'error';
+            console.log('error');
+            //throw 'error';
             //gestion erreur
         }
 

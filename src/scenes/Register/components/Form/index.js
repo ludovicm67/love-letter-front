@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { FormattedMessage } from 'react-intl';
-import {defineMessages, injectIntl, formatMessage} from 'react-intl';
+import {defineMessages, injectIntl} from 'react-intl';
 
 import { api_register, mailRegex } from '../../../../utils';
 
@@ -40,14 +40,12 @@ class Form extends Component {
     }
 
     handleEmailChange = (e) => {
-        let { formatMessage } = this.props.intl;
-
         this.setState({email: e.target.value});
 
         if(mailRegex.test(e.target.value)) {
             this.setState({validEmail: ''});
         } else {
-            this.setState({validEmail: formatMessage(messages.emailError)});
+            this.setState({validEmail: this.props.intl.formatMessage(messages.emailError)});
         }
     }
     handleNameChange = (e) => {

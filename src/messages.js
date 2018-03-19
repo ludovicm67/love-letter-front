@@ -22,6 +22,7 @@ export default {
                 emailError: 'Veuillez entrer une adresse mail valide',
                 nameLabel: 'Votre nom :',
                 passwordLabel: 'Votre mot de passe :',
+                passwordError: 'Votre mot de passe doit faire au moins 6 caractères',
                 submitButton: 'Se connecter'
             }
         },
@@ -84,6 +85,7 @@ export default {
                 emailError: 'Please enter a valid email address',
                 nameLabel: 'Your name:',
                 passwordLabel: 'Your password:',
+                passwordError: 'Your password must be at least 6 characters long',
                 submitButton: 'Login'
             }
         },

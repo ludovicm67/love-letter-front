@@ -36,15 +36,10 @@ export const flattenMessages = ((nestedMessages, prefix = '') => {
 /***STORAGE***/
 /*************/
 
-const register = () => {
-    window.location.replace('/login');
+const login = (token) => {
+    localStorage.setItem('token', token);
+    window.location.replace('/');
 }
-
-
-// const login = (token) => {
-//     localStorage.setItem('token', token);
-//     window.location.replace('/');
-// }
 
 
 /*********/
@@ -64,15 +59,14 @@ export const api_register = (name, password, email) => {
 
     axios.post(url, data, {headers: HEADERS})
     .then(function (response) {
-        console.log(response);
+        console.log(response.data.success);
 
-        if(data.success) {
-            register();
-
+        if(response.data.success) {
+            login(response.data.data.token);
         } else {
             console.log('error');
-            //throw 'error';
-            //gestion erreur
+           //     //throw 'error';
+           //     //gestion erreur
         }
 
     })

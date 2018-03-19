@@ -7,6 +7,9 @@ import { api_register, mailRegex } from '../../../../utils';
 const messages = defineMessages({
     emailError: {
         id: 'Register.Form.emailError'
+    },
+    passwordError: {
+        id: 'Register.Form.passwordError'
     }
 });
 
@@ -22,7 +25,8 @@ class Form extends Component {
             email: '',
             name: '',
             password: '',
-            validEmail: ''
+            validEmail: '',
+            validPassword: ''
         };
 
         this.handleRegister = this.handleRegister.bind(this);
@@ -53,6 +57,12 @@ class Form extends Component {
     }
     handlePasswordChange = (e) => {
         this.setState({password: e.target.value});
+
+        if(e.target.value.length >= 6) {
+            this.setState({validPassword: ''});
+        } else {
+            this.setState({validPassword: this.props.intl.formatMessage(messages.passwordError)});
+        }
     }
 
     render() {
@@ -81,6 +91,7 @@ class Form extends Component {
                     <FormattedMessage id="Register.Form.passwordLabel" />
                 </label>
                 <input id="password" required name="password" type="password" value={state.password} onChange={handlePasswordChange}/>
+                <span style={formStyle.errors}>{state.validPassword}</span>
 
                 <button type="button" onClick={handleRegister}>
                     <FormattedMessage id="Register.Form.submitButton" />

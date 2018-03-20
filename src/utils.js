@@ -4,14 +4,14 @@ import axios from 'axios';
 /***CONSTS***/
 /************/
 
-//constantes utilisées dans toute l'application
+// constantes utilisées dans toute l'application
 export const mailRegex = /^([a-zA-Z0-9_.+-])+@(([a-zA-Z0-9-])+\.)+([a-zA-Z0-9]{2,4})+$/;
 
 /**********/
 /***I18N***/
 /**********/
 
-//allow a nested structure in messages.js
+// allow a nested structure in messages.js
 export const flattenMessages = ((nestedMessages, prefix = '') => {
     if (nestedMessages == null) {
         return {}
@@ -61,10 +61,10 @@ export const api_register = (name, password, email) => {
     .then(function (response) {
         console.log(response.data.success);
 
-        if(response.data.success) {
+        if (response.data.success) {
             login(response.data.data.token);
         } else {
-            console.log('error');
+            console.log('ERROR:', response.data.error);
            //     //throw 'error';
            //     //gestion erreur
         }
@@ -73,5 +73,27 @@ export const api_register = (name, password, email) => {
     .catch(function (error) {
         console.log(error);
         //retourner un message d'erreur quelconque
+    });
+}
+
+export const api_login = (email, password) => {
+    const url = `${API_URL}/login`;
+
+    const data = new FormData();
+    data.append('email', email);
+    data.append('password', password);
+
+    axios.post(url, data, {headers: HEADERS})
+    .then((response) => {
+        if (response.data.success) {
+            login(response.data.data.token);
+        } else {
+            // @TODO: add error message for the user
+            console.log('ERROR:', response.data.error);
+        }
+    })
+    .catch((error) => {
+        // @TODO: add error message for the user
+        console.log(error);
     });
 }

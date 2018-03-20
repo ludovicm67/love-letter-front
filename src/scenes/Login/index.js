@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { Link } from "react-router-dom";
 import { FormattedMessage } from 'react-intl'
 
-import { Form } from './components/Form/';
+import Form from './components/Form/';
 
 /*******************/
 /***PAGE DE LOGIN***/

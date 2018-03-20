@@ -1,42 +1,43 @@
 import React, { Component } from 'react';
-import { Link } from "react-router-dom";
-import { FormattedMessage } from 'react-intl'
+import { Link } from 'react-router-dom';
+import { FormattedMessage } from 'react-intl';
 
 export default class MainMenu extends Component {
+  render() {
+    return (
+      <div>
+        <h1>
+          <FormattedMessage id="MainMenu.title" />
+        </h1>
 
-    render() {
-        return (
-        <div>
-            <h1><FormattedMessage id="MainMenu.title" /></h1>
+        <Link to="/jouer">
+          <FormattedMessage id="MainMenu.linkToJouer" />
+        </Link>
 
-            <Link to="/jouer">
-                <FormattedMessage id="MainMenu.linkToJouer" />
-            </Link>
+        <hr />
 
-            <hr/>
+        <Link to="/rejoindre">
+          <FormattedMessage id="MainMenu.linkToRejoindre" />
+        </Link>
 
-            <Link to="/rejoindre">
-                <FormattedMessage id="MainMenu.linkToRejoindre" />
-            </Link>
+        <hr />
 
-            <hr/>
+        <Link to="/classement">
+          <FormattedMessage id="MainMenu.linkToRankings" />
+        </Link>
 
-            <Link to="/classement">
-                <FormattedMessage id="MainMenu.linkToRankings" />
-            </Link>
+        <hr />
 
-            <hr/>
+        <Link to="/aide">
+          <FormattedMessage id="MainMenu.linkToHelp" />
+        </Link>
 
-            <Link to="/aide">
-                <FormattedMessage id="MainMenu.linkToHelp" />
-            </Link>
+        <hr />
 
-            <hr/>
-
-            <Link to="/options">
-                <FormattedMessage id="MainMenu.linkToOptions" />
-            </Link>
-        </div>
+        <Link to="/options">
+          <FormattedMessage id="MainMenu.linkToOptions" />
+        </Link>
+      </div>
     );
   }
 }

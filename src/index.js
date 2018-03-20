@@ -13,21 +13,21 @@ import messages from './messages';
 import en from 'react-intl/locale-data/en';
 import fr from 'react-intl/locale-data/fr';
 
-import { flattenMessages } from './utils'
+import { flattenMessages } from './utils';
 
 addLocaleData([...en, ...fr]);
 
 let locale =
-    (navigator.languages && navigator.languages[0])
-    || navigator.language
-    || navigator.userLanguage
-    || 'fr';
+  (navigator.languages && navigator.languages[0]) ||
+  navigator.language ||
+  navigator.userLanguage ||
+  'fr';
 
 //ignore region code & set french to default language
-if (locale.substring(0,2) === 'en') {
-    locale = 'en';
+if (locale.substring(0, 2) === 'en') {
+  locale = 'en';
 } else {
-    locale = 'fr';
+  locale = 'fr';
 }
 
 /***********/
@@ -35,8 +35,8 @@ if (locale.substring(0,2) === 'en') {
 /***********/
 
 ReactDOM.render(
-    <IntlProvider locale={locale} messages={flattenMessages(messages[locale])}>
-        <App />
-    </IntlProvider>,
-    document.getElementById('root')
+  <IntlProvider locale={locale} messages={flattenMessages(messages[locale])}>
+    <App />
+  </IntlProvider>,
+  document.getElementById('root')
 );

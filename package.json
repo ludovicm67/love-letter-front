@@ -17,7 +17,10 @@
     "build": "react-scripts build",
     "build:langs": "babel utils/translator.js | node",
     "test": "react-scripts test --env=jsdom",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "format": "node_modules/prettier/bin-prettier.js --single-quote --trailing-comma es5 --write 'src/**/*.js'"
   },
-  "devDependencies": {}
+  "devDependencies": {
+    "prettier": "^1.11.1"
+  }
 }

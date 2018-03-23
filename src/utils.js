@@ -7,6 +7,15 @@ import axios from 'axios';
 // constantes utilisées dans toute l'application
 export const mailRegex = /^([a-zA-Z0-9_.+-])+@(([a-zA-Z0-9-])+\.)+([a-zA-Z0-9]{2,4})+$/;
 
+//styles (pour l'instant constantes, à terme variables)
+export const colors = {
+    blackColor: '#505157', //gris foncé
+    lightMainColor: '#5EACC6', //bleu clair
+    darkMainColor: '#227A94', //bleu-vert
+    secondColor: '#A693E3', //violet pâle
+    whiteColor: '#F5EFFF' //blanc
+};
+
 /**********/
 /***I18N***/
 /**********/

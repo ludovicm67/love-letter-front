@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import { BrowserRouter as Router, Route, Redirect } from 'react-router-dom';
 import { FormattedMessage, injectIntl } from 'react-intl';
 
+import { colors } from './utils.js';
+
 import { Login } from './scenes/Login/';
 import { Register } from './scenes/Register/';
 import { Menu } from './scenes/Menu/';
@@ -13,20 +15,20 @@ import { Menu } from './scenes/Menu/';
 class App extends Component {
   render() {
     var appStyle = {
-      textAlign: 'center',
+      backgroundColor: colors.lightMainColor,
 
+      title: {
+          textAlign: 'center'
+      },
       page: {
-        width: '80vw',
-        minHeight: '70vh',
-        margin: 'auto',
-        border: '1px solid #000000',
-        padding: 20,
+        height: '100vh',
+        width: '100vw'
       },
     };
 
     return (
-      <div>
-        <h1 style={appStyle}>
+      <div style={appStyle}>
+        <h1 style={appStyle.title}>
           <FormattedMessage id="App.title" />
         </h1>
 

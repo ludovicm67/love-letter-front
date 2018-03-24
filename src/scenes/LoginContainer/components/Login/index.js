@@ -8,7 +8,7 @@ import Form from './components/Form/';
 /***PAGE DE LOGIN***/
 /*******************/
 
-export class Login extends Component {
+export default class Login extends Component {
   render() {
     return (
       <div>

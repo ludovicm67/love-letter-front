@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { FormattedMessage } from 'react-intl';
 import { defineMessages, injectIntl } from 'react-intl';
 
-import { api_login, mailRegex } from '../../../../utils';
+import { api_login, mailRegex } from '../../../../../../utils';
 
 const messages = defineMessages({
   emailError: {

@@ -1,11 +1,11 @@
 import React, { Component } from 'react';
 import { BrowserRouter as Router, Route, Redirect } from 'react-router-dom';
-import { FormattedMessage, injectIntl } from 'react-intl';
+import { /*FormattedMessage,*/ injectIntl } from 'react-intl';
 
 import { colors } from './utils.js';
+import './styles.css';
 
-import { Login } from './scenes/Login/';
-import { Register } from './scenes/Register/';
+import { LoginContainer } from './scenes/LoginContainer/';
 import { Menu } from './scenes/Menu/';
 
 /*****************/
@@ -15,11 +15,9 @@ import { Menu } from './scenes/Menu/';
 class App extends Component {
   render() {
     var appStyle = {
-      backgroundColor: colors.lightMainColor,
+      backgroundColor: colors.whiteColor,
+      fontFamily: 'Magra',
 
-      title: {
-          textAlign: 'center'
-      },
       page: {
         height: '100vh',
         width: '100vw'
@@ -28,14 +26,10 @@ class App extends Component {
 
     return (
       <div style={appStyle}>
-        <h1 style={appStyle.title}>
-          <FormattedMessage id="App.title" />
-        </h1>
-
         <Router>
           <div style={appStyle.page}>
-            <Route exact path="/login" component={Login} />
-            <Route exact path="/register" component={Register} />
+            <Route exact path="/login" component={LoginContainer} />
+            <Route exact path="/register" component={LoginContainer} />
 
             <Route
               path="*"

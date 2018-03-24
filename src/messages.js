@@ -2,7 +2,6 @@ export default {
   fr: {
     //fr-FR ?
     App: {
-      title: 'Love Letter',
       testLink: 'Se connecter !',
     },
     Login: {
@@ -27,13 +26,18 @@ export default {
         submitButton: 'Se connecter',
       },
     },
+    Menu: {
+      title: 'Love',
+      titleSpan: 'Letter',
+      slogan: 'Un superbe slogan'
+    },
     MainMenu: {
       title: 'Menu',
       linkToJouer: 'Lancer une nouvelle partie',
       linkToRejoindre: 'Rejoindre une partie',
       linkToRankings: 'Classements',
       linkToHelp: 'Aide',
-      linkToOptions: 'Options',
+      linkToOptions: 'Options'
     },
     NewGame: {
       title: 'Création de partie',
@@ -89,6 +93,11 @@ export default {
         passwordError: 'Your password must be at least 6 characters long',
         submitButton: 'Login',
       },
+    },
+    Menu: {
+      title: 'Love',
+      titleSpan: 'Letter',
+      slogan: 'A great headline'
     },
     MainMenu: {
       title: 'Menu',

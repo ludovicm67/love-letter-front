@@ -8,7 +8,7 @@ import Form from './components/Form/';
 /***PAGE DE CREATION DE COMPTE***/
 /********************************/
 
-export class Register extends Component {
+export default class Register extends Component {
   render() {
     return (
       <div>

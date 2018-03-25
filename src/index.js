@@ -14,6 +14,7 @@ import en from 'react-intl/locale-data/en';
 import fr from 'react-intl/locale-data/fr';
 
 import { flattenMessages } from './utils';
+// import Echo from 'laravel-echo';
 
 addLocaleData([...en, ...fr]);
 
@@ -29,6 +30,20 @@ if (locale.substring(0, 2) === 'en') {
 } else {
   locale = 'fr';
 }
+
+
+
+// // test with Laravel Echo
+// let e = new Echo({
+//   broadcaster: 'socket.io',
+//   host: 'localhost:3001'
+// });
+
+// e.channel('channel-test').listen('TestEvent', function(e) {
+//   console.log('TestEvent', e);
+// });
+
+
 
 /***********/
 /****App****/

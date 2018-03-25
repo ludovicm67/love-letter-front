@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { BrowserRouter as Router, Route } from 'react-router-dom';
+import { BrowserRouter as Router, Route, Redirect } from 'react-router-dom';
 import { FormattedMessage } from 'react-intl';
 
 import MainMenu from './components/MainMenu';
@@ -11,16 +11,40 @@ import Options from './components/Options/';
 import Game from './components/Game/';
 import Credits from './components/Credits/';
 
+import { colors } from '../../utils';
+
 /****************************/
 /***CONTENEUR PAGE DE MENU***/
 /****************************/
 
-export class Menu extends Component {
+export class MenuContainer extends Component {
   render() {
+
+    var menuStyle = {
+        container: {
+            backgroundColor: colors.lightMainColor,
+            minHeight: '100vh',
+            minWidth: '100vw',
+            padding: '40px'
+        },
+
+        title: {
+            textAlign: 'center',
+            fontSize: '4em',
+            paddingBottom: '30px'
+        }
+    };
+
+    if(!localStorage.getItem('token')) {
+        return (
+            <Redirect to="/login" />
+        );
+    }
+
     return (
-      <div>
-        <h1>
-            <FormattedMessage id="Menu.title" />
+      <div style={menuStyle.container}>
+        <h1 style={menuStyle.title}>
+            <FormattedMessage id="MenuContainer.title" />
         </h1>
 
         <Router>

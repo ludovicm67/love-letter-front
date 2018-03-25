@@ -12,7 +12,7 @@ class Form extends Component {
   constructor() {
     super();
     this.state = {
-      email: '',
+      name: '',
       password: ''
     };
 
@@ -20,11 +20,18 @@ class Form extends Component {
   }
 
   handleLogin() {
-    api_login(this.state.email, this.state.password);
+    api_login(this.state.name, this.state.password);
   }
 
+  handleNameChange = e => {
+    this.setState({ name: e.target.value });
+  };
+  handlePasswordChange = e => {
+    this.setState({ password: e.target.value });
+  };
+
   render() {
-    let { handleLogin } = this;
+    let { handleLogin, handleNameChange, handlePasswordChange, state } = this;
 
     let formStyle = {
         padding: '30px 0',
@@ -54,12 +61,14 @@ class Form extends Component {
 
     return (
       <form style={formStyle}>
-        <label id="email" style={formStyle.label}>
-          <FormattedMessage id="Login.Form.emailLabel" />
+        <label id="name" style={formStyle.label}>
+          <FormattedMessage id="Login.Form.nameLabel" />
         </label>
         <input
-          id="email"
-          name="email"
+          id="name"
+          name="name"
+          value={state.name}
+          onChange={handleNameChange}
           style={formStyle.input}
         />
 
@@ -70,6 +79,8 @@ class Form extends Component {
           id="password"
           name="password"
           type="password"
+          value={state.password}
+          onChange={handlePasswordChange}
           style={formStyle.input}
         />
 

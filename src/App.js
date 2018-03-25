@@ -1,12 +1,12 @@
 import React, { Component } from 'react';
-import { BrowserRouter as Router, Route, Redirect } from 'react-router-dom';
+import { BrowserRouter as Router, Route } from 'react-router-dom';
 import { /*FormattedMessage,*/ injectIntl } from 'react-intl';
 
 import { colors } from './utils.js';
 import './styles.css';
 
 import { LoginContainer } from './scenes/LoginContainer/';
-import { Menu } from './scenes/Menu/';
+import { MenuContainer } from './scenes/MenuContainer/';
 
 /*****************/
 /****Component****/
@@ -31,16 +31,7 @@ class App extends Component {
             <Route exact path="/login" component={LoginContainer} />
             <Route exact path="/register" component={LoginContainer} />
 
-            <Route
-              path="*"
-              render={() =>
-                localStorage.getItem('token') ? (
-                  <Menu />
-                ) : (
-                  <Redirect to="/login" />
-                )
-              }
-            />
+            <Route exact path="/" component={MenuContainer} />
           </div>
         </Router>
       </div>

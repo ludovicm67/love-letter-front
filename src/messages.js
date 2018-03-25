@@ -1,14 +1,16 @@
 export default {
   fr: {
     //fr-FR ?
-    App: {
-      testLink: 'Se connecter !',
+    LoginContainer: {
+      title: 'Love',
+      titleSpan: 'Letter',
+      slogan: 'Un superbe slogan'
     },
     Login: {
       title: 'Connectez-vous pour commencer à jouer, seul ou avec vos amis !',
       linkToRegister: "S'inscrire !",
       Form: {
-        emailLabel: 'Votre email :',
+        nameLabel: 'Votre nom :',
         passwordLabel: 'Votre mot de passe :',
         submitButton: 'Se connecter',
       },
@@ -17,21 +19,17 @@ export default {
       title: 'Pour créer un compte, débloquer des extensions et enregistrer vos meilleurs scores, c\'est ici !',
       linkToLogin: 'J\'ai déjà un compte',
       Form: {
-        emailLabel: 'Votre adresse email',
-        emailError: 'Veuillez entrer une adresse mail valide',
-        nameLabel: 'Votre nom :',
-        passwordLabel: 'Votre mot de passe :',
+        nameLabel: 'Choisissez un nom :',
+        passwordLabel: 'Choisissez un mot de passe :',
         passwordError: 'Votre mot de passe doit faire au moins 6 caractères',
         submitButton: 'Se connecter',
       },
     },
-    Menu: {
-      title: 'Love',
-      titleSpan: 'Letter',
-      slogan: 'Un superbe slogan'
+    MenuContainer: {
+      title: 'Love Letter'
     },
     MainMenu: {
-      title: 'Menu',
+      title: 'Love Letter',
       linkToJouer: 'Lancer une nouvelle partie',
       linkToRejoindre: 'Rejoindre une partie',
       linkToRankings: 'Classements',
@@ -67,9 +65,10 @@ export default {
   },
   en: {
     //en-EN ?
-    App: {
-      title: 'Love Letter',
-      testLink: 'Login!',
+    LoginContainer: {
+      title: 'Love',
+      titleSpan: 'Letter',
+      slogan: 'A great headline'
     },
     Login: {
       title: 'Log in to start a game, alone or with your friends!',
@@ -84,21 +83,17 @@ export default {
       title: 'Create an account, unlock extensions and save your best scores!',
       linkToRegister: "I'd rather login !",
       Form: {
-        emailLabel: 'Your email address',
-        emailError: 'Please enter a valid email address',
         nameLabel: 'Your name:',
         passwordLabel: 'Your password:',
         passwordError: 'Your password must be at least 6 characters long',
         submitButton: 'Login',
       },
     },
-    Menu: {
-      title: 'Love',
-      titleSpan: 'Letter',
-      slogan: 'A great headline'
+    MenuContainer: {
+      title: 'Love Letter'
     },
     MainMenu: {
-      title: 'Menu',
+      title: 'Love Letter',
       linkToJouer: 'Launch a new game',
       linkToRejoindre: 'Join a game',
       linkToRankings: 'Rankings',

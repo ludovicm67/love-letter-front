@@ -54,15 +54,15 @@ export class LoginContainer extends Component {
       <div style={loginStyle}>
         <div style={loginStyle.left}>
             <h1 style={loginStyle.left.title}>
-                <FormattedMessage id="Menu.title" />
+                <FormattedMessage id="LoginContainer.title" />
 
                 <span style={loginStyle.left.title.span}>
-                    <FormattedMessage id="Menu.titleSpan" />
+                    <FormattedMessage id="LoginContainer.titleSpan" />
                 </span>
             </h1>
 
             <h2 style={loginStyle.left.slogan}>
-                <FormattedMessage id="Menu.slogan" />
+                <FormattedMessage id="LoginContainer.slogan" />
             </h2>
         </div>
 

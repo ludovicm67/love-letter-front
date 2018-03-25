@@ -6,10 +6,6 @@ export default class MainMenu extends Component {
   render() {
     return (
       <div>
-        <h1>
-          <FormattedMessage id="MainMenu.title" />
-        </h1>
-
         <Link to="/jouer">
           <FormattedMessage id="MainMenu.linkToJouer" />
         </Link>

@@ -5,11 +5,10 @@ export default {
       testLink: 'Se connecter !',
     },
     Login: {
-      title: 'Se connecter',
+      title: 'Connectez-vous pour commencer à jouer, seul ou avec vos amis !',
       linkToRegister: "J'ai d'abord besoin d'un compte !",
-      fakeConnection: 'Connexion',
       Form: {
-        nameLabel: 'Votre nom :',
+        emailLabel: 'Votre email :',
         passwordLabel: 'Votre mot de passe :',
         submitButton: 'Se connecter',
       },
@@ -73,13 +72,12 @@ export default {
       testLink: 'Login!',
     },
     Login: {
-      title: 'Login',
+      title: 'Log in to start a game, alone or with your friends!',
       linkToRegister: 'I need an account first !',
-      fakeConnection: 'Connection',
       Form: {
-        nameLabel: 'Your login:',
-        passwordLabel: 'Your password:',
-        submitButton: 'Login',
+          emailLabel: 'Votre email :',
+          passwordLabel: 'Votre mot de passe :',
+          submitButton: 'Se connecter',
       },
     },
     Register: {

@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { FormattedMessage } from 'react-intl';
 import { defineMessages, injectIntl } from 'react-intl';
 
-import { api_login, mailRegex } from '../../../../../../utils';
+import { api_login, mailRegex, colors } from '../../../../../../utils';
 
 const messages = defineMessages({
   emailError: {
@@ -22,81 +22,68 @@ class Form extends Component {
     super();
     this.state = {
       email: '',
-      password: '',
-      validEmail: '',
-      validPassword: '',
+      password: ''
     };
 
     this.handleLogin = this.handleLogin.bind(this);
-    this.handleEmailChange = this.handleEmailChange.bind(this);
-    this.handlePasswordChange = this.handlePasswordChange.bind(this);
   }
 
   handleLogin() {
     api_login(this.state.email, this.state.password);
   }
 
-  handleEmailChange = e => {
-    this.setState({ email: e.target.value });
-
-    if (mailRegex.test(e.target.value)) {
-      this.setState({ validEmail: '' });
-    } else {
-      this.setState({
-        validEmail: this.props.intl.formatMessage(messages.emailError),
-      });
-    }
-  };
-  handlePasswordChange = e => {
-    this.setState({ password: e.target.value });
-
-    if (e.target.value.length >= 6) {
-      this.setState({ validPassword: '' });
-    } else {
-      this.setState({
-        validPassword: this.props.intl.formatMessage(messages.passwordError),
-      });
-    }
-  };
-
   render() {
-    let { state, handleEmailChange, handlePasswordChange, handleLogin } = this;
+    let { state, handleLogin } = this;
 
     let formStyle = {
-      errors: {
-        color: 'red',
-      },
+        padding: '30px 0',
+
+        label: {
+            display: 'block',
+            margin: '10px 0',
+        },
+        input: {
+            minHeight: '25px',
+            minWidth: '70%',
+            marginBottom: '10px'
+        },
+        submit: {
+            display: 'block',
+            height: '40px',
+            marginTop: '20px',
+            border: 'none',
+            borderRadius: '1px',
+            fontWeight: '600',
+            fontSize: '0.8em',
+            backgroundColor: colors.darkMainColor,
+            color: colors.whiteColor,
+            cursor: 'pointer'
+        }
     };
 
     return (
-      <form>
-        <label id="email">
-          <FormattedMessage id="Register.Form.emailLabel" />
+      <form style={formStyle}>
+        <label id="email" style={formStyle.label}>
+          <FormattedMessage id="Login.Form.emailLabel" />
         </label>
         <input
           id="email"
-          required
           name="email"
-          value={state.email}
-          onChange={handleEmailChange}
+          style={formStyle.input}
         />
-        <span style={formStyle.errors}>{state.validEmail}</span>
 
-        <label id="password">
-          <FormattedMessage id="Register.Form.passwordLabel" />
+        <label id="password" style={formStyle.label}>
+          <FormattedMessage id="Login.Form.passwordLabel" />
         </label>
         <input
           id="password"
-          required
           name="password"
           type="password"
-          value={state.password}
-          onChange={handlePasswordChange}
+          style={formStyle.input}
         />
-        <span style={formStyle.errors}>{state.validPassword}</span>
 
-        <button type="button" onClick={handleLogin}>
-          <FormattedMessage id="Register.Form.submitButton" />
+        <button type="button" onClick={handleLogin} style={formStyle.submit}>
+          <FormattedMessage id="Login.Form.submitButton" />
         </button>
       </form>
     );

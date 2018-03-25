@@ -1,17 +1,8 @@
 import React, { Component } from 'react';
 import { FormattedMessage } from 'react-intl';
-import { defineMessages, injectIntl } from 'react-intl';
+import { injectIntl } from 'react-intl';
 
-import { api_login, mailRegex, colors } from '../../../../../../utils';
-
-const messages = defineMessages({
-  emailError: {
-    id: 'Register.Form.emailError',
-  },
-  passwordError: {
-    id: 'Register.Form.passwordError',
-  },
-});
+import { api_login, colors } from '../../../../../../utils';
 
 /**********************/
 /***FORMULAIRE LOGIN***/
@@ -33,7 +24,7 @@ class Form extends Component {
   }
 
   render() {
-    let { state, handleLogin } = this;
+    let { handleLogin } = this;
 
     let formStyle = {
         padding: '30px 0',

@@ -6,7 +6,7 @@ export default {
     },
     Login: {
       title: 'Connectez-vous pour commencer à jouer, seul ou avec vos amis !',
-      linkToRegister: "J'ai d'abord besoin d'un compte !",
+      linkToRegister: "S'inscrire !",
       Form: {
         emailLabel: 'Votre email :',
         passwordLabel: 'Votre mot de passe :',
@@ -14,8 +14,8 @@ export default {
       },
     },
     Register: {
-      title: 'Créer un compte',
-      linkToLogin: 'Je préférerais me connecter, en fait !',
+      title: 'Pour créer un compte, débloquer des extensions et enregistrer vos meilleurs scores, c\'est ici !',
+      linkToLogin: 'J\'ai déjà un compte',
       Form: {
         emailLabel: 'Votre adresse email',
         emailError: 'Veuillez entrer une adresse mail valide',
@@ -81,7 +81,7 @@ export default {
       },
     },
     Register: {
-      title: 'Create an account',
+      title: 'Create an account, unlock extensions and save your best scores!',
       linkToRegister: "I'd rather login !",
       Form: {
         emailLabel: 'Your email address',

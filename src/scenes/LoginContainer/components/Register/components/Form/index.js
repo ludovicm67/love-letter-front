@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { FormattedMessage } from 'react-intl';
 import { defineMessages, injectIntl } from 'react-intl';
 
-import { api_register, mailRegex } from '../../../../../../utils';
+import { api_register, mailRegex, colors } from '../../../../../../utils';
 
 const messages = defineMessages({
   emailError: {
@@ -74,50 +74,73 @@ class Form extends Component {
     } = this;
 
     let formStyle = {
-      errors: {
-        color: 'red',
-      },
+        padding: '30px 0',
+
+        label: {
+            display: 'block',
+            margin: '10px 0',
+        },
+        input: {
+            minHeight: '25px',
+            minWidth: '70%',
+            marginBottom: '10px'
+        },
+        submit: {
+            display: 'block',
+            height: '40px',
+            marginTop: '20px',
+            border: 'none',
+            borderRadius: '1px',
+            fontWeight: '600',
+            fontSize: '0.8em',
+            backgroundColor: colors.darkMainColor,
+            color: colors.whiteColor,
+            cursor: 'pointer'
+        },
+        errors: {
+            color: 'red',
+        },
     };
 
     return (
-      <form>
-        <label id="email">
+      <form style={formStyle}>
+        <label id="email" style={formStyle.label}>
           <FormattedMessage id="Register.Form.emailLabel" />
         </label>
         <input
           id="email"
-          required
           name="email"
           value={state.email}
           onChange={handleEmailChange}
+          style={formStyle.input}
         />
         <span style={formStyle.errors}>{state.validEmail}</span>
 
-        <label id="name">
+        <label id="name" style={formStyle.label}>
           <FormattedMessage id="Register.Form.nameLabel" />
         </label>
         <input
           id="name"
-          required
           name="name"
           value={state.name}
           onChange={handleNameChange}
+          style={formStyle.input}
         />
 
-        <label id="password">
+        <label id="password" style={formStyle.label}>
           <FormattedMessage id="Register.Form.passwordLabel" />
         </label>
         <input
           id="password"
-          required
           name="password"
           type="password"
           value={state.password}
           onChange={handlePasswordChange}
+          style={formStyle.input}
         />
         <span style={formStyle.errors}>{state.validPassword}</span>
 
-        <button type="button" onClick={handleRegister}>
+        <button type="button" onClick={handleRegister} style={formStyle.submit}>
           <FormattedMessage id="Register.Form.submitButton" />
         </button>
       </form>

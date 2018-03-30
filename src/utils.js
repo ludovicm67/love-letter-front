@@ -49,6 +49,11 @@ const login = token => {
   window.location.replace('/');
 };
 
+export const logout = () => {
+    localStorage.removeItem('token');
+    window.location.replace('/login');
+}
+
 /*********/
 /***API***/
 /*********/
@@ -81,7 +86,7 @@ export const api_register = (name, password) => {
 
 export const api_login = (name, password) => {
   const url = `${API_URL}/login`;
-  
+
   const data = new FormData();
   data.append('name', name);
   data.append('password', password);

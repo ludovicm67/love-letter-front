@@ -34,7 +34,8 @@ export default {
       linkToRejoindre: 'Rejoindre une partie',
       linkToRankings: 'Classements',
       linkToHelp: 'Aide',
-      linkToOptions: 'Options'
+      linkToOptions: 'Options',
+      logout: 'Se déconnecter'
     },
     NewGame: {
       title: 'Création de partie',
@@ -99,6 +100,7 @@ export default {
       linkToRankings: 'Rankings',
       linkToHelp: 'Help',
       linkToOptions: 'Options',
+      logout: 'Log out'
     },
     NewGame: {
       title: 'Create a new game',

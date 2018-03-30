@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import { FormattedMessage } from 'react-intl';
 
+import { logout } from '../../../../utils';
+
 export default class MainMenu extends Component {
   render() {
     return (
@@ -33,6 +35,8 @@ export default class MainMenu extends Component {
         <Link to="/options">
           <FormattedMessage id="MainMenu.linkToOptions" />
         </Link>
+
+        <button onClick={logout}><FormattedMessage id = "MainMenu.logout" /></button>
       </div>
     );
   }

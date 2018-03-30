@@ -1,4 +1,5 @@
 import axios from 'axios';
+import Echo from 'laravel-echo';
 
 /************/
 /***CONSTS***/
@@ -111,3 +112,8 @@ export const api_login = (name, password) => {
       console.log(error);
     });
 };
+
+export const echo = new Echo({
+  broadcaster: 'socket.io',
+  host: 'back.love-letter.ludovic-muller.fr:3001'
+});

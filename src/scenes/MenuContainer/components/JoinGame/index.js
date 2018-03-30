@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import { FormattedMessage } from 'react-intl';
-import { API_URL } from '../../../../utils';
+import { API_URL, echo } from '../../../../utils';
 
 export default class JoinGame extends Component {
   constructor(props) {
@@ -20,7 +20,6 @@ export default class JoinGame extends Component {
           return;
         }
 
-        console.log(json.data.games);
         this.setState({
           games: json.data.games,
         });
@@ -28,9 +27,24 @@ export default class JoinGame extends Component {
       .catch(() => {
         console.error('unable to get waitlist');
       });
+
+      // update games list when a new game is created somewhere
+      echo.channel('channel-game-list').listen('NewGameEvent', e => {
+        this.setState({
+          games: e.content.games,
+        });
+      });
+  }
+
+  componentWillUnmount() {
+    echo.leave('channel-game-list');
   }
 
   render() {
+    const games = this.state.games.map(
+      (game) => <li key={game}>{game}</li>
+    );
+
     return (
       <div>
         <h1>
@@ -45,7 +59,7 @@ export default class JoinGame extends Component {
           <FormattedMessage id="JoinGame.backToMenu" />
         </Link>
 
-        {this.state.games}
+        <ul>{games}</ul>
       </div>
     );
   }

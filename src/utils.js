@@ -62,7 +62,7 @@ export const logout = () => {
 /***API***/
 /*********/
 
-const API_URL = 'https://back.love-letter.ludovic-muller.fr/api';
+export const API_URL = 'https://back.love-letter.ludovic-muller.fr/api';
 const HEADERS = { 'Content-Type': 'application/x-www-form-urlencoded' };
 
 export const api_register = (name, password) => {

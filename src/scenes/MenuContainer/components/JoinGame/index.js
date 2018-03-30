@@ -4,22 +4,33 @@ import { FormattedMessage } from 'react-intl';
 import { API_URL } from '../../../../utils';
 
 export default class JoinGame extends Component {
-  render() {
+  constructor(props) {
+    super(props);
+    this.state = {
+      games: [],
+    };
 
     console.log('listing all games...');
-
     const userToken = localStorage.getItem('token');
-    fetch(`${API_URL}/game/list?token=${userToken}`)
+    fetch(`${API_URL}/game/waitlist?token=${userToken}`)
       .then(response => response.json())
-      .then(function(json) {
+      .then(json => {
         if (!json.success) {
-          console.error('unable to fetch game list');
+          console.error('unable to get waitlist');
           return;
         }
 
         console.log(json.data.games);
+        this.setState({
+          games: json.data.games,
+        });
+      })
+      .catch(() => {
+        console.error('unable to get waitlist');
       });
+  }
 
+  render() {
     return (
       <div>
         <h1>
@@ -33,6 +44,8 @@ export default class JoinGame extends Component {
         <Link to="/">
           <FormattedMessage id="JoinGame.backToMenu" />
         </Link>
+
+        {this.state.games}
       </div>
     );
   }

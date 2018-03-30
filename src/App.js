@@ -17,11 +17,7 @@ class App extends Component {
     var appStyle = {
       backgroundColor: colors.whiteColor,
       fontFamily: 'Magra',
-
-      page: {
-        height: '100vh',
-        width: '100vw'
-      },
+      width: '100%'
     };
 
     return (

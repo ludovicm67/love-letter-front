@@ -23,9 +23,9 @@ export class MenuContainer extends Component {
     var menuStyle = {
         container: {
             backgroundColor: colors.lightMainColor,
-            minHeight: '100vh',
-            minWidth: '100vw',
-            padding: '40px'
+            height: '100vh',
+            maxWidth: '100%',
+            paddingTop: '40px'
         },
 
         title: {

@@ -1,9 +1,8 @@
 import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
 import { FormattedMessage } from 'react-intl';
 
 import Form from './components/Form/';
-import { colors } from '../../../../utils';
+import { StyledLink } from '../../../../components/';
 
 /********************************/
 /***PAGE DE CREATION DE COMPTE***/
@@ -20,11 +19,6 @@ export default class Register extends Component {
       title: {
           textAlign: 'center',
           marginBottom: '5%'
-      },
-
-      link: {
-          textDecoration: 'none',
-          color: colors.whiteColor
       }
     };
 
@@ -36,9 +30,7 @@ export default class Register extends Component {
 
         <Form />
 
-        <Link to="/login" style={registerStyle.link}>
-          <FormattedMessage id="Register.linkToLogin" />
-        </Link>
+        <StyledLink to="/login" msgId="Register.linkToLogin" />
       </div>
     );
   }

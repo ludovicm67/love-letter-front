@@ -17,7 +17,7 @@ export class LoginContainer extends Component {
         display: 'flex',
         justifyContent: 'space-between',
         margin: 'auto',
-        height: '70vh',
+        height: '100vh',
         width: '80vw',
 
         left: {
@@ -44,9 +44,10 @@ export class LoginContainer extends Component {
             flexDirection: 'column',
             justifyContent: 'center',
             maxWidth:'500px',
+            maxHeight: '75vh',
             backgroundColor: colors.lightMainColor,
             borderRadius: '3px',
-            marginTop: '150px',
+            marginTop: '150px'
         }
     };
 

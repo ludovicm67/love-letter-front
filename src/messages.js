@@ -1,6 +1,5 @@
 export default {
   fr: {
-    //fr-FR ?
     LoginContainer: {
       title: 'Love',
       titleSpan: 'Letter',
@@ -32,10 +31,10 @@ export default {
       title: 'Love Letter',
       linkToJouer: 'Lancer une nouvelle partie',
       linkToRejoindre: 'Rejoindre une partie',
-      linkToRankings: 'Classements',
       linkToHelp: 'Aide',
       linkToOptions: 'Options',
-      logout: 'Se déconnecter'
+      logout: 'Se déconnecter',
+      points: 'points'
     },
     NewGame: {
       title: 'Création de partie',
@@ -65,7 +64,6 @@ export default {
     },
   },
   en: {
-    //en-EN ?
     LoginContainer: {
       title: 'Love',
       titleSpan: 'Letter',
@@ -97,10 +95,10 @@ export default {
       title: 'Love Letter',
       linkToJouer: 'Launch a new game',
       linkToRejoindre: 'Join a game',
-      linkToRankings: 'Rankings',
       linkToHelp: 'Help',
       linkToOptions: 'Options',
-      logout: 'Log out'
+      logout: 'Log out',
+      points: 'points'
     },
     NewGame: {
       title: 'Create a new game',

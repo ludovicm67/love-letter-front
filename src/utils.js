@@ -44,13 +44,17 @@ export const flattenMessages = (nestedMessages, prefix = '') => {
 /***STORAGE***/
 /*************/
 
-const login = token => {
+const login = (token, user) => {
   localStorage.setItem('token', token);
+  localStorage.setItem('name', user.name);
+  localStorage.setItem('points', user.points);
   window.location.replace('/');
 };
 
 export const logout = () => {
     localStorage.removeItem('token');
+    localStorage.removeItem('name');
+    localStorage.removeItem('points');
     window.location.replace('/login');
 }
 
@@ -72,7 +76,7 @@ export const api_register = (name, password) => {
     .post(url, data, { headers: HEADERS })
     .then(response => {
       if (response.data.success) {
-        login(response.data.data.token);
+        login(response.data.data.token, response.data.data.user);
       } else {
         // @TODO: add error message for the user
         console.log('ERROR:', response.data.error);
@@ -95,7 +99,8 @@ export const api_login = (name, password) => {
     .post(url, data, { headers: HEADERS })
     .then(response => {
       if (response.data.success) {
-        login(response.data.data.token);
+        login(response.data.data.token, response.data.data.user);
+        console.log(response.data);
       } else {
         // @TODO: add error message for the user
         console.log('ERROR:', response.data.error);

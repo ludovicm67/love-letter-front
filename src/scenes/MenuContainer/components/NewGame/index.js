@@ -29,7 +29,6 @@ export default class NewGame extends Component {
           return;
         }
 
-        console.log(json.data);
         this.setState({
           game: json.data,
         });

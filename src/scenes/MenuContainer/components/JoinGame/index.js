@@ -48,7 +48,7 @@ export default class JoinGame extends Component {
 
   render() {
     const games = this.state.games.map(
-      (game) => <li key={game}>{game}</li>
+      (game) => <li key={game.id}>{game.id}</li>
     );
 
     return (

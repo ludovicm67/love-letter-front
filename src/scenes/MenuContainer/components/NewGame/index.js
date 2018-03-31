@@ -1,3 +1,4 @@
+import axios from 'axios';
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import { FormattedMessage } from 'react-intl';
@@ -13,28 +14,19 @@ export default class NewGame extends Component {
       },
     };
 
-    console.log('creating new game...');
     const userToken = localStorage.getItem('token');
-    fetch(`${API_URL}/game/create?token=${userToken}`)
-      .then(response => {
-        if (response.status && response.status === 401) {
-          this.props.history.push('/login');
-          window.location.reload();
-        }
-        return response.json();
-      })
+    axios.get(`${API_URL}/game/create?token=${userToken}`)
+      .then(response => response.data)
       .then(json => {
         if (!json.success) {
-          console.error('unable to create game');
-          return;
+          throw new Error('unable to create game');
         }
-
-        this.setState({
-          game: json.data,
-        });
+        this.setState({game: json.data});
       })
       .catch(() => {
         console.error('unable to create game');
+        this.props.history.push('/login');
+        window.location.reload();
       });
   }
 

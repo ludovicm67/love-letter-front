@@ -1,3 +1,4 @@
+import axios from 'axios';
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import { FormattedMessage } from 'react-intl';
@@ -10,28 +11,19 @@ export default class JoinGame extends Component {
       games: [],
     };
 
-    console.log('listing all games...');
     const userToken = localStorage.getItem('token');
-    fetch(`${API_URL}/game/waitlist?token=${userToken}`)
-      .then(response => {
-        if (response.status && response.status === 401) {
-          this.props.history.push('/login');
-          window.location.reload();
-        }
-        return response.json();
-      })
+    axios.get(`${API_URL}/game/waitlist?token=${userToken}`)
+      .then(response => response.data)
       .then(json => {
         if (!json.success) {
-          console.error('unable to get waitlist');
-          return;
+          throw new Error('unable to get waitlist');
         }
-
-        this.setState({
-          games: json.data.games,
-        });
+        this.setState({games: json.data.games});
       })
       .catch(() => {
         console.error('unable to get waitlist');
+        this.props.history.push('/login');
+        window.location.reload();
       });
 
       // update games list when a new game is created somewhere

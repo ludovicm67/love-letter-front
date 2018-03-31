@@ -18,7 +18,7 @@ import { colors, logout } from '../../utils';
 /***CONTENEUR PAGE DE MENU***/
 /****************************/
 
-export class MenuContainer extends Component {
+export default class MenuContainer extends Component {
 
   render() {
 

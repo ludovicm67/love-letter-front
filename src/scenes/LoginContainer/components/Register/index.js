@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { FormattedMessage } from 'react-intl';
+import Radium from 'radium';
 
 import Form from './components/Form/';
 import { StyledLink } from '../../../../components/';
@@ -8,17 +9,28 @@ import { StyledLink } from '../../../../components/';
 /***PAGE DE CREATION DE COMPTE***/
 /********************************/
 
-export default class Register extends Component {
+class Register extends Component {
   render() {
     var registerStyle = {
       container: {
           padding: '50px',
-          fontSize: '1.2em'
+          fontSize: '1.2em',
+
+          //phone
+          '@media (max-width: 768px)': {
+              padding: '0 10px',
+          },
       },
 
       title: {
           textAlign: 'center',
-          marginBottom: '5%'
+          marginBottom: '5%',
+
+          //phone
+          '@media (max-width: 768px)': {
+              margin: 0,
+              fontSize: '0.8em'
+          },
       }
     };
 
@@ -35,3 +47,5 @@ export default class Register extends Component {
     );
   }
 }
+
+export default Radium(Register);

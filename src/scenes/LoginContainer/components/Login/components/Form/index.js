@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { FormattedMessage } from 'react-intl';
 import { injectIntl } from 'react-intl';
+import Radium from 'radium';
 
 import { api_login, colors } from '../../../../../../utils';
 
@@ -55,7 +56,12 @@ class Form extends Component {
             fontSize: '0.8em',
             backgroundColor: colors.darkMainColor,
             color: colors.whiteColor,
-            cursor: 'pointer'
+            cursor: 'pointer',
+
+            //phone
+            '@media (max-width: 768px)': {
+                margin: '20px auto 40px auto'
+            },
         }
     };
 
@@ -92,4 +98,4 @@ class Form extends Component {
   }
 }
 
-export default injectIntl(Form);
+export default injectIntl(Radium(Form));

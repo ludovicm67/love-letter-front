@@ -1,12 +1,13 @@
 import React, { Component } from 'react';
 import { BrowserRouter as Router, Route } from 'react-router-dom';
 import { /*FormattedMessage,*/ injectIntl } from 'react-intl';
+import Radium, { StyleRoot } from 'radium';
 
 import { colors } from './utils.js';
 import './styles.css';
 
-import { LoginContainer } from './scenes/LoginContainer/';
-import { MenuContainer } from './scenes/MenuContainer/';
+import LoginContainer from './scenes/LoginContainer/';
+import MenuContainer from './scenes/MenuContainer/';
 
 /*****************/
 /****Component****/
@@ -22,17 +23,19 @@ class App extends Component {
 
     return (
       <div style={appStyle}>
-        <Router>
-          <div style={appStyle.page}>
-            <Route exact path="/login" component={LoginContainer} />
-            <Route exact path="/register" component={LoginContainer} />
+        <StyleRoot>
+            <Router>
+              <div style={appStyle.page}>
+                <Route exact path="/login" component={LoginContainer} />
+                <Route exact path="/register" component={LoginContainer} />
 
-            <Route path="/" component={MenuContainer} />
-          </div>
-        </Router>
+                <Route path="/" component={MenuContainer} />
+              </div>
+            </Router>
+        </StyleRoot>
       </div>
     );
   }
 }
 
-export default injectIntl(App);
+export default injectIntl(Radium(App));

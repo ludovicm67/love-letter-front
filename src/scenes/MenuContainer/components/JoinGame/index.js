@@ -13,7 +13,13 @@ export default class JoinGame extends Component {
     console.log('listing all games...');
     const userToken = localStorage.getItem('token');
     fetch(`${API_URL}/game/waitlist?token=${userToken}`)
-      .then(response => response.json())
+      .then(response => {
+        if (response.status && response.status === 401) {
+          this.props.history.push('/login');
+          window.location.reload();
+        }
+        return response.json();
+      })
       .then(json => {
         if (!json.success) {
           console.error('unable to get waitlist');

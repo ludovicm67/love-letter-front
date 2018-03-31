@@ -26,22 +26,45 @@ export default class JoinGame extends Component {
         window.location.reload();
       });
 
-      // update games list when a new game is created somewhere
-      echo.channel('channel-game-list').listen('NewGameEvent', e => {
-        this.setState({
-          games: e.content.games,
+      // update games list when a new game is created/deleted somewhere
+      echo
+        .channel('channel-game-list')
+        .listen('NewGameEvent', e => {
+          this.setState({
+            games: e.content.games,
+          });
+        })
+        .listen('DeleteGameEvent', e => {
+          this.setState({
+            games: e.content.games,
+          });
         });
-      });
   }
 
   componentWillUnmount() {
     echo.leave('channel-game-list');
   }
 
+  deleteGame(gameId) {
+    const userToken = localStorage.getItem('token');
+    const data = new FormData();
+    data.append('game_id', gameId);
+    axios.post(`${API_URL}/game/delete?token=${userToken}`, data, {
+      headers: {
+        'Content-Type': 'application/x-www-form-urlencoded'
+      }
+    });
+  }
+
   render() {
-    const games = this.state.games.map(
-      (game) => <li key={game.id}>{game.id}</li>
-    );
+    const games = this.state.games.map(game => {
+      let deleteAction;
+      let joinAction = <Link to="/jeu"><button>Rejoindre</button></Link>;
+      if (game.creator.name === localStorage.name) {
+        deleteAction = <button onClick={this.deleteGame.bind(this, game.id)}>Supprimer</button>;
+      }
+      return <li key={game.id}>Partie de {game.creator.name}{joinAction}{deleteAction}</li>
+    });
 
     return (
       <div>

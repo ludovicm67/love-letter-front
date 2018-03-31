@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { BrowserRouter as Router, Route, Redirect } from 'react-router-dom';
+import { BrowserRouter as Router, Route, Redirect, Link } from 'react-router-dom';
 import { FormattedMessage } from 'react-intl';
 
 import MainMenu from './components/MainMenu';
@@ -11,13 +11,15 @@ import Options from './components/Options/';
 import Game from './components/Game/';
 import Credits from './components/Credits/';
 
-import { colors } from '../../utils';
+import '../../../node_modules/font-awesome/css/font-awesome.min.css';
+import { colors, logout } from '../../utils';
 
 /****************************/
 /***CONTENEUR PAGE DE MENU***/
 /****************************/
 
 export class MenuContainer extends Component {
+
   render() {
 
     var menuStyle = {
@@ -25,13 +27,19 @@ export class MenuContainer extends Component {
             backgroundColor: colors.lightMainColor,
             height: '100vh',
             maxWidth: '100%',
-            paddingTop: '40px'
+            paddingTop: '40px',
         },
 
         title: {
             textAlign: 'center',
             fontSize: '4em',
             paddingBottom: '30px'
+        },
+
+        icon: {
+            color: colors.whiteColor,
+            fontSize: '3em',
+            marginLeft: '1em'
         }
     };
 
@@ -43,9 +51,15 @@ export class MenuContainer extends Component {
 
     return (
       <div style={menuStyle.container}>
+
+        <Link to="/" onClick={logout}>
+          <span style={menuStyle.icon} className="fa fa-sign-out"></span>
+        </Link>
+
         <h1 style={menuStyle.title}>
             <FormattedMessage id="MenuContainer.title" />
         </h1>
+
 
         <Router>
           <div>

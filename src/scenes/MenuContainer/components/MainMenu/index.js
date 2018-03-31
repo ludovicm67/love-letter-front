@@ -5,7 +5,7 @@ import { FormattedMessage } from 'react-intl';
 import '../../../../../node_modules/font-awesome/css/font-awesome.min.css';
 import { StyledLink } from '../../../../components/';
 
-import { logout, colors } from '../../../../utils';
+import { colors } from '../../../../utils';
 
 export default class MainMenu extends Component {
   render() {
@@ -21,7 +21,6 @@ export default class MainMenu extends Component {
             margin: '1em'
         },
         text: {
-            // color: colors.whiteColor,
             display: 'flex',
             justifyContent: 'space-around',
             margin: '8em auto 0 auto'
@@ -30,8 +29,6 @@ export default class MainMenu extends Component {
 
     return (
       <div style={menuStyle}>
-        <button onClick={logout}><FormattedMessage id = "MainMenu.logout" /></button>
-
         <StyledLink to="/jouer" msgId="MainMenu.linkToJouer" />
         <StyledLink to="/rejoindre" msgId="MainMenu.linkToRejoindre" />
 

@@ -1,13 +1,14 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import { FormattedMessage } from 'react-intl';
+import Radium from 'radium';
 
 import '../../../../../node_modules/font-awesome/css/font-awesome.min.css';
 import { StyledLink } from '../../../../components/';
 
 import { colors } from '../../../../utils';
 
-export default class MainMenu extends Component {
+class MainMenu extends Component {
   render() {
     var menuStyle = {
         marginTop: '15vh',
@@ -15,15 +16,37 @@ export default class MainMenu extends Component {
         fontSize: '2em',
         lineHeight: '1.5',
 
+        '@media (max-width: 992px)': {
+            marginTop: '1em',
+        },
+        //phone
+        '@media (max-width: 768px)': {
+            marginTop: '1em',
+            fontSize: '1.5em'
+        },
+
         icon: {
             color: colors.whiteColor,
             fontSize: '1.5em',
-            margin: '1em'
+            margin: '1em',
+            '@media (max-width: 768px)': {
+                margin: '0.5em',
+            },
         },
         text: {
             display: 'flex',
             justifyContent: 'space-around',
-            margin: '8em auto 0 auto'
+            margin: '6em auto 0 auto',
+
+            //laptop
+            '@media (max-width: 1200px)': {
+                margin: '4em auto 0 auto',
+            },
+
+            '@media (max-width: 768px)': {
+                flexDirection: 'column',
+                margin: '1em auto 0 auto'
+            },
         }
     };
 
@@ -52,3 +75,5 @@ export default class MainMenu extends Component {
     );
   }
 }
+
+export default Radium(MainMenu);

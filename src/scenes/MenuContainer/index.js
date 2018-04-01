@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { BrowserRouter as Router, Route, Redirect, Link } from 'react-router-dom';
 import { FormattedMessage } from 'react-intl';
+import Radium from 'radium';
 
 import MainMenu from './components/MainMenu';
 import NewGame from './components/NewGame/';
@@ -18,7 +19,7 @@ import { colors, logout } from '../../utils';
 /***CONTENEUR PAGE DE MENU***/
 /****************************/
 
-export default class MenuContainer extends Component {
+class MenuContainer extends Component {
 
   render() {
 
@@ -33,13 +34,27 @@ export default class MenuContainer extends Component {
         title: {
             textAlign: 'center',
             fontSize: '4em',
-            paddingBottom: '30px'
+            paddingBottom: '30px',
+
+            //tablet
+            '@media (max-width: 992px)': {
+                fontSize: '3em',
+            },
+            //phone
+            '@media (max-width: 768px)': {
+                fontSize: '2em',
+            },
         },
 
         icon: {
             color: colors.whiteColor,
             fontSize: '3em',
-            marginLeft: '1em'
+            marginLeft: '1em',
+            //phone
+            '@media (max-width: 768px)': {
+                fontSize: '2em',
+                marginBottom: '10px'
+            },
         }
     };
 
@@ -77,3 +92,5 @@ export default class MenuContainer extends Component {
     );
   }
 }
+
+export default Radium(MenuContainer);

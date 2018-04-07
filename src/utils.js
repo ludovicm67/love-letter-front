@@ -52,7 +52,7 @@ const login = (token, user) => {
   window.location.replace('/');
 };
 
-export const logout = () => {
+const logout = () => {
     localStorage.removeItem('token');
     localStorage.removeItem('name');
     localStorage.removeItem('points');
@@ -112,6 +112,12 @@ export const api_login = (name, password) => {
       console.log(error);
     });
 };
+
+export const api_logout = () => {
+    const url = `${API_URL}/logout?token=[${localStorage.getItem('token')}]`;
+    axios.get(url);
+    logout();
+}
 
 export const echo = new Echo({
   broadcaster: 'socket.io',

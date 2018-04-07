@@ -13,7 +13,7 @@ import Game from './components/Game/';
 import Credits from './components/Credits/';
 
 import '../../../node_modules/font-awesome/css/font-awesome.min.css';
-import { colors, logout } from '../../utils';
+import { colors, api_logout } from '../../utils';
 
 /****************************/
 /***CONTENEUR PAGE DE MENU***/
@@ -67,7 +67,7 @@ class MenuContainer extends Component {
     return (
       <div style={menuStyle.container}>
 
-        <Link to="/" onClick={logout}>
+        <Link to="/" onClick={api_logout}>
           <span style={menuStyle.icon} className="fa fa-sign-out"></span>
         </Link>
 

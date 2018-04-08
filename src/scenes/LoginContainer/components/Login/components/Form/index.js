@@ -20,6 +20,12 @@ class Form extends Component {
     this.handleLogin = this.handleLogin.bind(this);
   }
 
+  handleKeypress = e => {
+      if(e.key === 'Enter') {
+        this.handleLogin();
+     }
+  }
+
   handleLogin() {
     api_login(this.state.name, this.state.password);
   }
@@ -88,6 +94,7 @@ class Form extends Component {
           value={state.password}
           onChange={handlePasswordChange}
           style={formStyle.input}
+          onKeyPress={this.handleKeypress}
         />
 
         <button type="button" onClick={handleLogin} style={formStyle.submit}>

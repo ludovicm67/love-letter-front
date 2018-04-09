@@ -22,7 +22,9 @@ export default class NewGame extends Component {
     // if got game props from other location
     if (props.location.state && props.location.state.game) {
       this.state.game = props.location.state.game;
-    } else if (localStorage.getItem('name') === this.state.game.creator.name) {
+    } else if (
+      localStorage.getItem('name') === this.state.game.game_infos.creator.name
+    ) {
       this.state.is_creator = true;
     }
 
@@ -49,6 +51,24 @@ export default class NewGame extends Component {
     }
   }
 
+  startGame(state) {
+    const userToken = localStorage.getItem('token');
+    const data = new FormData();
+    data.append('game_id', state.game.game_id);
+    axios
+      .post(`${API_URL}/game/start?token=${userToken}`, data, {
+        headers: {
+          'Content-Type': 'application/x-www-form-urlencoded',
+        },
+      })
+      .then(() => {
+        this.props.history.push({
+          pathname: '/jeu',
+          state: state,
+        });
+      });
+  }
+
   render() {
     var newGameStyle = {
       // fontSize: '2em',
@@ -67,11 +87,9 @@ export default class NewGame extends Component {
       },
     };
     const launchBtn = this.state.is_creator ? (
-      <Link to="/jeu">
-        <button>
-          <FormattedMessage id="NewGame.startLink" />
-        </button>
-      </Link>
+      <button onClick={this.startGame.bind(this, this.state)}>
+        <FormattedMessage id="NewGame.startLink" />
+      </button>
     ) : (
       ''
     );
@@ -86,50 +104,52 @@ export default class NewGame extends Component {
         </Link>
 
         <table style={newGameStyle.table}>
-          <tr>
-            <td style={newGameStyle.cellule}>Joueur 1</td>
-            <td style={newGameStyle.cellule}>
-              {this.state.game.game_infos.creator.name}
-            </td>
-          </tr>
-          <tr>
-            <td style={newGameStyle.cellule}>Joueur 2</td>
-            <td style={newGameStyle.cellule}>
-              <form>
-                <select>
-                  <option value="player">Joueur</option>
-                  <option value="IA_easy">Ordi facile</option>
-                  <option value="IA_normal">Ordi moyen</option>
-                </select>
-              </form>
-            </td>
-          </tr>
-          <tr>
-            <td style={newGameStyle.cellule}>Joueur 3</td>
-            <td style={newGameStyle.cellule}>
-              <form>
-                <select>
-                  <option value="player">Joueur</option>
-                  <option value="IA_easy">Ordi facile</option>
-                  <option value="IA_normal">Ordi moyen</option>
-                  <option value="none">Aucun</option>
-                </select>
-              </form>
-            </td>
-          </tr>
-          <tr>
-            <td style={newGameStyle.cellule}>Joueur 4</td>
-            <td style={newGameStyle.cellule}>
-              <form>
-                <select>
-                  <option value="player">Joueur</option>
-                  <option value="IA_easy">Ordi facile</option>
-                  <option value="IA_normal">Ordi moyen</option>
-                  <option value="none">Aucun</option>
-                </select>
-              </form>
-            </td>
-          </tr>
+          <tbody>
+            <tr>
+              <td style={newGameStyle.cellule}>Joueur 1</td>
+              <td style={newGameStyle.cellule}>
+                {this.state.game.game_infos.creator.name}
+              </td>
+            </tr>
+            <tr>
+              <td style={newGameStyle.cellule}>Joueur 2</td>
+              <td style={newGameStyle.cellule}>
+                <form>
+                  <select>
+                    <option value="player">Joueur</option>
+                    <option value="IA_easy">Ordi facile</option>
+                    <option value="IA_normal">Ordi moyen</option>
+                  </select>
+                </form>
+              </td>
+            </tr>
+            <tr>
+              <td style={newGameStyle.cellule}>Joueur 3</td>
+              <td style={newGameStyle.cellule}>
+                <form>
+                  <select>
+                    <option value="player">Joueur</option>
+                    <option value="IA_easy">Ordi facile</option>
+                    <option value="IA_normal">Ordi moyen</option>
+                    <option value="none">Aucun</option>
+                  </select>
+                </form>
+              </td>
+            </tr>
+            <tr>
+              <td style={newGameStyle.cellule}>Joueur 4</td>
+              <td style={newGameStyle.cellule}>
+                <form>
+                  <select>
+                    <option value="player">Joueur</option>
+                    <option value="IA_easy">Ordi facile</option>
+                    <option value="IA_normal">Ordi moyen</option>
+                    <option value="none">Aucun</option>
+                  </select>
+                </form>
+              </td>
+            </tr>
+          </tbody>
         </table>
 
         <p>GAME_ID: {this.state.game.game_id}</p>

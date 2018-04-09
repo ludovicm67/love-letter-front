@@ -11,6 +11,7 @@ script:
 
 before_deploy:
   - cp ./build/index.html ./build/200.html
+  - cp ./build/index.html ./build/404.html
 
 deploy:
   provider: pages

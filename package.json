@@ -1,6 +1,7 @@
 {
   "name": "love_letter",
   "version": "1.0.0",
+  "homepage": ".",
   "dependencies": {
     "axios": "^0.18.0",
     "font-awesome": "^4.7.0",

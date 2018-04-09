@@ -41,6 +41,11 @@ export default class JoinGame extends Component {
         this.setState({
           games: e.content.games,
         });
+      })
+      .listen('UpdateGameInfosEvent', e => {
+        this.setState({
+          games: e.content.games,
+        });
       });
   }
 

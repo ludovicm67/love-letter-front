@@ -2,7 +2,7 @@ import axios from 'axios';
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import { FormattedMessage } from 'react-intl';
-import { API_URL, colors } from '../../../../utils';
+import { API_URL, colors, echo } from '../../../../utils';
 
 export default class NewGame extends Component {
   constructor(props) {
@@ -52,6 +52,19 @@ export default class NewGame extends Component {
           window.location.reload();
         });
     }
+
+    // listen to game changes
+    echo
+      .channel(`channel-game:${this.state.game.game_id}`)
+      .listen('UpdateGameEvent', e => {
+        this.setState({
+          game: e.content.game,
+        });
+      });
+  }
+
+  componentWillUnmount() {
+    echo.leave(`channel-game:${this.state.game.game_id}`);
   }
 
   startGame(state) {

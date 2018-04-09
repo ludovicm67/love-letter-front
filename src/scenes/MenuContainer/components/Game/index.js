@@ -3,6 +3,22 @@ import { Link } from 'react-router-dom';
 import { FormattedMessage } from 'react-intl';
 
 export default class Game extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      game: {
+        game_id: '',
+        game_infos: {
+          players: [],
+        },
+      },
+    };
+
+    // if got game props from other location
+    if (props.location.state && props.location.state.game) {
+      this.state.game = props.location.state.game;
+    }
+  }
   render() {
     return (
       <div>
@@ -13,6 +29,8 @@ export default class Game extends Component {
         <Link to="/">
           <FormattedMessage id="Game.backToMenu" />
         </Link>
+
+        <p>GAME_INFOS: {JSON.stringify(this.state)}</p>
       </div>
     );
   }

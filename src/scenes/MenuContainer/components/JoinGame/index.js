@@ -48,6 +48,25 @@ export default class JoinGame extends Component {
     echo.leave('channel-game-list');
   }
 
+  joinGame(game) {
+    const userToken = localStorage.getItem('token');
+    const data = new FormData();
+
+    data.append('game_id', game.id);
+    axios
+      .post(`${API_URL}/game/join?token=${userToken}`, data, {
+        headers: {
+          'Content-Type': 'application/x-www-form-urlencoded',
+        },
+      })
+      .then(() => {
+        this.props.history.push({
+          pathname: '/jouer',
+          state: { game: { game_id: game.id, game_infos: game } },
+        });
+      });
+  }
+
   deleteGame(gameId) {
     const userToken = localStorage.getItem('token');
     const data = new FormData();
@@ -89,14 +108,12 @@ export default class JoinGame extends Component {
     const games = this.state.games.map(game => {
       let deleteAction;
       let joinAction = (
-        <Link
-          to={{
-            pathname: '/jouer',
-            state: { game: { game_id: game.id, game_infos: game } },
-          }}
+        <button
+          style={joinGameStyle.buttonStyle}
+          onClick={this.joinGame.bind(this, game)}
         >
-          <button style={joinGameStyle.buttonStyle}>Rejoindre</button>
-        </Link>
+          Rejoindre
+        </button>
       );
       if (game.creator.name === localStorage.name) {
         deleteAction = (

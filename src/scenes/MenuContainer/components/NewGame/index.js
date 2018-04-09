@@ -14,6 +14,7 @@ export default class NewGame extends Component {
           creator: {
             name: '',
           },
+          players: [],
         },
       },
       is_creator: false,
@@ -22,7 +23,9 @@ export default class NewGame extends Component {
     // if got game props from other location
     if (props.location.state && props.location.state.game) {
       this.state.game = props.location.state.game;
-    } else if (
+    }
+
+    if (
       localStorage.getItem('name') === this.state.game.game_infos.creator.name
     ) {
       this.state.is_creator = true;
@@ -71,7 +74,7 @@ export default class NewGame extends Component {
 
   render() {
     var newGameStyle = {
-      // fontSize: '2em',
+      fontSize: '2em',
       lineHeight: '1.5',
       textColor: colors.blackColor,
 
@@ -102,6 +105,11 @@ export default class NewGame extends Component {
         <Link to="/">
           <FormattedMessage id="NewGame.backToMenu" />
         </Link>
+
+        <p>GAME_ID: {this.state.game.game_id}</p>
+        <p>GAME_INFOS: {JSON.stringify(this.state.game.game_infos.players)}</p>
+
+        <p>{launchBtn}</p>
 
         <table style={newGameStyle.table}>
           <tbody>
@@ -151,11 +159,6 @@ export default class NewGame extends Component {
             </tr>
           </tbody>
         </table>
-
-        <p>GAME_ID: {this.state.game.game_id}</p>
-        <p>GAME_INFOS: {JSON.stringify(this.state.game.game_infos)}</p>
-
-        <p>{launchBtn}</p>
       </div>
     );
   }

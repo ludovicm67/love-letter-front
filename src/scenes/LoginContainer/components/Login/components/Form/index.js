@@ -14,17 +14,17 @@ class Form extends Component {
     super();
     this.state = {
       name: '',
-      password: ''
+      password: '',
     };
 
     this.handleLogin = this.handleLogin.bind(this);
   }
 
   handleKeypress = e => {
-      if(e.key === 'Enter') {
-        this.handleLogin();
-     }
-  }
+    if (e.key === 'Enter') {
+      this.handleLogin();
+    }
+  };
 
   handleLogin() {
     api_login(this.state.name, this.state.password);
@@ -41,34 +41,34 @@ class Form extends Component {
     let { handleLogin, handleNameChange, handlePasswordChange, state } = this;
 
     let formStyle = {
-        padding: '30px 0',
+      padding: '30px 0',
 
-        label: {
-            display: 'block',
-            margin: '10px 0',
-        },
-        input: {
-            minHeight: '25px',
-            minWidth: '70%',
-            marginBottom: '10px'
-        },
-        submit: {
-            display: 'block',
-            height: '40px',
-            marginTop: '20px',
-            border: 'none',
-            borderRadius: '1px',
-            fontWeight: '600',
-            fontSize: '0.8em',
-            backgroundColor: colors.darkMainColor,
-            color: colors.whiteColor,
-            cursor: 'pointer',
+      label: {
+        display: 'block',
+        margin: '10px 0',
+      },
+      input: {
+        minHeight: '25px',
+        minWidth: '70%',
+        marginBottom: '10px',
+      },
+      submit: {
+        display: 'block',
+        height: '40px',
+        marginTop: '20px',
+        border: 'none',
+        borderRadius: '1px',
+        fontWeight: '600',
+        fontSize: '0.8em',
+        backgroundColor: colors.darkMainColor,
+        color: colors.whiteColor,
+        cursor: 'pointer',
 
-            //phone
-            '@media (max-width: 768px)': {
-                margin: '20px auto 40px auto'
-            },
-        }
+        //phone
+        '@media (max-width: 768px)': {
+          margin: '20px auto 40px auto',
+        },
+      },
     };
 
     return (

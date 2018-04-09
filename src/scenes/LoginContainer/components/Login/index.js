@@ -13,31 +13,31 @@ import { colors } from '../../../../utils';
 class Login extends Component {
   render() {
     var loginStyle = {
-        container: {
-            padding: '50px',
-            fontSize: '1.2em',
+      container: {
+        padding: '50px',
+        fontSize: '1.2em',
 
-            //phone
-            '@media (max-width: 768px)': {
-                padding: '0 10px',
-            },
+        //phone
+        '@media (max-width: 768px)': {
+          padding: '0 10px',
         },
+      },
 
-        title: {
-            textAlign: 'center',
-            marginBottom: '10%',
+      title: {
+        textAlign: 'center',
+        marginBottom: '10%',
 
-            //phone
-            '@media (max-width: 768px)': {
-                margin: 0,
-                fontSize: '0.8em',
-            },
+        //phone
+        '@media (max-width: 768px)': {
+          margin: 0,
+          fontSize: '0.8em',
         },
+      },
 
-        link: {
-            textDecoration: 'none',
-            color: colors.whiteColor
-        }
+      link: {
+        textDecoration: 'none',
+        color: colors.whiteColor,
+      },
     };
 
     return (

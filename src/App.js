@@ -24,14 +24,14 @@ class App extends Component {
     return (
       <div style={appStyle}>
         <StyleRoot>
-            <Router>
-              <div style={appStyle.page}>
-                <Route exact path="/login" component={LoginContainer} />
-                <Route exact path="/register" component={LoginContainer} />
+          <Router>
+            <div style={appStyle.page}>
+              <Route exact path="/login" component={LoginContainer} />
+              <Route exact path="/register" component={LoginContainer} />
 
-                <Route path="/" component={MenuContainer} />
-              </div>
-            </Router>
+              <Route path="/" component={MenuContainer} />
+            </div>
+          </Router>
         </StyleRoot>
       </div>
     );

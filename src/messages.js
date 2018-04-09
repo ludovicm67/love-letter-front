@@ -3,7 +3,7 @@ export default {
     LoginContainer: {
       title: 'Love',
       titleSpan: 'Letter',
-      slogan: 'Un superbe slogan'
+      slogan: 'Un superbe slogan',
     },
     Login: {
       title: 'Connectez-vous pour commencer à jouer, seul ou avec vos amis !',
@@ -15,8 +15,9 @@ export default {
       },
     },
     Register: {
-      title: 'Pour créer un compte, débloquer des extensions et enregistrer vos meilleurs scores, c\'est ici !',
-      linkToLogin: 'J\'ai déjà un compte',
+      title:
+        "Pour créer un compte, débloquer des extensions et enregistrer vos meilleurs scores, c'est ici !",
+      linkToLogin: "J'ai déjà un compte",
       Form: {
         nameLabel: 'Choisissez un nom :',
         passwordLabel: 'Choisissez un mot de passe :',
@@ -25,7 +26,7 @@ export default {
       },
     },
     MenuContainer: {
-      title: 'Love Letter'
+      title: 'Love Letter',
     },
     MainMenu: {
       title: 'Love Letter',
@@ -34,7 +35,7 @@ export default {
       linkToHelp: 'Aide',
       linkToOptions: 'Options',
       logout: 'Se déconnecter',
-      points: 'points'
+      points: 'points',
     },
     NewGame: {
       title: 'Création de partie',
@@ -67,15 +68,15 @@ export default {
     LoginContainer: {
       title: 'Love',
       titleSpan: 'Letter',
-      slogan: 'A great headline'
+      slogan: 'A great headline',
     },
     Login: {
       title: 'Log in to start a game, alone or with your friends!',
       linkToRegister: 'I need an account first !',
       Form: {
-          emailLabel: 'Votre email :',
-          passwordLabel: 'Votre mot de passe :',
-          submitButton: 'Se connecter',
+        emailLabel: 'Votre email :',
+        passwordLabel: 'Votre mot de passe :',
+        submitButton: 'Se connecter',
       },
     },
     Register: {
@@ -89,7 +90,7 @@ export default {
       },
     },
     MenuContainer: {
-      title: 'Love Letter'
+      title: 'Love Letter',
     },
     MainMenu: {
       title: 'Love Letter',
@@ -98,7 +99,7 @@ export default {
       linkToHelp: 'Help',
       linkToOptions: 'Options',
       logout: 'Log out',
-      points: 'points'
+      points: 'points',
     },
     NewGame: {
       title: 'Create a new game',

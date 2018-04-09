@@ -11,43 +11,43 @@ import { colors } from '../../../../utils';
 class MainMenu extends Component {
   render() {
     var menuStyle = {
-        marginTop: '15vh',
-        textAlign: 'center',
-        fontSize: '2em',
-        lineHeight: '1.5',
+      marginTop: '15vh',
+      textAlign: 'center',
+      fontSize: '2em',
+      lineHeight: '1.5',
 
-        '@media (max-width: 992px)': {
-            marginTop: '1em',
-        },
-        //phone
+      '@media (max-width: 992px)': {
+        marginTop: '1em',
+      },
+      //phone
+      '@media (max-width: 768px)': {
+        marginTop: '1em',
+        fontSize: '1.5em',
+      },
+
+      icon: {
+        color: colors.whiteColor,
+        fontSize: '1.5em',
+        margin: '1em',
         '@media (max-width: 768px)': {
-            marginTop: '1em',
-            fontSize: '1.5em'
+          margin: '0.5em',
+        },
+      },
+      text: {
+        display: 'flex',
+        justifyContent: 'space-around',
+        margin: '6em auto 0 auto',
+
+        //laptop
+        '@media (max-width: 1200px)': {
+          margin: '4em auto 0 auto',
         },
 
-        icon: {
-            color: colors.whiteColor,
-            fontSize: '1.5em',
-            margin: '1em',
-            '@media (max-width: 768px)': {
-                margin: '0.5em',
-            },
+        '@media (max-width: 768px)': {
+          flexDirection: 'column',
+          margin: '1em auto 0 auto',
         },
-        text: {
-            display: 'flex',
-            justifyContent: 'space-around',
-            margin: '6em auto 0 auto',
-
-            //laptop
-            '@media (max-width: 1200px)': {
-                margin: '4em auto 0 auto',
-            },
-
-            '@media (max-width: 768px)': {
-                flexDirection: 'column',
-                margin: '1em auto 0 auto'
-            },
-        }
+      },
     };
 
     return (
@@ -56,20 +56,23 @@ class MainMenu extends Component {
         <StyledLink to="/rejoindre" msgId="MainMenu.linkToRejoindre" />
 
         <Link to="/classement">
-          <span style={menuStyle.icon} className="fa fa-list-ol"></span>
+          <span style={menuStyle.icon} className="fa fa-list-ol" />
         </Link>
 
         <Link to="/aide">
-            <span style={menuStyle.icon} className="fa fa-question"></span>
+          <span style={menuStyle.icon} className="fa fa-question" />
         </Link>
 
         <Link to="/options">
-            <span style={menuStyle.icon} className="fa fa-cog"></span>
+          <span style={menuStyle.icon} className="fa fa-cog" />
         </Link>
 
         <div style={menuStyle.text}>
-            <span>{ localStorage.getItem('name') }</span>
-            <span>{ localStorage.getItem('points') } <FormattedMessage id="MainMenu.points" /></span>
+          <span>{localStorage.getItem('name')}</span>
+          <span>
+            {localStorage.getItem('points')}{' '}
+            <FormattedMessage id="MainMenu.points" />
+          </span>
         </div>
       </div>
     );

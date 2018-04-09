@@ -10,11 +10,11 @@ export const mailRegex = /^([a-zA-Z0-9_.+-])+@(([a-zA-Z0-9-])+\.)+([a-zA-Z0-9]{2
 
 //styles (pour l'instant constantes, à terme variables)
 export const colors = {
-    blackColor: '#505157', //gris foncé
-    lightMainColor: '#5EACC6', //bleu clair
-    darkMainColor: '#227A94', //bleu-vert
-    secondColor: '#A693E3', //violet pâle
-    whiteColor: '#F5EFFF' //blanc
+  blackColor: '#505157', //gris foncé
+  lightMainColor: '#5EACC6', //bleu clair
+  darkMainColor: '#227A94', //bleu-vert
+  secondColor: '#A693E3', //violet pâle
+  whiteColor: '#F5EFFF', //blanc
 };
 
 /**********/
@@ -53,11 +53,11 @@ const login = (token, user) => {
 };
 
 const logout = () => {
-    localStorage.removeItem('token');
-    localStorage.removeItem('name');
-    localStorage.removeItem('points');
-    window.location.replace('/login');
-}
+  localStorage.removeItem('token');
+  localStorage.removeItem('name');
+  localStorage.removeItem('points');
+  window.location.replace('/login');
+};
 
 /*********/
 /***API***/
@@ -114,11 +114,11 @@ export const api_login = (name, password) => {
 };
 
 export const api_logout = () => {
-    const url = `${API_URL}/logout?token=${localStorage.getItem('token')}`;
-    axios.get(url).then(logout);
-}
+  const url = `${API_URL}/logout?token=${localStorage.getItem('token')}`;
+  axios.get(url).then(logout);
+};
 
 export const echo = new Echo({
   broadcaster: 'socket.io',
-  host: 'back.love-letter.ludovic-muller.fr:3001'
+  host: 'back.love-letter.ludovic-muller.fr:3001',
 });

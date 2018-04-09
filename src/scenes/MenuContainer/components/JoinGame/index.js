@@ -6,7 +6,6 @@ import { API_URL, echo, colors } from '../../../../utils';
 
 //import '../../../../node_modules/font-awesome/css/font-awesome.min.css';
 
-
 export default class JoinGame extends Component {
   constructor(props) {
     super(props);
@@ -15,13 +14,14 @@ export default class JoinGame extends Component {
     };
 
     const userToken = localStorage.getItem('token');
-    axios.get(`${API_URL}/game/waitlist?token=${userToken}`)
+    axios
+      .get(`${API_URL}/game/waitlist?token=${userToken}`)
       .then(response => response.data)
       .then(json => {
         if (!json.success) {
           throw new Error('unable to get waitlist');
         }
-        this.setState({games: json.data.games});
+        this.setState({ games: json.data.games });
       })
       .catch(() => {
         console.error('unable to get waitlist');
@@ -29,19 +29,19 @@ export default class JoinGame extends Component {
         window.location.reload();
       });
 
-      // update games list when a new game is created/deleted somewhere
-      echo
-        .channel('channel-game-list')
-        .listen('NewGameEvent', e => {
-          this.setState({
-            games: e.content.games,
-          });
-        })
-        .listen('DeleteGameEvent', e => {
-          this.setState({
-            games: e.content.games,
-          });
+    // update games list when a new game is created/deleted somewhere
+    echo
+      .channel('channel-game-list')
+      .listen('NewGameEvent', e => {
+        this.setState({
+          games: e.content.games,
         });
+      })
+      .listen('DeleteGameEvent', e => {
+        this.setState({
+          games: e.content.games,
+        });
+      });
   }
 
   componentWillUnmount() {
@@ -54,8 +54,8 @@ export default class JoinGame extends Component {
     data.append('game_id', gameId);
     axios.post(`${API_URL}/game/delete?token=${userToken}`, data, {
       headers: {
-        'Content-Type': 'application/x-www-form-urlencoded'
-      }
+        'Content-Type': 'application/x-www-form-urlencoded',
+      },
     });
   }
 
@@ -67,33 +67,58 @@ export default class JoinGame extends Component {
 
       title: {
         fontSize: '1.9em',
-        textAlign: 'center'
+        textAlign: 'center',
       },
 
-      buttonStyle:{
+      buttonStyle: {
         backgroundColor: colors.darkMainColor,
         border: 'none',
-        fontSize: '1em'
+        fontSize: '1em',
       },
 
-      cellule:{
-        padding:'2.5vh'
+      cellule: {
+        padding: '2.5vh',
       },
 
-      play:{
-          textAlign: 'left',
-          marginLeft: '5vh',
-          padding: '5vh'
-      }
-
+      play: {
+        textAlign: 'left',
+        marginLeft: '5vh',
+        padding: '5vh',
+      },
     };
     const games = this.state.games.map(game => {
       let deleteAction;
-      let joinAction = <Link to={{pathname: '/jouer', state: {game: {game_id: game.id, game_infos: game}}}}><button style={joinGameStyle.buttonStyle}>Rejoindre</button></Link>;
+      let joinAction = (
+        <Link
+          to={{
+            pathname: '/jouer',
+            state: { game: { game_id: game.id, game_infos: game } },
+          }}
+        >
+          <button style={joinGameStyle.buttonStyle}>Rejoindre</button>
+        </Link>
+      );
       if (game.creator.name === localStorage.name) {
-        deleteAction = <button style={joinGameStyle.buttonStyle} onClick={this.deleteGame.bind(this, game.id)}>Supprimer</button>;
+        deleteAction = (
+          <button
+            style={joinGameStyle.buttonStyle}
+            onClick={this.deleteGame.bind(this, game.id)}
+          >
+            Supprimer
+          </button>
+        );
       }
-      return <tr key={game.id}><td style={joinGameStyle.cellule}>Salon</td><td style={joinGameStyle.cellule}>{game.creator.name}</td><td style={joinGameStyle.cellule}></td><td style={joinGameStyle.cellule}></td><td style={joinGameStyle.cellule}></td><td style={joinGameStyle.cellule}>{joinAction}</td><td style={joinGameStyle.cellule}>{deleteAction}</td></tr>
+      return (
+        <tr key={game.id}>
+          <td style={joinGameStyle.cellule}>Salon</td>
+          <td style={joinGameStyle.cellule}>{game.creator.name}</td>
+          <td style={joinGameStyle.cellule} />
+          <td style={joinGameStyle.cellule} />
+          <td style={joinGameStyle.cellule} />
+          <td style={joinGameStyle.cellule}>{joinAction}</td>
+          <td style={joinGameStyle.cellule}>{deleteAction}</td>
+        </tr>
+      );
     });
     return (
       <div style={joinGameStyle}>
@@ -112,18 +137,16 @@ export default class JoinGame extends Component {
         <table style={joinGameStyle.play}>
           <thead>
             <tr>
-              <th style={joinGameStyle.cellule}></th>
+              <th style={joinGameStyle.cellule} />
               <th style={joinGameStyle.cellule}>Joueur 1</th>
               <th style={joinGameStyle.cellule}>Joueur 2</th>
               <th style={joinGameStyle.cellule}>Joueur 3</th>
               <th style={joinGameStyle.cellule}>Joueur 4</th>
-              <th style={joinGameStyle.cellule}></th>
-              <th style={joinGameStyle.cellule}></th>
+              <th style={joinGameStyle.cellule} />
+              <th style={joinGameStyle.cellule} />
             </tr>
           </thead>
-          <tbody>
-            {games}
-          </tbody>
+          <tbody>{games}</tbody>
         </table>
       </div>
     );

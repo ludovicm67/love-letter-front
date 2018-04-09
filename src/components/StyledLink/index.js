@@ -6,22 +6,22 @@ import { FormattedMessage } from 'react-intl';
 import { colors } from '../../utils';
 
 export default class StyledLink extends Component {
-  render () {
+  render() {
     var linkStyle = {
-        textDecoration: 'none',
-        color: colors.whiteColor,
-        display: 'block',
+      textDecoration: 'none',
+      color: colors.whiteColor,
+      display: 'block',
     };
 
     return (
-        <Link to={this.props.to} style={linkStyle}>
-          <FormattedMessage id={this.props.msgId} />
-        </Link>
-    )
+      <Link to={this.props.to} style={linkStyle}>
+        <FormattedMessage id={this.props.msgId} />
+      </Link>
+    );
   }
 }
 
 StyledLink.propTypes = {
   to: PropTypes.string.isRequired,
-  msgId: PropTypes.string.isRequired
+  msgId: PropTypes.string.isRequired,
 };

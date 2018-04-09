@@ -31,10 +31,10 @@ class Form extends Component {
   }
 
   handleKeypress = e => {
-      if(e.key === 'Enter') {
-        this.handleRegister();
-     }
-  }
+    if (e.key === 'Enter') {
+      this.handleRegister();
+    }
+  };
 
   handleRegister() {
     api_register(this.state.name, this.state.password, this.state.email);
@@ -64,38 +64,38 @@ class Form extends Component {
     } = this;
 
     let formStyle = {
-        padding: '30px 0',
+      padding: '30px 0',
 
-        label: {
-            display: 'block',
-            margin: '10px 0',
-        },
-        input: {
-            minHeight: '25px',
-            minWidth: '70%',
-            marginBottom: '10px'
-        },
-        submit: {
-            display: 'block',
-            height: '40px',
-            marginTop: '20px',
-            border: 'none',
-            borderRadius: '1px',
-            fontWeight: '600',
-            fontSize: '0.8em',
-            backgroundColor: colors.darkMainColor,
-            color: colors.whiteColor,
-            cursor: 'pointer',
+      label: {
+        display: 'block',
+        margin: '10px 0',
+      },
+      input: {
+        minHeight: '25px',
+        minWidth: '70%',
+        marginBottom: '10px',
+      },
+      submit: {
+        display: 'block',
+        height: '40px',
+        marginTop: '20px',
+        border: 'none',
+        borderRadius: '1px',
+        fontWeight: '600',
+        fontSize: '0.8em',
+        backgroundColor: colors.darkMainColor,
+        color: colors.whiteColor,
+        cursor: 'pointer',
 
-            //phone
-            '@media (max-width: 768px)': {
-                margin: '20px auto 40px auto'
-            },
+        //phone
+        '@media (max-width: 768px)': {
+          margin: '20px auto 40px auto',
         },
-        errors: {
-            color: 'red',
-            display: 'block'
-        },
+      },
+      errors: {
+        color: 'red',
+        display: 'block',
+      },
     };
 
     return (

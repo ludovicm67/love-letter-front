@@ -10,8 +10,9 @@ export default class NewGame extends Component {
     this.state = {
       game: {
         game_id: '',
-        game_infos: {}
+        game_infos: {},
       },
+      is_creator: false,
     };
 
     // if got game props from other location
@@ -22,13 +23,17 @@ export default class NewGame extends Component {
     // create a game if not joining one
     if (this.state.game.game_id === '') {
       const userToken = localStorage.getItem('token');
-      axios.get(`${API_URL}/game/create?token=${userToken}`)
+      axios
+        .get(`${API_URL}/game/create?token=${userToken}`)
         .then(response => response.data)
         .then(json => {
           if (!json.success) {
             throw new Error('unable to create game');
           }
-          this.setState({game: json.data});
+          this.setState({
+            game: json.data,
+            is_creator: true,
+          });
         })
         .catch(() => {
           console.error('unable to create game');
@@ -39,6 +44,13 @@ export default class NewGame extends Component {
   }
 
   render() {
+    const launchBtn = this.state.is_creator ? (
+      <Link to="/jeu">
+        <button>Lancer</button>
+      </Link>
+    ) : (
+      ''
+    );
     return (
       <div>
         <h1>
@@ -56,6 +68,7 @@ export default class NewGame extends Component {
         <p>GAME_ID: {this.state.game.game_id}</p>
         <p>GAME_INFOS: {JSON.stringify(this.state.game.game_infos)}</p>
 
+        <p>{launchBtn}</p>
       </div>
     );
   }

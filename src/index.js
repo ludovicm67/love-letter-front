@@ -30,14 +30,10 @@ if (locale.substring(0, 2) === 'en') {
   locale = 'fr';
 }
 
-
-
 // test with Laravel Echo
 echo.channel('channel-test').listen('TestEvent', function(e) {
   console.log('TestEvent', e);
 });
-
-
 
 /***********/
 /****App****/

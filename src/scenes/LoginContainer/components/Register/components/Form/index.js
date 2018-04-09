@@ -30,6 +30,12 @@ class Form extends Component {
     this.handlePasswordChange = this.handlePasswordChange.bind(this);
   }
 
+  handleKeypress = e => {
+      if(e.key === 'Enter') {
+        this.handleRegister();
+     }
+  }
+
   handleRegister() {
     api_register(this.state.name, this.state.password, this.state.email);
   }
@@ -115,6 +121,7 @@ class Form extends Component {
           value={state.password}
           onChange={handlePasswordChange}
           style={formStyle.input}
+          onKeyPress={this.handleKeypress}
         />
         <span style={formStyle.errors}>{state.validPassword}</span>
 

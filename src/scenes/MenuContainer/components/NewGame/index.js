@@ -2,7 +2,7 @@ import axios from 'axios';
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import { FormattedMessage } from 'react-intl';
-import { API_URL,colors } from '../../../../utils';
+import { API_URL, colors } from '../../../../utils';
 
 export default class NewGame extends Component {
   constructor(props) {
@@ -10,7 +10,11 @@ export default class NewGame extends Component {
     this.state = {
       game: {
         game_id: '',
-        game_infos: {},
+        game_infos: {
+          creator: {
+            name: '',
+          },
+        },
       },
       is_creator: false,
     };
@@ -18,6 +22,8 @@ export default class NewGame extends Component {
     // if got game props from other location
     if (props.location.state && props.location.state.game) {
       this.state.game = props.location.state.game;
+    } else if (localStorage.getItem('name') === this.state.game.creator.name) {
+      this.state.is_creator = true;
     }
 
     // create a game if not joining one
@@ -45,24 +51,26 @@ export default class NewGame extends Component {
 
   render() {
     var newGameStyle = {
-      fontSize: '2em',
+      // fontSize: '2em',
       lineHeight: '1.5',
       textColor: colors.blackColor,
 
       title: {
         fontSize: '1.9em',
-        textAlign: 'center'
+        textAlign: 'center',
       },
       cellule: {
         padding: '2.5vh',
       },
       table: {
         margin: 'auto',
-      }
+      },
     };
     const launchBtn = this.state.is_creator ? (
       <Link to="/jeu">
-        <button>Lancer</button>
+        <button>
+          <FormattedMessage id="NewGame.startLink" />
+        </button>
       </Link>
     ) : (
       ''
@@ -73,10 +81,6 @@ export default class NewGame extends Component {
           <FormattedMessage id="NewGame.title" />
         </h1>
 
-        <Link to="/jeu">
-          <FormattedMessage id="NewGame.startLink" />
-        </Link>
-
         <Link to="/">
           <FormattedMessage id="NewGame.backToMenu" />
         </Link>
@@ -84,6 +88,24 @@ export default class NewGame extends Component {
         <table style={newGameStyle.table}>
           <tr>
             <td style={newGameStyle.cellule}>Joueur 1</td>
+            <td style={newGameStyle.cellule}>
+              {this.state.game.game_infos.creator.name}
+            </td>
+          </tr>
+          <tr>
+            <td style={newGameStyle.cellule}>Joueur 2</td>
+            <td style={newGameStyle.cellule}>
+              <form>
+                <select>
+                  <option value="player">Joueur</option>
+                  <option value="IA_easy">Ordi facile</option>
+                  <option value="IA_normal">Ordi moyen</option>
+                </select>
+              </form>
+            </td>
+          </tr>
+          <tr>
+            <td style={newGameStyle.cellule}>Joueur 3</td>
             <td style={newGameStyle.cellule}>
               <form>
                 <select>
@@ -96,7 +118,7 @@ export default class NewGame extends Component {
             </td>
           </tr>
           <tr>
-            <td style={newGameStyle.cellule}>Joueur 2</td>
+            <td style={newGameStyle.cellule}>Joueur 4</td>
             <td style={newGameStyle.cellule}>
               <form>
                 <select>
@@ -106,30 +128,6 @@ export default class NewGame extends Component {
                   <option value="none">Aucun</option>
                 </select>
               </form>
-            </td>
-          </tr><tr>
-            <td style={newGameStyle.cellule}>Joueur 3</td>
-            <td style={newGameStyle.cellule}>
-            <form>
-              <select>
-                <option value="player">Joueur</option>
-                <option value="IA_easy">Ordi facile</option>
-                <option value="IA_normal">Ordi moyen</option>
-                <option value="none">Aucun</option>
-              </select>
-            </form>
-            </td>
-          </tr><tr>
-            <td style={newGameStyle.cellule}>Joueur 4</td>
-            <td style={newGameStyle.cellule}>
-            <form>
-              <select>
-                <option value="player">Joueur</option>
-                <option value="IA_easy">Ordi facile</option>
-                <option value="IA_normal">Ordi moyen</option>
-                <option value="none">Aucun</option>
-              </select>
-            </form>
             </td>
           </tr>
         </table>

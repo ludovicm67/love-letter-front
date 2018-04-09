@@ -21,3 +21,4 @@ deploy:
   keep-history: true
   on:
     branch: master
+  fqdn: love-letter.ludovic-muller.fr

@@ -54,13 +54,15 @@ export default class NewGame extends Component {
     }
 
     // listen to game changes
-    echo
-      .channel(`channel-game:${this.state.game.game_id}`)
-      .listen('UpdateGameEvent', e => {
-        this.setState({
-          game: e.content.game,
+    if (this.state.game.game_id !== '') {
+      echo
+        .channel(`channel-game:${this.state.game.game_id}`)
+        .listen('UpdateGameEvent', e => {
+          this.setState({
+            game: e.content.game,
+          });
         });
-      });
+    }
   }
 
   componentWillUnmount() {

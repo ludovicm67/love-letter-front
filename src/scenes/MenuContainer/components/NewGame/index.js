@@ -14,20 +14,28 @@ export default class NewGame extends Component {
       },
     };
 
-    const userToken = localStorage.getItem('token');
-    axios.get(`${API_URL}/game/create?token=${userToken}`)
-      .then(response => response.data)
-      .then(json => {
-        if (!json.success) {
-          throw new Error('unable to create game');
-        }
-        this.setState({game: json.data});
-      })
-      .catch(() => {
-        console.error('unable to create game');
-        this.props.history.push('/login');
-        window.location.reload();
-      });
+    // if got game props from other location
+    if (props.location.state && props.location.state.game) {
+      this.state.game = props.location.state.game;
+    }
+
+    // create a game if not joining one
+    if (this.state.game.game_id === '') {
+      const userToken = localStorage.getItem('token');
+      axios.get(`${API_URL}/game/create?token=${userToken}`)
+        .then(response => response.data)
+        .then(json => {
+          if (!json.success) {
+            throw new Error('unable to create game');
+          }
+          this.setState({game: json.data});
+        })
+        .catch(() => {
+          console.error('unable to create game');
+          this.props.history.push('/login');
+          window.location.reload();
+        });
+    }
   }
 
   render() {

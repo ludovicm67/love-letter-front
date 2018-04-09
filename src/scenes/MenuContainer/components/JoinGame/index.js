@@ -89,7 +89,7 @@ export default class JoinGame extends Component {
     };
     const games = this.state.games.map(game => {
       let deleteAction;
-      let joinAction = <Link to="/jeu"><button style={joinGameStyle.buttonStyle}>Rejoindre</button></Link>;
+      let joinAction = <Link to={{pathname: '/jouer', state: {game: {game_id: game.id, game_infos: game}}}}><button style={joinGameStyle.buttonStyle}>Rejoindre</button></Link>;
       if (game.creator.name === localStorage.name) {
         deleteAction = <button style={joinGameStyle.buttonStyle} onClick={this.deleteGame.bind(this, game.id)}>Supprimer</button>;
       }
@@ -110,16 +110,20 @@ export default class JoinGame extends Component {
         </Link>
 
         <table style={joinGameStyle.play}>
-          <tr>
-            <th style={joinGameStyle.cellule}></th>
-            <th style={joinGameStyle.cellule}>Joueur 1</th>
-            <th style={joinGameStyle.cellule}>Joueur 2</th>
-            <th style={joinGameStyle.cellule}>Joueur 3</th>
-            <th style={joinGameStyle.cellule}>Joueur 4</th>
-            <th style={joinGameStyle.cellule}></th>
-            <th style={joinGameStyle.cellule}></th>
-          </tr>
-          {games}
+          <thead>
+            <tr>
+              <th style={joinGameStyle.cellule}></th>
+              <th style={joinGameStyle.cellule}>Joueur 1</th>
+              <th style={joinGameStyle.cellule}>Joueur 2</th>
+              <th style={joinGameStyle.cellule}>Joueur 3</th>
+              <th style={joinGameStyle.cellule}>Joueur 4</th>
+              <th style={joinGameStyle.cellule}></th>
+              <th style={joinGameStyle.cellule}></th>
+            </tr>
+          </thead>
+          <tbody>
+            {games}
+          </tbody>
         </table>
       </div>
     );

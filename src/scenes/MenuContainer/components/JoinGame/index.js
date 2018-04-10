@@ -64,11 +64,18 @@ export default class JoinGame extends Component {
           'Content-Type': 'application/x-www-form-urlencoded',
         },
       })
-      .then(() => {
+      .then(response => response.data)
+      .then(json => {
+        if (!json.success) {
+          throw new Error('unable to join the game');
+        }
         this.props.history.push({
           pathname: '/jouer',
-          state: { game: { game_id: game.id, game_infos: game } },
+          state: { game: { game_id: game.id, game_infos: json.data.game } },
         });
+      })
+      .catch(() => {
+        console.error('unable to join the game');
       });
   }
 

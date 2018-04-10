@@ -51,6 +51,15 @@ export default class NewGame extends Component {
               this.setState({
                 game: e.content.game,
               });
+            })
+            .listen('StartGameEvent', e => {
+              this.setState({
+                game: e.content.game,
+              });
+              this.props.history.push({
+                pathname: '/jeu',
+                state: this.state,
+              });
             });
         })
         .catch(() => {
@@ -65,6 +74,15 @@ export default class NewGame extends Component {
           this.setState({
             game: e.content.game,
           });
+        })
+        .listen('StartGameEvent', e => {
+          this.setState({
+            game: e.content.game,
+          });
+          this.props.history.push({
+            pathname: '/jeu',
+            state: this.state,
+          });
         });
     }
   }
@@ -77,18 +95,11 @@ export default class NewGame extends Component {
     const userToken = localStorage.getItem('token');
     const data = new FormData();
     data.append('game_id', state.game.game_id);
-    axios
-      .post(`${API_URL}/game/start?token=${userToken}`, data, {
-        headers: {
-          'Content-Type': 'application/x-www-form-urlencoded',
-        },
-      })
-      .then(() => {
-        this.props.history.push({
-          pathname: '/jeu',
-          state: state,
-        });
-      });
+    axios.post(`${API_URL}/game/start?token=${userToken}`, data, {
+      headers: {
+        'Content-Type': 'application/x-www-form-urlencoded',
+      },
+    });
   }
 
   render() {

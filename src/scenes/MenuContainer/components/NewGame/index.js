@@ -45,16 +45,20 @@ export default class NewGame extends Component {
             game: json.data,
             is_creator: true,
           });
+          echo
+            .channel(`channel-game:${this.state.game.game_id}`)
+            .listen('UpdateGameEvent', e => {
+              this.setState({
+                game: e.content.game,
+              });
+            });
         })
         .catch(() => {
           console.error('unable to create game');
           this.props.history.push('/login');
           window.location.reload();
         });
-    }
-
-    // listen to game changes
-    if (this.state.game.game_id !== '') {
+    } else {
       echo
         .channel(`channel-game:${this.state.game.game_id}`)
         .listen('UpdateGameEvent', e => {

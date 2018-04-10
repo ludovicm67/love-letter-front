@@ -13,7 +13,7 @@ import messages from './messages';
 import en from 'react-intl/locale-data/en';
 import fr from 'react-intl/locale-data/fr';
 
-import { flattenMessages, echo } from './utils';
+import { flattenMessages } from './utils';
 
 addLocaleData([...en, ...fr]);
 
@@ -29,11 +29,6 @@ if (locale.substring(0, 2) === 'en') {
 } else {
   locale = 'fr';
 }
-
-// test with Laravel Echo
-echo.channel('channel-test').listen('TestEvent', function(e) {
-  console.log('TestEvent', e);
-});
 
 /***********/
 /****App****/

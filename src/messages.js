@@ -60,8 +60,7 @@ export default {
       backToMenu: 'Retour au menu',
     },
     Game: {
-      title: 'Love Letter',
-      backToMenu: 'Quitter la partie',
+      wonGames: ' manche(s) gagnée(s)'
     },
   },
   en: {
@@ -124,8 +123,7 @@ export default {
       backToMenu: 'Back to menu',
     },
     Game: {
-      title: 'Love Letter',
-      backToMenu: 'Quit',
+      wonGames: ' won game(s)'
     },
   },
 };

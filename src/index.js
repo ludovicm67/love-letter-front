@@ -30,6 +30,8 @@ if (locale.substring(0, 2) === 'en') {
   locale = 'fr';
 }
 
+export const appLocale = locale;
+
 /***********/
 /****App****/
 /***********/

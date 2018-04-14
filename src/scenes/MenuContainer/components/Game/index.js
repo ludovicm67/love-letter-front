@@ -62,6 +62,19 @@ export default class Game extends Component {
     });
   }
 
+  handleCardName(cardName) {
+      cardName = cardName.toLowerCase();
+      if(cardName === 'princess_prince') {
+          if(Math.random() > 0.5) {
+              cardName = 'princess';
+          } else {
+              cardName = 'prince';
+          }
+      }
+
+      return cardName;
+  }
+
 
   render() {
     var gameStyle = {
@@ -102,18 +115,13 @@ export default class Game extends Component {
             }
         },
         player: {
-            text: {
-                position:'absolute',
-                left: '20vw',
+            name: {
+                padding: '10px',
+                fontSize: '2em',
+                fontWeight: 400
+            },
+            score: {
 
-                name: {
-                    padding: '10px',
-                    fontSize: '2em',
-                    fontWeight: 400
-                },
-                score: {
-
-                }
             },
 
             row: {
@@ -125,9 +133,14 @@ export default class Game extends Component {
                 width: '100%',
                 left: {
                     // alignSelf: 'flex-end'
+                    text: {
+
+                    }
                 },
                 right: {
+                    text: {
 
+                    }
                 },
             },
             column: {
@@ -141,12 +154,18 @@ export default class Game extends Component {
 
                 me: {
                     display: 'flex',
-                    flexDirection: 'row'
+                    flexDirection: 'row',
+                    text: {
 
+                    }
                 },
                 top: {
                     display: 'flex',
-                    flexDirection: 'row'
+                    flexDirection: 'row',
+                    text: {
+                        position:'absolute',
+                        left: '20vw',
+                    }
                 }
             }
         }
@@ -203,10 +222,10 @@ export default class Game extends Component {
 
         <div style={gameStyle.player.row}>
             { /*joueur gauche*/ players.length >= 3 && (
-                <div style={gameStyle.player.left}>
-                    <div style={gameStyle.player.text}>
-                        <p style={gameStyle.player.text.name}>{players[2].name}</p>
-                        <p style={gameStyle.player.text.score}>
+                <div style={gameStyle.player.row.left}>
+                    <div style={gameStyle.player.row.left.text}>
+                        <p style={gameStyle.player.name}>{players[2].name}</p>
+                        <p style={gameStyle.player.score}>
                             {players[2].winning_rounds_count}
                             <FormattedMessage id='Game.wonGames' />
                         </p>
@@ -226,10 +245,10 @@ export default class Game extends Component {
             )}
 
             { /*joueur droite*/ players.length === 4 && (
-                <div style={gameStyle.player.right}>
-                    <div style={gameStyle.player.text}>
-                        <p style={gameStyle.player.text.name}>{players[3].name}</p>
-                        <p style={gameStyle.player.text.score}>
+                <div style={gameStyle.player.row.right}>
+                    <div style={gameStyle.player.row.right.text}>
+                        <p style={gameStyle.player.name}>{players[3].name}</p>
+                        <p style={gameStyle.player.score}>
                             {players[3].winning_rounds_count}
                             <FormattedMessage id='Game.wonGames' />
                         </p>
@@ -241,9 +260,9 @@ export default class Game extends Component {
         <div style={gameStyle.player.column}>
             { /*joueur haut*/ players.length >= 2 && (
                 <div style={gameStyle.player.column.top}>
-                    <div style={gameStyle.player.text}>
-                        <p style={gameStyle.player.text.name}>{players[1].name}</p>
-                        <p style={gameStyle.player.text.score}>
+                    <div style={gameStyle.player.column.top.text}>
+                        <p style={gameStyle.player.name}>{players[1].name}</p>
+                        <p style={gameStyle.player.score}>
                             {players[1].winning_rounds_count}
                             <FormattedMessage id='Game.wonGames' />
                         </p>
@@ -263,14 +282,14 @@ export default class Game extends Component {
             )}
 
             { /*joueur bas*/ players.length >= 1 && (
-                <div style={gameStyle.player.me}>
+                <div style={gameStyle.player.column.me}>
                     <div>
                         { //@TODO FormattedMessage 'alt'
                         players[0].hand.map(hand => (
                             <img
                             key={0+hand.id}
                             style={gameStyle.card.me}
-                            src={`${cardsPath}/${hand.card_name.toLowerCase()}.svg`}
+                            src={`${cardsPath}/${this.handleCardName(hand.card_name)}.svg`}
                             alt='main joueur 0' />
                         ))}
                     </div>
@@ -300,8 +319,8 @@ export default class Game extends Component {
         <div style={gameStyle.piocheContainer}>{pioche}</div>
 
         <div style={gameStyle.my_infos}>
-            <p style={gameStyle.player.text.name}>{players[0].name}</p>
-            <p style={gameStyle.player.text.score}>
+            <p style={gameStyle.player.name}>{players[0].name}</p>
+            <p style={gameStyle.player.score}>
                 {players[0].winning_rounds_count}
                 <FormattedMessage id='Game.wonGames' />
             </p>

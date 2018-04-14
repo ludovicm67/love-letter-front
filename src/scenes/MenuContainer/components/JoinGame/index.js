@@ -125,17 +125,9 @@ export default class JoinGame extends Component {
       },
     };
     const games = this.state.games.map(game => {
-      let deleteAction;
-      let joinAction = (
-        <button
-          style={joinGameStyle.buttonStyle}
-          onClick={this.joinGame.bind(this, game)}
-        >
-          <FormattedMessage id="JoinGame.join" />
-        </button>
-      );
+      let action;
       if (game.creator.name === localStorage.name) {
-        deleteAction = (
+        action = (
           <button
             style={joinGameStyle.buttonStyle}
             onClick={this.deleteGame.bind(this, game.id)}
@@ -143,19 +135,32 @@ export default class JoinGame extends Component {
             <FormattedMessage id="JoinGame.delete" />
           </button>
         );
+      } else {
+        action = (
+          <button
+            style={joinGameStyle.buttonStyle}
+            onClick={this.joinGame.bind(this, game)}
+          >
+            <FormattedMessage id="JoinGame.join" />
+          </button>
+        );
       }
       return (
         <tr key={game.id}>
           <td style={joinGameStyle.cellule}>
-            {' '}
-            <FormattedMessage id="JoinGame.salon" /> {game.creator.name}{' '}
+            <FormattedMessage id="JoinGame.salon" /> {game.creator.name}
           </td>
-          <td style={joinGameStyle.cellule}>{game.creator.name}</td>
-          <td style={joinGameStyle.cellule} />
-          <td style={joinGameStyle.cellule} />
-          <td style={joinGameStyle.cellule} />
-          <td style={joinGameStyle.cellule}>{joinAction}</td>
-          <td style={joinGameStyle.cellule}>{deleteAction}</td>
+          <td style={joinGameStyle.cellule}>{game.players[0].name}</td>
+          <td style={joinGameStyle.cellule}>
+            {game.players.length > 1 ? game.players[1].name : ''}
+          </td>
+          <td style={joinGameStyle.cellule}>
+            {game.players.length > 2 ? game.players[2].name : ''}
+          </td>
+          <td style={joinGameStyle.cellule}>
+            {game.players.length > 3 ? game.players[3].name : ''}
+          </td>
+          <td style={joinGameStyle.cellule}>{action}</td>
         </tr>
       );
     });
@@ -190,7 +195,6 @@ export default class JoinGame extends Component {
                   {' '}
                   <FormattedMessage id="JoinGame.player4" />{' '}
                 </th>
-                <th style={joinGameStyle.cellule} />
                 <th style={joinGameStyle.cellule} />
               </tr>
             </thead>

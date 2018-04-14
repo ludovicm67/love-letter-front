@@ -95,6 +95,7 @@ export default class JoinGame extends Component {
       fontSize: '2em',
       lineHeight: '1.5',
       textColor: colors.blackColor,
+      height : '100vh',
 
       title: {
         fontSize: '1.9em',
@@ -105,11 +106,17 @@ export default class JoinGame extends Component {
         backgroundColor: colors.darkMainColor,
         border: 'none',
         fontSize: '1em',
+        cursor: 'pointer',
       },
 
       cellule: {
         padding: '2.5vh',
       },
+
+      div_table: {
+       overflowY: 'auto',
+       height: '50%'
+     },
 
       play: {
         textAlign: 'left',
@@ -124,7 +131,7 @@ export default class JoinGame extends Component {
           style={joinGameStyle.buttonStyle}
           onClick={this.joinGame.bind(this, game)}
         >
-          Rejoindre
+          <FormattedMessage id="JoinGame.join" />
         </button>
       );
       if (game.creator.name === localStorage.name) {
@@ -133,13 +140,13 @@ export default class JoinGame extends Component {
             style={joinGameStyle.buttonStyle}
             onClick={this.deleteGame.bind(this, game.id)}
           >
-            Supprimer
+            <FormattedMessage id="JoinGame.delete" />
           </button>
         );
       }
       return (
         <tr key={game.id}>
-          <td style={joinGameStyle.cellule}>Salon</td>
+          <td style={joinGameStyle.cellule}> <FormattedMessage id="JoinGame.salon" /> {game.creator.name} </td>
           <td style={joinGameStyle.cellule}>{game.creator.name}</td>
           <td style={joinGameStyle.cellule} />
           <td style={joinGameStyle.cellule} />
@@ -155,28 +162,26 @@ export default class JoinGame extends Component {
           <FormattedMessage id="JoinGame.title" />
         </h1>
 
-        <Link to="/jeu">
-          <FormattedMessage id="JoinGame.joinLink" />
-        </Link>
-
         <Link to="/">
           <FormattedMessage id="JoinGame.backToMenu" />
         </Link>
 
-        <table style={joinGameStyle.play}>
-          <thead>
-            <tr>
-              <th style={joinGameStyle.cellule} />
-              <th style={joinGameStyle.cellule}>Joueur 1</th>
-              <th style={joinGameStyle.cellule}>Joueur 2</th>
-              <th style={joinGameStyle.cellule}>Joueur 3</th>
-              <th style={joinGameStyle.cellule}>Joueur 4</th>
-              <th style={joinGameStyle.cellule} />
-              <th style={joinGameStyle.cellule} />
-            </tr>
-          </thead>
-          <tbody>{games}</tbody>
-        </table>
+        <div style={joinGameStyle.div_table}>
+          <table style={joinGameStyle.play}>
+            <thead>
+              <tr>
+                <th style={joinGameStyle.cellule} />
+                <th style={joinGameStyle.cellule}> <FormattedMessage id="JoinGame.player1" /> </th>
+                <th style={joinGameStyle.cellule}> <FormattedMessage id="JoinGame.player2" /> </th>
+                <th style={joinGameStyle.cellule}> <FormattedMessage id="JoinGame.player3" /> </th>
+                <th style={joinGameStyle.cellule}> <FormattedMessage id="JoinGame.player4" /> </th>
+                <th style={joinGameStyle.cellule} />
+                <th style={joinGameStyle.cellule} />
+              </tr>
+            </thead>
+            <tbody>{games}</tbody>
+          </table>
+        </div>
       </div>
     );
   }

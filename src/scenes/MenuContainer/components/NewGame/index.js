@@ -121,9 +121,17 @@ export default class NewGame extends Component {
       table: {
         margin: 'auto',
       },
+      buttonStyle: {
+        backgroundColor: colors.darkMainColor,
+        border: 'none',
+        fontSize: '1em',
+        cursor: 'pointer',
+      },
     };
     const launchBtn = this.state.is_creator ? (
-      <button onClick={this.startGame.bind(this, this.state)}>
+      <button onClick={this.startGame.bind(this, this.state)}
+        style={newGameStyle.buttonStyle}
+      >
         <FormattedMessage id="NewGame.startLink" />
       </button>
     ) : (
@@ -144,45 +152,45 @@ export default class NewGame extends Component {
         <table style={newGameStyle.table}>
           <tbody>
             <tr>
-              <td style={newGameStyle.cellule}>Joueur 1</td>
+              <td style={newGameStyle.cellule}> <FormattedMessage id="NewGame.player1" /> </td>
               <td style={newGameStyle.cellule}>
                 {this.state.game.game_infos.creator.name}
               </td>
             </tr>
             <tr>
-              <td style={newGameStyle.cellule}>Joueur 2</td>
+              <td style={newGameStyle.cellule}> <FormattedMessage id="NewGame.player2" /> </td>
               <td style={newGameStyle.cellule}>
                 <form>
                   <select>
-                    <option value="player">Joueur</option>
-                    <option value="IA_easy">Ordi facile</option>
-                    <option value="IA_normal">Ordi moyen</option>
+                    <option value="player"> <FormattedMessage id="NewGame.player" /> </option>
+                    <option value="IA_easy"> <FormattedMessage id="NewGame.IA_easy" /> </option>
+                    <option value="IA_normal"> <FormattedMessage id="NewGame.IA_normal" /> </option>
                   </select>
                 </form>
               </td>
             </tr>
             <tr>
-              <td style={newGameStyle.cellule}>Joueur 3</td>
+              <td style={newGameStyle.cellule}> <FormattedMessage id="NewGame.player3" /> </td>
               <td style={newGameStyle.cellule}>
                 <form>
                   <select>
-                    <option value="player">Joueur</option>
-                    <option value="IA_easy">Ordi facile</option>
-                    <option value="IA_normal">Ordi moyen</option>
-                    <option value="none">Aucun</option>
+                    <option value="player"> <FormattedMessage id="NewGame.player" /> </option>
+                    <option value="IA_easy"> <FormattedMessage id="NewGame.IA_easy" /> </option>
+                    <option value="IA_normal"> <FormattedMessage id="NewGame.IA_normal" /> </option>
+                    <option value="none"> <FormattedMessage id="NewGame.none" /> </option>
                   </select>
                 </form>
               </td>
             </tr>
             <tr>
-              <td style={newGameStyle.cellule}>Joueur 4</td>
+              <td style={newGameStyle.cellule}> <FormattedMessage id="NewGame.player4" /> </td>
               <td style={newGameStyle.cellule}>
                 <form>
                   <select>
-                    <option value="player">Joueur</option>
-                    <option value="IA_easy">Ordi facile</option>
-                    <option value="IA_normal">Ordi moyen</option>
-                    <option value="none">Aucun</option>
+                    <option value="player"> <FormattedMessage id="NewGame.player" /> </option>
+                    <option value="IA_easy"> <FormattedMessage id="NewGame.IA_easy" /> </option>
+                    <option value="IA_normal"> <FormattedMessage id="NewGame.IA_normal" /> </option>
+                    <option value="none"> <FormattedMessage id="NewGame.none" /> </option>
                   </select>
                 </form>
               </td>

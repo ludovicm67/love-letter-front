@@ -62,8 +62,9 @@ export default class Game extends Component {
     });
   }
 
+
   render() {
-      var gameStyle = {
+    var gameStyle = {
 
         piocheContainer: {
             position: 'fixed',
@@ -82,7 +83,7 @@ export default class Game extends Component {
         },
 
         card: {
-            width: '150px',
+            width: '140px',
             margin: '5px',
 
             left: {
@@ -91,6 +92,7 @@ export default class Game extends Component {
                 transform: 'rotate(90deg)',
             },
             me: {
+                width: '160px',
                 position: 'relative',
                 bottom: '-15vh',
             },
@@ -100,6 +102,20 @@ export default class Game extends Component {
             }
         },
         player: {
+            text: {
+                position:'absolute',
+                left: '20vw',
+
+                name: {
+                    padding: '10px',
+                    fontSize: '2em',
+                    fontWeight: 400
+                },
+                score: {
+
+                }
+            },
+
             row: {
                 position: 'absolute',
                 top: '20%',
@@ -129,27 +145,49 @@ export default class Game extends Component {
 
                 },
                 top: {
-                    width: '300px'
-
+                    display: 'flex',
+                    flexDirection: 'row'
                 }
-            },
-
-            name: {
-                padding: '10px',
-                fontSize: '2em',
-                fontWeight: 400
             }
         }
       };
 
-    let { players } = this.state.game.game_infos;
+    let { game_infos } = this.state.game;
     let pioche = [];
+    let players = [];
+    let my_id;
+
+    //get id of the current player
+    for(let i=0; i<game_infos.players.length; i++) {
+        if(game_infos.players[i].name === localStorage.getItem('name')) {
+            my_id = i;
+        }
+    }
+
+    if(my_id === 'undefined') {
+        console.error('the current player is missing in the game');
+
+    } else {
+        //get an array of players with the first one being the current player
+        players = game_infos.players;
+
+        while(my_id !== 0) {
+            console.log(players);
+
+            var tmp = players[my_id-1];
+            players[my_id-1] = players[my_id];
+            players[my_id] = tmp;
+
+            my_id -= 1;
+        }
+    }
 
     console.log(this.state.game.game_infos);
     console.log(players[0].hand);
-    // console.log(players[0]);
-    // console.log(players.length);
+    console.log(game_infos.players);
+    console.log(players);
 
+    //render
     for (var i=0; i<5; i++) {
         pioche.push(
             <img
@@ -166,11 +204,13 @@ export default class Game extends Component {
         <div style={gameStyle.player.row}>
             { /*joueur gauche*/ players.length >= 3 && (
                 <div style={gameStyle.player.left}>
-                    <p style={gameStyle.player.name}>debug:Joueur2{players[2].name}</p>
-                    <p style={gameStyle.player.score}>
-                        {players[2].winning_rounds_count}
-                        <FormattedMessage id='Game.wonGames' />
-                    </p>
+                    <div style={gameStyle.player.text}>
+                        <p style={gameStyle.player.text.name}>{players[2].name}</p>
+                        <p style={gameStyle.player.text.score}>
+                            {players[2].winning_rounds_count}
+                            <FormattedMessage id='Game.wonGames' />
+                        </p>
+                    </div>
 
                     <div style={gameStyle.card.left}>
                         { //@TODO FormattedMessage 'alt'
@@ -187,36 +227,51 @@ export default class Game extends Component {
 
             { /*joueur droite*/ players.length === 4 && (
                 <div style={gameStyle.player.right}>
-                    <p style={gameStyle.player.name}>debug:Joueur3{players[3].name}</p>
-                    <p style={gameStyle.player.score}>
-                        {players[3].winning_rounds_count}
-                        <FormattedMessage id='Game.wonGames' />
-                    </p>
+                    <div style={gameStyle.player.text}>
+                        <p style={gameStyle.player.text.name}>{players[3].name}</p>
+                        <p style={gameStyle.player.text.score}>
+                            {players[3].winning_rounds_count}
+                            <FormattedMessage id='Game.wonGames' />
+                        </p>
+                    </div>
                 </div>
             )}
         </div>
 
         <div style={gameStyle.player.column}>
             { /*joueur haut*/ players.length >= 2 && (
-                <div style={gameStyle.player.top}>
-                    <p style={gameStyle.player.name}>debug:Joueur1{players[1].name}</p>
-                    <p style={gameStyle.player.score}>
-                        {players[1].winning_rounds_count}
-                        <FormattedMessage id='Game.wonGames' />
-                    </p>
+                <div style={gameStyle.player.column.top}>
+                    <div style={gameStyle.player.text}>
+                        <p style={gameStyle.player.text.name}>{players[1].name}</p>
+                        <p style={gameStyle.player.text.score}>
+                            {players[1].winning_rounds_count}
+                            <FormattedMessage id='Game.wonGames' />
+                        </p>
+                    </div>
+
+                    <div style={gameStyle.card.top}>
+                        { //@TODO FormattedMessage 'alt'
+                        players[1].hand.map(hand => (
+                            <img
+                            key={1+hand.id}
+                            style={gameStyle.card}
+                            src={`${imgPath}/cards/back.svg`}
+                            alt='main joueur 1' />
+                        ))}
+                    </div>
                 </div>
             )}
 
             { /*joueur bas*/ players.length >= 1 && (
                 <div style={gameStyle.player.me}>
-                    <div style={gameStyle.card.me}>
+                    <div>
                         { //@TODO FormattedMessage 'alt'
                         players[0].hand.map(hand => (
                             <img
                             key={0+hand.id}
-                            style={gameStyle.card}
+                            style={gameStyle.card.me}
                             src={`${cardsPath}/${hand.card_name.toLowerCase()}.svg`}
-                            alt='main joueur 2' />
+                            alt='main joueur 0' />
                         ))}
                     </div>
                 </div>
@@ -245,8 +300,8 @@ export default class Game extends Component {
         <div style={gameStyle.piocheContainer}>{pioche}</div>
 
         <div style={gameStyle.my_infos}>
-            <p style={gameStyle.player.name}>debug:Joueur0{players[0].name}</p>
-            <p style={gameStyle.player.score}>
+            <p style={gameStyle.player.text.name}>{players[0].name}</p>
+            <p style={gameStyle.player.text.score}>
                 {players[0].winning_rounds_count}
                 <FormattedMessage id='Game.wonGames' />
             </p>

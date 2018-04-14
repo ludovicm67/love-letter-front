@@ -201,7 +201,11 @@ export class NewGame extends Component {
                     style={newGameStyle.select}
                     data-slot="0"
                     data-gameid={this.state.game.game_id}
-                    value={this.state.game.game_infos.slots[0]}
+                    value={
+                      this.state.game.game_infos.slots
+                        ? this.state.game.game_infos.slots[0]
+                        : 0
+                    }
                     onChange={this.change}
                   >
                     <option value="0">
@@ -229,7 +233,11 @@ export class NewGame extends Component {
                     style={newGameStyle.select}
                     data-slot="1"
                     data-gameid={this.state.game.game_id}
-                    value={this.state.game.game_infos.slots[1]}
+                    value={
+                      this.state.game.game_infos.slots
+                        ? this.state.game.game_infos.slots[1]
+                        : 0
+                    }
                     onChange={this.change}
                   >
                     <option value="0">
@@ -260,7 +268,11 @@ export class NewGame extends Component {
                     style={newGameStyle.select}
                     data-slot="2"
                     data-gameid={this.state.game.game_id}
-                    value={this.state.game.game_infos.slots[2]}
+                    value={
+                      this.state.game.game_infos.slots
+                        ? this.state.game.game_infos.slots[2]
+                        : 0
+                    }
                     onChange={this.change}
                   >
                     <option value="0">

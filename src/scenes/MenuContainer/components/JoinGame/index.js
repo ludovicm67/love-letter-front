@@ -125,6 +125,11 @@ export default class JoinGame extends Component {
       },
     };
     const games = this.state.games.map(game => {
+      if (
+        game.creator.name !== localStorage.name &&
+        game.slots.indexOf(0) === -1
+      )
+        return '';
       let action;
       if (game.creator.name === localStorage.name) {
         action = (

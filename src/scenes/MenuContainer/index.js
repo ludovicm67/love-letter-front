@@ -61,6 +61,8 @@ class MenuContainer extends Component {
       },
     };
 
+    let { pathname } = this.props.location;
+
     if (!localStorage.getItem('token')) {
       return <Redirect to="/login" />;
     }
@@ -71,9 +73,11 @@ class MenuContainer extends Component {
           <span style={menuStyle.icon} className="fa fa-sign-out" />
         </Link>
 
-        <h1 style={menuStyle.title}>
-          <FormattedMessage id="MenuContainer.title" />
-        </h1>
+        {pathname !== '/jeu' &&
+            <h1 style={menuStyle.title}>
+              <FormattedMessage id="MenuContainer.title" />
+            </h1>
+        }
 
         <Router>
           <div>

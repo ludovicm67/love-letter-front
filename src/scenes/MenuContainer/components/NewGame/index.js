@@ -103,6 +103,9 @@ export default class NewGame extends Component {
   }
 
   render() {
+      console.log(this.state.game.game_id);
+      console.log(this.state.game.game_infos.players);
+
     var newGameStyle = {
       fontSize: '2em',
       lineHeight: '1.5',
@@ -135,9 +138,6 @@ export default class NewGame extends Component {
         <Link to="/">
           <FormattedMessage id="NewGame.backToMenu" />
         </Link>
-
-        <p>GAME_ID: {this.state.game.game_id}</p>
-        <p>GAME_INFOS: {JSON.stringify(this.state.game.game_infos.players)}</p>
 
         <p>{launchBtn}</p>
 

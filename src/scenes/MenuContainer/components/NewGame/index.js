@@ -107,26 +107,41 @@ export default class NewGame extends Component {
       console.log(this.state.game.game_infos.players);
 
     var newGameStyle = {
-      fontSize: '2em',
+      fontSize: '1.8em',
       lineHeight: '1.5',
       textColor: colors.blackColor,
 
       title: {
-        fontSize: '1.9em',
+        fontSize: '1.5em',
         textAlign: 'center',
       },
+
       cellule: {
-        padding: '2.5vh',
+        padding: '2vh',
       },
+
       table: {
         margin: 'auto',
       },
+
       buttonStyle: {
         backgroundColor: colors.darkMainColor,
         border: 'none',
         fontSize: '1em',
         cursor: 'pointer',
       },
+
+      center: {
+        textAlign: 'center',
+      },
+
+      select: {
+        border: 'none',
+        borderRadius: '4px',
+        backgroundColor: colors.whiteColor,
+        fontSize: '0.8em',
+        widht: '100%',
+      }
     };
     const launchBtn = this.state.is_creator ? (
       <button onClick={this.startGame.bind(this, this.state)}
@@ -147,8 +162,6 @@ export default class NewGame extends Component {
           <FormattedMessage id="NewGame.backToMenu" />
         </Link>
 
-        <p>{launchBtn}</p>
-
         <table style={newGameStyle.table}>
           <tbody>
             <tr>
@@ -161,7 +174,7 @@ export default class NewGame extends Component {
               <td style={newGameStyle.cellule}> <FormattedMessage id="NewGame.player2" /> </td>
               <td style={newGameStyle.cellule}>
                 <form>
-                  <select>
+                  <select style={newGameStyle.select}>
                     <option value="player"> <FormattedMessage id="NewGame.player" /> </option>
                     <option value="IA_easy"> <FormattedMessage id="NewGame.IA_easy" /> </option>
                     <option value="IA_normal"> <FormattedMessage id="NewGame.IA_normal" /> </option>
@@ -173,7 +186,7 @@ export default class NewGame extends Component {
               <td style={newGameStyle.cellule}> <FormattedMessage id="NewGame.player3" /> </td>
               <td style={newGameStyle.cellule}>
                 <form>
-                  <select>
+                  <select style={newGameStyle.select}>
                     <option value="player"> <FormattedMessage id="NewGame.player" /> </option>
                     <option value="IA_easy"> <FormattedMessage id="NewGame.IA_easy" /> </option>
                     <option value="IA_normal"> <FormattedMessage id="NewGame.IA_normal" /> </option>
@@ -186,7 +199,7 @@ export default class NewGame extends Component {
               <td style={newGameStyle.cellule}> <FormattedMessage id="NewGame.player4" /> </td>
               <td style={newGameStyle.cellule}>
                 <form>
-                  <select>
+                  <select style={newGameStyle.select}>
                     <option value="player"> <FormattedMessage id="NewGame.player" /> </option>
                     <option value="IA_easy"> <FormattedMessage id="NewGame.IA_easy" /> </option>
                     <option value="IA_normal"> <FormattedMessage id="NewGame.IA_normal" /> </option>
@@ -197,6 +210,7 @@ export default class NewGame extends Component {
             </tr>
           </tbody>
         </table>
+        <p style={newGameStyle.center}>{launchBtn}</p>
       </div>
     );
   }

@@ -92,13 +92,13 @@ export default class JoinGame extends Component {
 
   render() {
     var joinGameStyle = {
-      fontSize: '2em',
+      fontSize: '1.8em',
       lineHeight: '1.5',
       textColor: colors.blackColor,
       height : '100vh',
 
       title: {
-        fontSize: '1.9em',
+        fontSize: '1.5em',
         textAlign: 'center',
       },
 
@@ -115,7 +115,7 @@ export default class JoinGame extends Component {
 
       div_table: {
        overflowY: 'auto',
-       height: '50%'
+       height: '55%'
      },
 
       play: {

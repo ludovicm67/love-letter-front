@@ -103,10 +103,10 @@ export class NewGame extends Component {
   }
 
   render() {
-      console.log(this.state.game.game_id);
-      console.log(this.state.game.game_infos.players);
+    console.log(this.state.game.game_id);
+    console.log(this.state.game.game_infos.players);
 
-      let { formatMessage } = this.props.intl;
+    let { formatMessage } = this.props.intl;
 
     var newGameStyle = {
       fontSize: '1.8em',
@@ -143,10 +143,11 @@ export class NewGame extends Component {
         backgroundColor: colors.whiteColor,
         fontSize: '0.8em',
         widht: '100%',
-      }
+      },
     };
     const launchBtn = this.state.is_creator ? (
-      <button onClick={this.startGame.bind(this, this.state)}
+      <button
+        onClick={this.startGame.bind(this, this.state)}
         style={newGameStyle.buttonStyle}
       >
         <FormattedMessage id="NewGame.startLink" />
@@ -167,45 +168,89 @@ export class NewGame extends Component {
         <table style={newGameStyle.table}>
           <tbody>
             <tr>
-              <td style={newGameStyle.cellule}><FormattedMessage id="NewGame.player1" /> </td>
+              <td style={newGameStyle.cellule}>
+                <FormattedMessage id="NewGame.player1" />{' '}
+              </td>
               <td style={newGameStyle.cellule}>
                 {this.state.game.game_infos.creator.name}
               </td>
             </tr>
             <tr>
-              <td style={newGameStyle.cellule}> <FormattedMessage id="NewGame.player2" /> </td>
+              <td style={newGameStyle.cellule}>
+                {' '}
+                <FormattedMessage id="NewGame.player2" />{' '}
+              </td>
               <td style={newGameStyle.cellule}>
                 <form>
                   <select style={newGameStyle.select}>
-                    <option value="player"> {formatMessage({id: 'NewGame.player'})} </option>
-                    <option value="IA_easy"> {formatMessage({id: 'NewGame.IA_easy'})} </option>
-                    <option value="IA_normal"> {formatMessage({id: 'NewGame.IA_normal'})} </option>
+                    <option value="player">
+                      {' '}
+                      {formatMessage({ id: 'NewGame.player' })}{' '}
+                    </option>
+                    <option value="IA_easy">
+                      {' '}
+                      {formatMessage({ id: 'NewGame.IA_easy' })}{' '}
+                    </option>
+                    <option value="IA_normal">
+                      {' '}
+                      {formatMessage({ id: 'NewGame.IA_normal' })}{' '}
+                    </option>
                   </select>
                 </form>
               </td>
             </tr>
             <tr>
-              <td style={newGameStyle.cellule}> <FormattedMessage id="NewGame.player3" /> </td>
+              <td style={newGameStyle.cellule}>
+                {' '}
+                <FormattedMessage id="NewGame.player3" />{' '}
+              </td>
               <td style={newGameStyle.cellule}>
                 <form>
                   <select style={newGameStyle.select}>
-                    <option value="player"> {formatMessage({id: 'NewGame.player'})} </option>
-                    <option value="IA_easy"> {formatMessage({id: 'NewGame.IA_easy'})} </option>
-                    <option value="IA_normal"> {formatMessage({id: 'NewGame.IA_normal'})} </option>
-                    <option value="none"> {formatMessage({id: 'NewGame.none'})} </option>
+                    <option value="player">
+                      {' '}
+                      {formatMessage({ id: 'NewGame.player' })}{' '}
+                    </option>
+                    <option value="IA_easy">
+                      {' '}
+                      {formatMessage({ id: 'NewGame.IA_easy' })}{' '}
+                    </option>
+                    <option value="IA_normal">
+                      {' '}
+                      {formatMessage({ id: 'NewGame.IA_normal' })}{' '}
+                    </option>
+                    <option value="none">
+                      {' '}
+                      {formatMessage({ id: 'NewGame.none' })}{' '}
+                    </option>
                   </select>
                 </form>
               </td>
             </tr>
             <tr>
-              <td style={newGameStyle.cellule}> <FormattedMessage id="NewGame.player4" /> </td>
+              <td style={newGameStyle.cellule}>
+                {' '}
+                <FormattedMessage id="NewGame.player4" />{' '}
+              </td>
               <td style={newGameStyle.cellule}>
                 <form>
                   <select style={newGameStyle.select}>
-                    <option value="player"> {formatMessage({id: 'NewGame.player'})} </option>
-                    <option value="IA_easy"> {formatMessage({id: 'NewGame.IA_easy'})} </option>
-                    <option value="IA_normal"> {formatMessage({id: 'NewGame.IA_normal'})} </option>
-                    <option value="none"> {formatMessage({id: 'NewGame.none'})} </option>
+                    <option value="player">
+                      {' '}
+                      {formatMessage({ id: 'NewGame.player' })}{' '}
+                    </option>
+                    <option value="IA_easy">
+                      {' '}
+                      {formatMessage({ id: 'NewGame.IA_easy' })}{' '}
+                    </option>
+                    <option value="IA_normal">
+                      {' '}
+                      {formatMessage({ id: 'NewGame.IA_normal' })}{' '}
+                    </option>
+                    <option value="none">
+                      {' '}
+                      {formatMessage({ id: 'NewGame.none' })}{' '}
+                    </option>
                   </select>
                 </form>
               </td>

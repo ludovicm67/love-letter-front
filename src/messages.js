@@ -75,7 +75,7 @@ export default {
       backToMenu: 'Retour au menu',
     },
     Game: {
-      wonGames: ' manche(s) gagnée(s)'
+      wonGames: ' manche(s) gagnée(s)',
     },
   },
   en: {
@@ -121,7 +121,7 @@ export default {
       backToMenu: 'Back to menu',
       startLink: 'Play',
       player1: 'Player 1',
-      player2: 'Player 2', 
+      player2: 'Player 2',
       player3: 'Player 3',
       player4: 'Player 4',
       player: 'Player',
@@ -154,7 +154,7 @@ export default {
       backToMenu: 'Back to menu',
     },
     Game: {
-      wonGames: ' won game(s)'
+      wonGames: ' won game(s)',
     },
   },
 };

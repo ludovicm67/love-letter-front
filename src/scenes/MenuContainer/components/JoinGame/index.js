@@ -123,13 +123,17 @@ export default class JoinGame extends Component {
         marginLeft: '5vh',
         padding: '5vh',
       },
+
+      hide: {
+        display: 'none',
+      },
     };
     const games = this.state.games.map(game => {
       if (
         game.creator.name !== localStorage.name &&
         game.slots.indexOf(0) === -1
       )
-        return '';
+        return <tr style={joinGameStyle.hide} key={Math.random() * 4200} />;
       let action;
       if (game.creator.name === localStorage.name) {
         action = (
@@ -150,21 +154,79 @@ export default class JoinGame extends Component {
           </button>
         );
       }
+
+      // players
+      let player1 = game.players[0].name;
+      let player2;
+      let player3;
+      let player4;
+
+      // player2
+      switch (game.slots[0]) {
+        case -1:
+          player2 = 'X';
+          break;
+        case -2:
+        case 0:
+          player2 = game.players.length > 1 ? game.players[1].name : '';
+          break;
+        case 1:
+          player2 = 'IA';
+          break;
+        case 2:
+          player2 = 'IA++';
+          break;
+        default:
+          player2 = '';
+      }
+
+      // player3
+      switch (game.slots[1]) {
+        case -1:
+          player3 = 'X';
+          break;
+        case -2:
+        case 0:
+          player3 = game.players.length > 2 ? game.players[2].name : '';
+          break;
+        case 1:
+          player3 = 'IA';
+          break;
+        case 2:
+          player3 = 'IA++';
+          break;
+        default:
+          player3 = '';
+      }
+
+      // player4
+      switch (game.slots[2]) {
+        case -1:
+          player4 = 'X';
+          break;
+        case -2:
+        case 0:
+          player4 = game.players.length > 3 ? game.players[3].name : '';
+          break;
+        case 1:
+          player4 = 'IA';
+          break;
+        case 2:
+          player4 = 'IA++';
+          break;
+        default:
+          player4 = '';
+      }
+
       return (
         <tr key={game.id}>
           <td style={joinGameStyle.cellule}>
             <FormattedMessage id="JoinGame.salon" /> {game.creator.name}
           </td>
-          <td style={joinGameStyle.cellule}>{game.players[0].name}</td>
-          <td style={joinGameStyle.cellule}>
-            {game.players.length > 1 ? game.players[1].name : ''}
-          </td>
-          <td style={joinGameStyle.cellule}>
-            {game.players.length > 2 ? game.players[2].name : ''}
-          </td>
-          <td style={joinGameStyle.cellule}>
-            {game.players.length > 3 ? game.players[3].name : ''}
-          </td>
+          <td style={joinGameStyle.cellule}>{player1}</td>
+          <td style={joinGameStyle.cellule}>{player2}</td>
+          <td style={joinGameStyle.cellule}>{player3}</td>
+          <td style={joinGameStyle.cellule}>{player4}</td>
           <td style={joinGameStyle.cellule}>{action}</td>
         </tr>
       );
@@ -185,20 +247,16 @@ export default class JoinGame extends Component {
               <tr>
                 <th style={joinGameStyle.cellule} />
                 <th style={joinGameStyle.cellule}>
-                  {' '}
-                  <FormattedMessage id="JoinGame.player1" />{' '}
+                  <FormattedMessage id="JoinGame.player1" />
                 </th>
                 <th style={joinGameStyle.cellule}>
-                  {' '}
-                  <FormattedMessage id="JoinGame.player2" />{' '}
+                  <FormattedMessage id="JoinGame.player2" />
                 </th>
                 <th style={joinGameStyle.cellule}>
-                  {' '}
-                  <FormattedMessage id="JoinGame.player3" />{' '}
+                  <FormattedMessage id="JoinGame.player3" />
                 </th>
                 <th style={joinGameStyle.cellule}>
-                  {' '}
-                  <FormattedMessage id="JoinGame.player4" />{' '}
+                  <FormattedMessage id="JoinGame.player4" />
                 </th>
                 <th style={joinGameStyle.cellule} />
               </tr>

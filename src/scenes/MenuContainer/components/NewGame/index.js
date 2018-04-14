@@ -1,10 +1,10 @@
 import axios from 'axios';
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
-import { FormattedMessage } from 'react-intl';
+import { FormattedMessage, injectIntl } from 'react-intl';
 import { API_URL, colors, echo } from '../../../../utils';
 
-export default class NewGame extends Component {
+export class NewGame extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -106,6 +106,8 @@ export default class NewGame extends Component {
       console.log(this.state.game.game_id);
       console.log(this.state.game.game_infos.players);
 
+      let { formatMessage } = this.props.intl;
+
     var newGameStyle = {
       fontSize: '1.8em',
       lineHeight: '1.5',
@@ -165,7 +167,7 @@ export default class NewGame extends Component {
         <table style={newGameStyle.table}>
           <tbody>
             <tr>
-              <td style={newGameStyle.cellule}> <FormattedMessage id="NewGame.player1" /> </td>
+              <td style={newGameStyle.cellule}><FormattedMessage id="NewGame.player1" /> </td>
               <td style={newGameStyle.cellule}>
                 {this.state.game.game_infos.creator.name}
               </td>
@@ -175,9 +177,9 @@ export default class NewGame extends Component {
               <td style={newGameStyle.cellule}>
                 <form>
                   <select style={newGameStyle.select}>
-                    <option value="player"> <FormattedMessage id="NewGame.player" /> </option>
-                    <option value="IA_easy"> <FormattedMessage id="NewGame.IA_easy" /> </option>
-                    <option value="IA_normal"> <FormattedMessage id="NewGame.IA_normal" /> </option>
+                    <option value="player"> {formatMessage({id: 'NewGame.player'})} </option>
+                    <option value="IA_easy"> {formatMessage({id: 'NewGame.IA_easy'})} </option>
+                    <option value="IA_normal"> {formatMessage({id: 'NewGame.IA_normal'})} </option>
                   </select>
                 </form>
               </td>
@@ -187,10 +189,10 @@ export default class NewGame extends Component {
               <td style={newGameStyle.cellule}>
                 <form>
                   <select style={newGameStyle.select}>
-                    <option value="player"> <FormattedMessage id="NewGame.player" /> </option>
-                    <option value="IA_easy"> <FormattedMessage id="NewGame.IA_easy" /> </option>
-                    <option value="IA_normal"> <FormattedMessage id="NewGame.IA_normal" /> </option>
-                    <option value="none"> <FormattedMessage id="NewGame.none" /> </option>
+                    <option value="player"> {formatMessage({id: 'NewGame.player'})} </option>
+                    <option value="IA_easy"> {formatMessage({id: 'NewGame.IA_easy'})} </option>
+                    <option value="IA_normal"> {formatMessage({id: 'NewGame.IA_normal'})} </option>
+                    <option value="none"> {formatMessage({id: 'NewGame.none'})} </option>
                   </select>
                 </form>
               </td>
@@ -200,10 +202,10 @@ export default class NewGame extends Component {
               <td style={newGameStyle.cellule}>
                 <form>
                   <select style={newGameStyle.select}>
-                    <option value="player"> <FormattedMessage id="NewGame.player" /> </option>
-                    <option value="IA_easy"> <FormattedMessage id="NewGame.IA_easy" /> </option>
-                    <option value="IA_normal"> <FormattedMessage id="NewGame.IA_normal" /> </option>
-                    <option value="none"> <FormattedMessage id="NewGame.none" /> </option>
+                    <option value="player"> {formatMessage({id: 'NewGame.player'})} </option>
+                    <option value="IA_easy"> {formatMessage({id: 'NewGame.IA_easy'})} </option>
+                    <option value="IA_normal"> {formatMessage({id: 'NewGame.IA_normal'})} </option>
+                    <option value="none"> {formatMessage({id: 'NewGame.none'})} </option>
                   </select>
                 </form>
               </td>
@@ -215,3 +217,5 @@ export default class NewGame extends Component {
     );
   }
 }
+
+export default injectIntl(NewGame);

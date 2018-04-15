@@ -2,31 +2,43 @@ import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import { FormattedMessage } from 'react-intl';
 import { colors } from '../../../../utils';
+import Radium from 'radium';
 
-export default class Histori extends Component {
+export class Histori extends Component {
   render() {
     var historyStyle = {
       fontSize: '1em',
       lineHeight: '1.5',
       textColor: colors.blackColor,
-      height: '55vh',
+      height: '100vh',
 
       title: {
         fontSize: '1.5em',
         textAlign: 'center',
       },
       p_style: {
+        '@media (max-width: 1200px)': {
+          width: '90vw',
+          margin: 'auto',
+        },
         textAlign: 'center',
       },
       image: {
-        widht: '100%',
-        height: '70vh',
-        marginLeft: '10vh',
+        height: '60vh',
+        marginRight: '5vw',
+        marginLeft: '5vw',
+        '@media (max-width: 1200px)': {
+          width: '90vw',
+        },
       },
       div_style: {
-        columnCount: '3',
-        columnWidht: '25vh',
-        columnGap: '5vh'
+        height: '60vh',
+        '@media (min-width: 1201px)': {
+          columnCount: '3',
+        },
+        '@media (max-width: 1200px)': {
+          overflowY: 'auto',
+        },
       }
     };
 
@@ -42,7 +54,7 @@ export default class Histori extends Component {
           <FormattedMessage id="Histori.backToMenu" />
         </Link>
         <div style={historyStyle.div_style}>
-        <img src={cardsPathPrincesse} style={historyStyle.image} alt="Princesse"></img>
+          <img src={cardsPathPrincesse} style={historyStyle.image} alt="Princesse"></img>
           <p style={historyStyle.p_style}>
             <FormattedMessage id="Histori.text.text1" /> <br></br>
             <FormattedMessage id="Histori.text.text2" /> <br></br>
@@ -59,3 +71,4 @@ export default class Histori extends Component {
     );
   }
 }
+export default Radium(Histori);

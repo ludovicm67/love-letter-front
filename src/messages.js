@@ -84,6 +84,8 @@ export default {
     },
     Game: {
       wonGames: ' manche(s) gagnée(s)',
+      playing: 'est en train de jouer',
+      me_playing: 'A toi de jouer !'
     },
   },
   en: {
@@ -171,6 +173,8 @@ export default {
     },
     Game: {
       wonGames: ' won game(s)',
+      playing: 'is playing...',
+      me_playing: 'Your turn!'
     },
   },
 };

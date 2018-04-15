@@ -16,8 +16,6 @@ if (appLocale !== 'en' && appLocale !== 'fr') {
 let imgPath = `images`;
 let cardsPath = `${imgPath}/cards/${cardsLocale}`;
 
-console.log(cardsPath);
-
 export default class Game extends Component {
   constructor(props) {
     super(props);
@@ -27,6 +25,8 @@ export default class Game extends Component {
         game_infos: { players: [] },
       },
     };
+
+    this.cardAction = this.cardAction.bind(this);
 
     // if got game props from other location
     if (props.location.state && props.location.state.game) {
@@ -49,17 +49,45 @@ export default class Game extends Component {
     echo.leave(`channel-game:${this.state.game.game_id}`);
   }
 
-  playGame(state, card) {
+  playGame(state, action, card_name, card_value, chosen_player, chosen_card) {
     const userToken = localStorage.getItem('token');
     const data = new FormData();
+
+    if(action !== 'pick_card' && action !== 'play_card')
+        console.error("action invalide : " + action);
+
+    console.log({
+      'game_id': state.game.game_id,
+      'action': action,
+      'played_card': card_value,
+      'choosen_player': chosen_player,
+      'choosen_card_name': chosen_card
+    });
+
     data.append('game_id', state.game.game_id);
-    data.append('action', 'play_card');
-    data.append('card', card);
+    data.append('action', action);
+    data.append('played_card', card_value);
+    data.append('choosen_player', chosen_player);
+    data.append('choosen_card_name', chosen_card);
+
     axios.post(`${API_URL}/game/play?token=${userToken}`, data, {
       headers: {
         'Content-Type': 'application/x-www-form-urlencoded',
       },
     });
+  }
+
+  cardAction(card_name, card_value) {
+      //demander le player
+      let chosen_player = null; //indice
+      let chosen_card = null; //nom
+
+      //regarder ce que les cartes demandent dans :
+      /***choose_players
+      choose_players_or_me
+      choose_card_name*/
+
+      this.playGame(this.state, 'play_card', card_name, card_value, chosen_player, chosen_card);
   }
 
   handleCardName(cardName) {
@@ -163,40 +191,20 @@ export default class Game extends Component {
 
     let { game_infos } = this.state.game;
     let pioche = [];
-    let players = [];
-    let my_id;
+    let players = game_infos.players;
 
-    //get id of the current player
-    for (let i = 0; i < game_infos.players.length; i++) {
-      if (game_infos.players[i].name === localStorage.getItem('name')) {
-        my_id = i;
-      }
-    }
+    // get an array with the current player as the first item
+    const myIndexInArray = game_infos.players.map(p => p.name).indexOf(localStorage.getItem('name'));
 
-    if (my_id === 'undefined') {
-      console.error('the current player is missing in the game');
-    } else {
-      //get an array of players with the first one being the current player
-      players = game_infos.players;
+    let i = myIndexInArray;
+    while (i-- > 0) players.push(players.shift());
 
-      while (my_id !== 0) {
-        console.log(players);
+    let nbPlayers = players.length;
 
-        var tmp = players[my_id - 1];
-        players[my_id - 1] = players[my_id];
-        players[my_id] = tmp;
-
-        my_id -= 1;
-      }
-    }
-
-    console.log(this.state.game.game_infos);
-    console.log(players[0].hand);
-    console.log(game_infos.players);
-    console.log(players);
+    let current_player = (((game_infos.current_player + myIndexInArray) % nbPlayers) + nbPlayers) % nbPlayers;
 
     //render
-    for (var i = 0; i < 5; i++) {
+    for (let i = 0; i < 5; i++) {
       pioche.push(
         <img
           key={`pioche${i}`}
@@ -223,6 +231,9 @@ export default class Game extends Component {
                   {players[2].winning_rounds_count}
                   <FormattedMessage id="Game.wonGames" />
                 </p>
+                {current_player === 2 && (
+                    <FormattedMessage id='Game.playing' />
+                )}
               </div>
 
               <div style={gameStyle.card.left}>
@@ -247,6 +258,11 @@ export default class Game extends Component {
                   {players[3].winning_rounds_count}
                   <FormattedMessage id="Game.wonGames" />
                 </p>
+
+                {current_player === 3 && (
+                    <FormattedMessage id='Game.playing' />
+                )}
+
               </div>
             </div>
           )}
@@ -261,6 +277,11 @@ export default class Game extends Component {
                   {players[1].winning_rounds_count}
                   <FormattedMessage id="Game.wonGames" />
                 </p>
+
+                {current_player === 1 && (
+                    <FormattedMessage id='Game.playing' />
+                )}
+
               </div>
 
               <div style={gameStyle.card.top}>
@@ -281,14 +302,15 @@ export default class Game extends Component {
             <div style={gameStyle.player.column.me}>
               <div>
                 {//@TODO FormattedMessage 'alt'
-                players[0].hand.map(hand => (
+                players[0].hand.map(card => (
                   <img
-                    key={0 + hand.id}
+                    key={0 + card.id}
                     style={gameStyle.card.me}
                     src={`${cardsPath}/${this.handleCardName(
-                      hand.card_name
+                      card.card_name
                     )}.svg`}
                     alt="main joueur 0"
+                    onClick={this.cardAction(card.card_name, card.value)}
                   />
                 ))}
               </div>
@@ -296,23 +318,11 @@ export default class Game extends Component {
           )}
         </div>
 
-        {/*<button onClick={this.playGame.bind(this, this.state, 1)}>
-          Card 1
-        </button>
-        <button onClick={this.playGame.bind(this, this.state, 2)}>
-          Card 2
-        </button>
-        <button onClick={this.playGame.bind(this, this.state, 3)}>
-          Card 3
-        </button>
-        <button onClick={this.playGame.bind(this, this.state, 4)}>
-          Card 4
-        </button>
-        <button onClick={this.playGame.bind(this, this.state, 5)}>
-          Card 5
-        </button>*/}
-
-        <div style={gameStyle.piocheContainer}>{pioche}</div>
+        <div
+        style={gameStyle.piocheContainer}
+        onClick={this.playGame.bind(this, this.state, 'pick_card', null, null, null)}>
+            {pioche}
+        </div>
 
         <div style={gameStyle.my_infos}>
           <p style={gameStyle.player.name}>{players[0].name}</p>
@@ -320,6 +330,9 @@ export default class Game extends Component {
             {players[0].winning_rounds_count}
             <FormattedMessage id="Game.wonGames" />
           </p>
+          {current_player === 0 && (
+              <FormattedMessage id='Game.me_playing' />
+          )}
         </div>
       </div>
     );

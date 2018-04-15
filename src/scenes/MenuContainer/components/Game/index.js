@@ -1,8 +1,8 @@
 import axios from 'axios';
 import React, { Component } from 'react';
-// import { Link } from 'react-router-dom';
 import { FormattedMessage } from 'react-intl';
-import { API_URL, echo, colors } from '../../../../utils';
+import { API_URL, echo } from '../../../../utils';
+import { gameStyle } from './style';
 
 import { appLocale } from '../../../../';
 let cardsLocale;
@@ -78,16 +78,16 @@ export default class Game extends Component {
   }
 
   cardAction(card_name, card_value) {
-      //demander le player
-      let chosen_player = null; //indice
-      let chosen_card = null; //nom
-
-      //regarder ce que les cartes demandent dans :
-      /***choose_players
-      choose_players_or_me
-      choose_card_name*/
-
-      this.playGame(this.state, 'play_card', card_name, card_value, chosen_player, chosen_card);
+      // //demander le player
+      // let chosen_player = null; //indice
+      // let chosen_card = null; //nom
+      //
+      // //regarder ce que les cartes demandent dans :
+      // /***choose_players
+      // choose_players_or_me
+      // choose_card_name*/
+      //
+      // this.playGame(this.state, 'play_card', card_name, card_value, chosen_player, chosen_card);
   }
 
   handleCardName(cardName) {
@@ -104,94 +104,11 @@ export default class Game extends Component {
   }
 
   render() {
-    var gameStyle = {
-      piocheContainer: {
-        position: 'fixed',
-        bottom: '240px', //space + cardHeight
-        left: '20px',
-      },
-
-      my_infos: {
-        backgroundColor: colors.darkMainColor,
-        color: colors.whiteColor,
-        position: 'fixed',
-        bottom: 0,
-        right: 0,
-        padding: '40px',
-        borderRadius: '10px 0 0 0',
-      },
-
-      card: {
-        width: '140px',
-        margin: '5px',
-
-        left: {
-          position: 'relative',
-          left: '-70px',
-          transform: 'rotate(90deg)',
-        },
-        me: {
-          width: '160px',
-          position: 'relative',
-          bottom: '-15vh',
-        },
-
-        pioche: {
-          position: 'absolute',
-        },
-      },
-      player: {
-        name: {
-          padding: '10px',
-          fontSize: '2em',
-          fontWeight: 400,
-        },
-        score: {},
-
-        row: {
-          position: 'absolute',
-          top: '20%',
-          display: 'flex',
-          flexDirection: 'row',
-          justifyContent: 'space-between',
-          width: '100%',
-          left: {
-            // alignSelf: 'flex-end'
-            text: {},
-          },
-          right: {
-            text: {},
-          },
-        },
-        column: {
-          position: 'absolute',
-          display: 'flex',
-          flexDirection: 'column',
-          justifyContent: 'space-between',
-          height: '70vh',
-          width: '100%',
-          alignItems: 'center',
-
-          me: {
-            display: 'flex',
-            flexDirection: 'row',
-            text: {},
-          },
-          top: {
-            display: 'flex',
-            flexDirection: 'row',
-            text: {
-              position: 'absolute',
-              left: '20vw',
-            },
-          },
-        },
-      },
-    };
-
     let { game_infos } = this.state.game;
-    let pioche = [];
     let players = game_infos.players;
+    let pioche = [];
+
+    console.log(this.state.game);
 
     // get an array with the current player as the first item
     const myIndexInArray = game_infos.players.map(p => p.name).indexOf(localStorage.getItem('name'));
@@ -240,7 +157,7 @@ export default class Game extends Component {
                 {//@TODO FormattedMessage 'alt'
                 players[2].hand.map(hand => (
                   <img
-                    key={2 + hand.id}
+                    key={2 + Math.random()}
                     style={gameStyle.card}
                     src={`${imgPath}/cards/back.svg`}
                     alt="main joueur 2"
@@ -288,7 +205,7 @@ export default class Game extends Component {
                 {//@TODO FormattedMessage 'alt'
                 players[1].hand.map(hand => (
                   <img
-                    key={1 + hand.id}
+                    key={1 + Math.random()}
                     style={gameStyle.card}
                     src={`${imgPath}/cards/back.svg`}
                     alt="main joueur 1"
@@ -304,7 +221,7 @@ export default class Game extends Component {
                 {//@TODO FormattedMessage 'alt'
                 players[0].hand.map(card => (
                   <img
-                    key={0 + card.id}
+                    key={0 + Math.random()}
                     style={gameStyle.card.me}
                     src={`${cardsPath}/${this.handleCardName(
                       card.card_name

@@ -70,9 +70,17 @@ export default {
       title: 'Aide',
       backToMenu: 'Retour au menu',
     },
-    Options: {
-      title: 'Options',
+    Histori: {
+      title: 'Une petite histoire',
       backToMenu: 'Retour au menu',
+      text:{
+        text1: "Dans un autre monde, à une autre époque, il était une fois un royaume dans lequel vivait une princesse.",
+        text2: "C'était une bonne âme, gentille avec toutes et tous, son royaume l’aimait.",
+        text3: "Deux jeunes hommes étaient tombés éperdument amoureux de la princesse, mais ils étaient incapables de rentrer dans le château.",
+        text4: "La seule chose qu'ils pouvaient faire, c'était envoyer des lettres d'amour.",
+        text5: "A leur grand désarroi, ils se rendirent compte que n'importe qui pouvait envoyer des lettres à la princesse.",
+        text6: "Ils décidèrent donc de partir à la recherche d'alliés parmi les servants du château, pour que leurs lettres arrivent personnellement à la princesse.",
+      }
     },
     Game: {
       wonGames: ' manche(s) gagnée(s)',
@@ -149,9 +157,17 @@ export default {
       title: 'Help',
       backToMenu: 'Back to menu',
     },
-    Options: {
-      title: 'Options',
+    Histori: {
+      title: 'History',
       backToMenu: 'Back to menu',
+      text: {
+        text1: "In another world, at another time, there was once a kingdom in which lived a princess.",
+        text2: "She was a good soul, kind to everyone, his kingdom loved him.",
+        text3: "Two young men had fallen madly in love with the princess, but they were unable to enter the castle.",
+        text4: "The only thing they could do was send love letters.",
+        text5: "To their dismay, they realized that anyone could send letters to the princess.",
+        text6: "They decided to go in search of allies among the servants of the castle, so that their letters arrive personally to the princess.",
+      }
     },
     Game: {
       wonGames: ' won game(s)',

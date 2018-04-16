@@ -111,7 +111,6 @@ export default class Game extends Component {
     let { game_infos } = this.state.game;
     let players = game_infos.players;
     let pioche = [];
-    let piocheStyle;
     let myCardsStyle;
     let myTurn;
 

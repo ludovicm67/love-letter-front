@@ -26,8 +26,6 @@ export default class Game extends Component {
       },
     };
 
-    this.cardAction = this.cardAction.bind(this);
-
     // if got game props from other location
     if (props.location.state && props.location.state.game) {
       this.state.game = props.location.state.game;
@@ -50,7 +48,25 @@ export default class Game extends Component {
     echo.leave(`channel-game:${this.state.game.game_id}`);
   }
 
-  playGame(state, action, card_name, card_value, chosen_player, chosen_card) {
+  cardAction(card) {
+    console.log(card);
+
+    let chosen_player = null;
+    let chosen_card = null;
+
+    if(card.choose_card_name) {
+      //donner une valeur à chosen_card
+    }
+
+    if(card.choose_players) {
+      //donner une valeur à chosen_player
+    }
+
+    this.playGame(this.state, 'play_card', card.card_value, chosen_player, chosen_card);
+  }
+
+
+  playGame(state, action, played_card_value, chosen_player, chosen_card) {
     const userToken = localStorage.getItem('token');
     const data = new FormData();
 
@@ -60,14 +76,14 @@ export default class Game extends Component {
     console.log({
       game_id: state.game.game_id,
       action: action,
-      played_card: card_value,
+      played_card: played_card_value,
       choosen_player: chosen_player,
       choosen_card_name: chosen_card,
     });
 
     data.append('game_id', state.game.game_id);
     data.append('action', action);
-    data.append('played_card', card_value);
+    data.append('played_card', played_card_value);
     data.append('choosen_player', chosen_player);
     data.append('choosen_card_name', chosen_card);
 
@@ -76,19 +92,6 @@ export default class Game extends Component {
         'Content-Type': 'application/x-www-form-urlencoded',
       },
     });
-  }
-
-  cardAction(card_name, card_value) {
-    // //demander le player
-    // let chosen_player = null; //indice
-    // let chosen_card = null; //nom
-    //
-    // //regarder ce que les cartes demandent dans :
-    // /***choose_players
-    // choose_players_or_me
-    // choose_card_name*/
-    //
-    // this.playGame(this.state, 'play_card', card_name, card_value, chosen_player, chosen_card);
   }
 
   handleCardName(cardName) {
@@ -108,6 +111,8 @@ export default class Game extends Component {
     let { game_infos } = this.state.game;
     let players = game_infos.players;
     let pioche = [];
+    let myCardsStyle;
+    let myTurn;
 
     console.log(this.state.game);
 
@@ -125,17 +130,31 @@ export default class Game extends Component {
       ((game_infos.current_player + myIndexInArray) % nbPlayers + nbPlayers) %
       nbPlayers;
 
+    myTurn = (game_infos.current_player === current_player);
+
+    if(players[current_player].hand.length === 2
+    && myTurn) {
+      myCardsStyle = {...gameStyle.card.me, ...gameStyle.card.light};
+    } else {
+      myCardsStyle = gameStyle.card.me;
+    }
+
     //render
     for (let i = 0; i < 5; i++) {
+      let style = { ...gameStyle.card, ...gameStyle.card.pioche,
+          left: `-${i * 2}px`, top: `-${i}px`};
+
+      //if time to use the pile/pioche, set a halo on the last card
+      if((i === 4)
+        && (players[current_player].hand.length === 1)
+        && myTurn) {
+        style = {...style, ...gameStyle.card.light};
+      }
+
       pioche.push(
         <img
           key={`pioche${i}`}
-          style={{
-            ...gameStyle.card,
-            ...gameStyle.card.pioche,
-            marginLeft: `-${i * 2}px`,
-            marginTop: `-${i}px`,
-          }}
+          style={style}
           src={`${imgPath}/cards/back.svg`}
           alt="pioche"
         />
@@ -219,12 +238,12 @@ export default class Game extends Component {
                 players[0].hand.map(card => (
                   <img
                     key={0 + Math.random()}
-                    style={gameStyle.card.me}
+                    style={myCardsStyle}
                     src={`${cardsPath}/${this.handleCardName(
                       card.card_name
                     )}.svg`}
                     alt="main joueur 0"
-                    onClick={this.cardAction(card.card_name, card.value)}
+                    onClick={this.cardAction.bind(this, card)}
                   />
                 ))}
               </div>

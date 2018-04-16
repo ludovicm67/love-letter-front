@@ -13,7 +13,7 @@ import NewGame from './components/NewGame/';
 import JoinGame from './components/JoinGame/';
 import Rankings from './components/Rankings/';
 import Help from './components/Help/';
-import Options from './components/Options/';
+import Histori from './components/Histori/';
 import Game from './components/Game/';
 import Credits from './components/Credits/';
 
@@ -86,7 +86,7 @@ class MenuContainer extends Component {
             <Route exact path="/rejoindre" component={JoinGame} />
             <Route exact path="/classement" component={Rankings} />
             <Route exact path="/aide" component={Help} />
-            <Route exact path="/options" component={Options} />
+            <Route exact path="/histoire" component={Histori} />
             <Route exact path="/jeu" component={Game} />
             <Route exact path="/credits" component={Credits} />
           </div>

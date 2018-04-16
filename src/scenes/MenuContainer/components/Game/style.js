@@ -21,6 +21,11 @@ export const gameStyle = {
     width: '140px',
     margin: '5px',
 
+    light: {
+      borderRadius: '15px',
+      boxShadow: `10px 10px 10px ${colors.whiteColor}`
+    },
+
     left: {
       position: 'relative',
       left: '-70px',

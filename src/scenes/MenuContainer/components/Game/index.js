@@ -112,8 +112,8 @@ export default class Game extends Component {
     let players = game_infos.players;
     let pioche = [];
     let piocheStyle;
-    //illumine l'endroit où le joueur doit cliquer par la suite
-    let cardsLight = false;
+    let myCardsStyle;
+    let myTurn;
 
     console.log(this.state.game);
 
@@ -131,10 +131,13 @@ export default class Game extends Component {
       ((game_infos.current_player + myIndexInArray) % nbPlayers + nbPlayers) %
       nbPlayers;
 
-    if(players[current_player].hand.length === 2) {
-      piocheStyle = gameStyle.piocheContainer;
+    myTurn = (game_infos.current_player === current_player);
 
-      cardsLight = true;
+    if(players[current_player].hand.length === 2
+    && myTurn) {
+      myCardsStyle = {...gameStyle.card.me, ...gameStyle.card.light};
+    } else {
+      myCardsStyle = gameStyle.card.me;
     }
 
     //render
@@ -143,7 +146,9 @@ export default class Game extends Component {
           left: `-${i * 2}px`, top: `-${i}px`};
 
       //if time to use the pile/pioche, set a halo on the last card
-      if(i === 4 && players[current_player].hand.length === 1) {
+      if((i === 4)
+        && (players[current_player].hand.length === 1)
+        && myTurn) {
         style = {...style, ...gameStyle.card.light};
       }
 
@@ -234,7 +239,7 @@ export default class Game extends Component {
                 players[0].hand.map(card => (
                   <img
                     key={0 + Math.random()}
-                    style={gameStyle.card.me}
+                    style={myCardsStyle}
                     src={`${cardsPath}/${this.handleCardName(
                       card.card_name
                     )}.svg`}

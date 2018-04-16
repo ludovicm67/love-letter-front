@@ -103,7 +103,8 @@ export class NewGame extends Component {
   }
 
   componentWillUnmount() {
-    echo.leave(`channel-game:${this.state.game.game_id}`);
+    // @FIXME: uncomment the following line without leaving the channel after
+    // echo.leave(`channel-game:${this.state.game.game_id}`);
   }
 
   startGame(state) {

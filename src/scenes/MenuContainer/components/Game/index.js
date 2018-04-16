@@ -38,6 +38,7 @@ export default class Game extends Component {
       echo
         .channel(`channel-game:${this.state.game.game_id}`)
         .listen('UpdateGameEvent', e => {
+          console.log('got UpdateGameEvent', e);
           this.setState({
             game: e.content.game,
           });

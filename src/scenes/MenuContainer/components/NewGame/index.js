@@ -39,8 +39,17 @@ export class NewGame extends Component {
     // create a game if not joining one
     if (this.state.game.game_id === '') {
       const userToken = localStorage.getItem('token');
+
+      const data = new FormData();
+      data.append('slot2', 0); // player2 is human
+      data.append('slot3', -1); // closed slot
+      data.append('slot4', -1); // closed slot
       axios
-        .get(`${API_URL}/game/create?token=${userToken}`)
+        .post(`${API_URL}/game/create?token=${userToken}`, data, {
+          headers: {
+            'Content-Type': 'application/x-www-form-urlencoded',
+          },
+        })
         .then(response => response.data)
         .then(json => {
           if (!json.success) {
@@ -109,16 +118,16 @@ export class NewGame extends Component {
   }
 
   change(e) {
-    const userToken = localStorage.getItem('token');
-    const data = new FormData();
-    data.append('game_id', e.target.dataset.gameid);
-    data.append('slot', e.target.dataset.slot);
-    data.append('value', e.target.value);
-    axios.post(`${API_URL}/game/slots?token=${userToken}`, data, {
-      headers: {
-        'Content-Type': 'application/x-www-form-urlencoded',
-      },
-    });
+    // const userToken = localStorage.getItem('token');
+    // const data = new FormData();
+    // data.append('game_id', e.target.dataset.gameid);
+    // data.append('slot', e.target.dataset.slot);
+    // data.append('value', e.target.value);
+    // axios.post(`${API_URL}/game/slots?token=${userToken}`, data, {
+    //   headers: {
+    //     'Content-Type': 'application/x-www-form-urlencoded',
+    //   },
+    // });
   }
 
   render() {

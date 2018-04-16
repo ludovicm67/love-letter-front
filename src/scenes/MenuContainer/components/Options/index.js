@@ -39,7 +39,7 @@ export class Histori extends Component {
         '@media (max-width: 1200px)': {
           overflowY: 'auto',
         },
-      }
+      },
     };
 
     let cardsPathPrincesse = `images/Princesse.svg`;
@@ -54,18 +54,22 @@ export class Histori extends Component {
           <FormattedMessage id="Histori.backToMenu" />
         </Link>
         <div style={historyStyle.div_style}>
-          <img src={cardsPathPrincesse} style={historyStyle.image} alt="Princesse"></img>
+          <img
+            src={cardsPathPrincesse}
+            style={historyStyle.image}
+            alt="Princesse"
+          />
           <p style={historyStyle.p_style}>
-            <FormattedMessage id="Histori.text.text1" /> <br></br>
-            <FormattedMessage id="Histori.text.text2" /> <br></br>
-            <br></br>
-            <FormattedMessage id="Histori.text.text3" /> <br></br>
-            <FormattedMessage id="Histori.text.text4" /> <br></br>
-            <br></br>
-            <FormattedMessage id="Histori.text.text5" /> <br></br>
-            <FormattedMessage id="Histori.text.text6" /> <br></br>
+            <FormattedMessage id="Histori.text.text1" /> <br />
+            <FormattedMessage id="Histori.text.text2" /> <br />
+            <br />
+            <FormattedMessage id="Histori.text.text3" /> <br />
+            <FormattedMessage id="Histori.text.text4" /> <br />
+            <br />
+            <FormattedMessage id="Histori.text.text5" /> <br />
+            <FormattedMessage id="Histori.text.text6" /> <br />
           </p>
-          <img src={cardsPathPrince} style={historyStyle.image} alt="Prince"></img>
+          <img src={cardsPathPrince} style={historyStyle.image} alt="Prince" />
         </div>
       </div>
     );

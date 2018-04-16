@@ -63,8 +63,8 @@ class MainMenu extends Component {
           <span style={menuStyle.icon} className="fa fa-question" />
         </Link>
 
-        <Link to="/options">
-          <span style={menuStyle.icon} className="fa fa-cog" />
+        <Link to="/histoire">
+          <span style={menuStyle.icon} className="fa fa-book" />
         </Link>
 
         <div style={menuStyle.text}>

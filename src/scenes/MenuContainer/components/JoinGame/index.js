@@ -130,8 +130,10 @@ export default class JoinGame extends Component {
     };
     const games = this.state.games.map(game => {
       if (
-        game.creator.name !== localStorage.name &&
-        (!game.hasOwnProperty('slots') || game.slots.indexOf(0) === -1)
+        !game.hasOwnProperty('slots') ||
+        !Array.isArray(game.slots) ||
+        (game.creator.name !== localStorage.name &&
+          game.slots.indexOf(0) === -1)
       )
         return <tr style={joinGameStyle.hide} key={Math.random() * 4200} />;
       let action;

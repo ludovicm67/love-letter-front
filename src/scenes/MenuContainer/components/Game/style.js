@@ -23,7 +23,7 @@ export const gameStyle = {
 
     light: {
       borderRadius: '15px',
-      boxShadow: `10px 10px 10px ${colors.whiteColor}`
+      boxShadow: `10px 10px 10px ${colors.whiteColor}`,
     },
 
     left: {

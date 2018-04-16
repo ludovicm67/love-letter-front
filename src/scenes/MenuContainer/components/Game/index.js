@@ -54,17 +54,22 @@ export default class Game extends Component {
     let chosen_player = null;
     let chosen_card = null;
 
-    if(card.choose_card_name) {
+    if (card.choose_card_name) {
       //donner une valeur à chosen_card
     }
 
-    if(card.choose_players) {
+    if (card.choose_players) {
       //donner une valeur à chosen_player
     }
 
-    this.playGame(this.state, 'play_card', card.card_value, chosen_player, chosen_card);
+    this.playGame(
+      this.state,
+      'play_card',
+      card.card_value,
+      chosen_player,
+      chosen_card
+    );
   }
-
 
   playGame(state, action, played_card_value, chosen_player, chosen_card) {
     const userToken = localStorage.getItem('token');
@@ -130,25 +135,26 @@ export default class Game extends Component {
       ((game_infos.current_player + myIndexInArray) % nbPlayers + nbPlayers) %
       nbPlayers;
 
-    myTurn = (game_infos.current_player === current_player);
+    myTurn = game_infos.current_player === current_player;
 
-    if(players[current_player].hand.length === 2
-    && myTurn) {
-      myCardsStyle = {...gameStyle.card.me, ...gameStyle.card.light};
+    if (players[current_player].hand.length === 2 && myTurn) {
+      myCardsStyle = { ...gameStyle.card.me, ...gameStyle.card.light };
     } else {
       myCardsStyle = gameStyle.card.me;
     }
 
     //render
     for (let i = 0; i < 5; i++) {
-      let style = { ...gameStyle.card, ...gameStyle.card.pioche,
-          left: `-${i * 2}px`, top: `-${i}px`};
+      let style = {
+        ...gameStyle.card,
+        ...gameStyle.card.pioche,
+        left: `-${i * 2}px`,
+        top: `-${i}px`,
+      };
 
       //if time to use the pile/pioche, set a halo on the last card
-      if((i === 4)
-        && (players[current_player].hand.length === 1)
-        && myTurn) {
-        style = {...style, ...gameStyle.card.light};
+      if (i === 4 && players[current_player].hand.length === 1 && myTurn) {
+        style = { ...style, ...gameStyle.card.light };
       }
 
       pioche.push(

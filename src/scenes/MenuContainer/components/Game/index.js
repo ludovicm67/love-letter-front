@@ -131,13 +131,20 @@ export default class Game extends Component {
 
     let nbPlayers = players.length;
 
+    if(nbPlayers === 0) {
+      console.error("Il n'y a plus aucun joueur ici");
+      return (
+        <p>Houston, nous avons un problème. (Aucun joueur présent)</p>
+      );
+    }
+
     let current_player =
       ((game_infos.current_player + myIndexInArray) % nbPlayers + nbPlayers) %
       nbPlayers;
 
-    myTurn = game_infos.current_player === current_player;
+    myTurn = (current_player === 0);
 
-    if (players[current_player].hand.length === 2 && myTurn) {
+    if (players[0].hand.length === 2 && myTurn) {
       myCardsStyle = { ...gameStyle.card.me, ...gameStyle.card.light };
     } else {
       myCardsStyle = gameStyle.card.me;
@@ -153,7 +160,7 @@ export default class Game extends Component {
       };
 
       //if time to use the pile/pioche, set a halo on the last card
-      if (i === 4 && players[current_player].hand.length === 1 && myTurn) {
+      if (i === 4 && players[0].hand.length === 1 && myTurn) {
         style = { ...style, ...gameStyle.card.light };
       }
 

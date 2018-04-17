@@ -21,8 +21,8 @@ export default class Game extends Component {
     super(props);
     this.state = {
       game: {
-        game_id: '',
-        game_infos: { players: [] },
+        id: '',
+        players: [],
       },
     };
 
@@ -32,9 +32,9 @@ export default class Game extends Component {
     }
 
     // listen to game changes
-    if (this.state.game.game_id !== '') {
+    if (this.state.game.id !== '') {
       echo
-        .channel(`channel-game:${this.state.game.game_id}`)
+        .channel(`channel-game:${this.state.game.id}`)
         .listen('UpdateGameEvent', e => {
           console.log('got UpdateGameEvent', e);
           this.setState({
@@ -45,7 +45,7 @@ export default class Game extends Component {
   }
 
   componentWillUnmount() {
-    echo.leave(`channel-game:${this.state.game.game_id}`);
+    echo.leave(`channel-game:${this.state.game.id}`);
   }
 
   cardAction(card) {
@@ -79,14 +79,14 @@ export default class Game extends Component {
       console.error('action invalide : ' + action);
 
     console.log({
-      game_id: state.game.game_id,
+      game_id: state.id,
       action: action,
       played_card: played_card_value,
       choosen_player: chosen_player,
       choosen_card_name: chosen_card,
     });
 
-    data.append('game_id', state.game.game_id);
+    data.append('game_id', state.id);
     data.append('action', action);
     data.append('played_card', played_card_value);
     data.append('choosen_player', chosen_player);
@@ -113,7 +113,7 @@ export default class Game extends Component {
   }
 
   render() {
-    let { game_infos } = this.state.game;
+    let game_infos = this.state.game;
     let players = game_infos.players;
     let pioche = [];
     let myCardsStyle;

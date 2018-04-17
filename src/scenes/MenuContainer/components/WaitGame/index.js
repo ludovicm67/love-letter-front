@@ -8,6 +8,7 @@ export class WaitGame extends Component {
     super(props);
     this.state = {
       game: {
+        id: '',
         creator: {
           name: '',
         },
@@ -17,6 +18,7 @@ export class WaitGame extends Component {
           },
         ],
         slots: [0, 0, 0],
+        started: false,
       },
     };
 
@@ -24,6 +26,35 @@ export class WaitGame extends Component {
     if (props.location.state && props.location.state.game) {
       this.state.game = props.location.state.game;
     }
+
+    // if no game informations, the redirect to the homepage
+    if (this.state.game.id === '') {
+      this.props.history.push({
+        pathname: '/',
+      });
+    }
+
+    // if game was already started
+    if (this.state.game.started) {
+      this.props.history.push({
+        pathname: '/jeu',
+        state: this.state,
+      });
+    }
+
+    echo
+      .channel(`channel-game:${this.state.game.id}`)
+      .listen('UpdateGameEvent', e => {
+        this.setState({
+          game: e.content.game,
+        });
+      })
+      .listen('StartGameEvent', e => {
+        this.props.history.push({
+          pathname: '/jeu',
+          state: e.content.game,
+        });
+      });
   }
 
   render() {

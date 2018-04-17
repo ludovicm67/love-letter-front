@@ -123,10 +123,21 @@ class NewGame extends Component {
 
   setWaiting(state, bool) {
     this.setState({isWaiting: bool});
-
-
+    let i;
+    let j;
+    while(i === "0")
+    {
+      i = 1;
+      for(j = 0; j<3; j++)
+      {
+        if(this.state.game.game_infos.slots[j] === "0")
+        {
+          i = 0;
+        }
+      }
+    }
     //si les conditions sont réunies
-    /*this.startGame.bind(this, state)*/
+    this.startGame.bind(this, state)
   }
 
   change(e) {

@@ -3,8 +3,10 @@ import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import { FormattedMessage, injectIntl } from 'react-intl';
 import { API_URL, colors, echo } from '../../../../utils';
+import Radium from 'radium'
 
-export class NewGame extends Component {
+
+class NewGame extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -23,6 +25,7 @@ export class NewGame extends Component {
         },
       },
       is_creator: false,
+      isWaiting: false
     };
 
     // if got game props from other location
@@ -118,6 +121,14 @@ export class NewGame extends Component {
     });
   }
 
+  setWaiting(state, bool) {
+    this.setState({isWaiting: bool});
+
+
+    //si les conditions sont réunies
+    /*this.startGame.bind(this, state)*/
+  }
+
   change(e) {
     // const userToken = localStorage.getItem('token');
     // const data = new FormData();
@@ -170,145 +181,256 @@ export class NewGame extends Component {
         fontSize: '0.8em',
         widht: '100%',
       },
+
+      icon: {
+        color: colors.whiteColor,
+        fontSize: '1.5em',
+        margin: '1em',
+        '@media (max-width: 768px)': {
+          margin: '0.5em',
+        },
+      }
     };
-    const launchBtn = this.state.is_creator ? (
+
+    const launchBtn = this.state.is_creator && !this.state.isWaiting ? (
       <button
-        onClick={this.startGame.bind(this, this.state)}
+        onClick={this.setWaiting.bind(this, this.state)}
         style={newGameStyle.buttonStyle}
       >
         <FormattedMessage id="NewGame.startLink" />
       </button>
     ) : (
-      ''
+      <span style={newGameStyle.icon} className="fa fa-spinner" />
     );
+
+    let player2;
+    let player3;
+    let player4;
+
+    // player2
+    switch (this.state.game.game_infos.slots[0]) {
+      case -1:
+        player2 = 'X';
+        break;
+      case -2:
+      case 0:
+        player2 = this.state.game.game_infos.players.length > 1 ? this.state.game.game_infos.players[1].name : '';
+        break;
+      case 1:
+        player2 = 'IA';
+        break;
+      case 2:
+        player2 = 'IA++';
+        break;
+      default:
+        player2 = '';
+    }
+
+    // player3
+    switch (this.state.game.game_infos.slots[1]) {
+      case -1:
+        player3 = 'X';
+        break;
+      case -2:
+      case 0:
+        player3 = this.state.game.game_infos.players.length > 2 ? this.state.game.game_infos.players[2].name : '';
+        break;
+      case 1:
+        player3 = 'IA';
+        break;
+      case 2:
+        player3 = 'IA++';
+        break;
+      default:
+        player3 = '';
+    }
+
+    // player4
+    switch (this.state.game.game_infos.slots[2]) {
+      case -1:
+        player4 = 'X';
+        break;
+      case -2:
+      case 0:
+        player4 = this.state.game.game_infos.players.length > 3 ? this.state.game.game_infos.players[3].name : '';
+        break;
+      case 1:
+        player4 = 'IA';
+        break;
+      case 2:
+        player4 = 'IA++';
+        break;
+      default:
+        player4 = '';
+    }
+
+    const select = this.state.is_creator && !this.state.isWaiting ? (
+      <table style={newGameStyle.table}>
+        <tbody>
+          <tr>
+            <td style={newGameStyle.cellule}>
+              <FormattedMessage id="NewGame.player1" />
+            </td>
+            <td style={newGameStyle.cellule}>
+              {this.state.game.game_infos.players[0].name}
+            </td>
+          </tr>
+          <tr>
+            <td style={newGameStyle.cellule}>
+              <FormattedMessage id="NewGame.player2" />
+            </td>
+            <td style={newGameStyle.cellule}>
+              <form>
+                <select
+                  style={newGameStyle.select}
+                  data-slot="0"
+                  data-gameid={this.state.game.game_id}
+                  value={
+                    this.state.game.game_infos.slots
+                      ? this.state.game.game_infos.slots[0]
+                      : 0
+                  }
+                  onChange={this.change}
+                >
+                  <option value="0">
+                    {this.state.game.game_infos.players.length > 1
+                      ? this.state.game.game_infos.players[1].name
+                      : formatMessage({ id: 'NewGame.player' })}
+                  </option>
+                  <option value="1">
+                    {formatMessage({ id: 'NewGame.IA_easy' })}
+                  </option>
+                  <option value="2">
+                    {formatMessage({ id: 'NewGame.IA_normal' })}
+                  </option>
+                </select>
+              </form>
+            </td>
+          </tr>
+          <tr>
+            <td style={newGameStyle.cellule}>
+              <FormattedMessage id="NewGame.player3" />
+            </td>
+            <td style={newGameStyle.cellule}>
+              <form>
+                <select
+                  style={newGameStyle.select}
+                  data-slot="1"
+                  data-gameid={this.state.game.game_id}
+                  value={
+                    this.state.game.game_infos.slots
+                      ? this.state.game.game_infos.slots[1]
+                      : 0
+                  }
+                  onChange={this.change}
+                >
+                  <option value="0">
+                    {this.state.game.game_infos.players.length > 2
+                      ? this.state.game.game_infos.players[2].name
+                      : formatMessage({ id: 'NewGame.player' })}
+                  </option>
+                  <option value="1">
+                    {formatMessage({ id: 'NewGame.IA_easy' })}
+                  </option>
+                  <option value="2">
+                    {formatMessage({ id: 'NewGame.IA_normal' })}
+                  </option>
+                  <option value="-1">
+                    {formatMessage({ id: 'NewGame.none' })}
+                  </option>
+                </select>
+              </form>
+            </td>
+          </tr>
+          <tr>
+            <td style={newGameStyle.cellule}>
+              <FormattedMessage id="NewGame.player4" />
+            </td>
+            <td style={newGameStyle.cellule}>
+              <form>
+                <select
+                  style={newGameStyle.select}
+                  data-slot="2"
+                  data-gameid={this.state.game.game_id}
+                  value={
+                    this.state.game.game_infos.slots
+                      ? this.state.game.game_infos.slots[2]
+                      : 0
+                  }
+                  onChange={this.change}
+                >
+                  <option value="0">
+                    {this.state.game.game_infos.players.length > 3
+                      ? this.state.game.game_infos.players[3].name
+                      : formatMessage({ id: 'NewGame.player' })}
+                  </option>
+                  <option value="1">
+                    {formatMessage({ id: 'NewGame.IA_easy' })}
+                  </option>
+                  <option value="2">
+                    {formatMessage({ id: 'NewGame.IA_normal' })}
+                  </option>
+                  <option value="-1">
+                    {formatMessage({ id: 'NewGame.none' })}
+                  </option>
+                </select>
+              </form>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    ) : (
+      <table style={newGameStyle.table}>
+        <tbody>
+          <tr>
+            <td style={newGameStyle.cellule}>
+              <FormattedMessage id="NewGame.player1" />
+            </td>
+            <td style={newGameStyle.cellule}>
+              {this.state.game.game_infos.players[0].name}
+            </td>
+          </tr>
+          <tr>
+            <td style={newGameStyle.cellule}>
+              <FormattedMessage id="NewGame.player2" />
+            </td>
+            <td style={newGameStyle.cellule}>
+              {player2}
+            </td>
+          </tr>
+          <tr>
+            <td style={newGameStyle.cellule}>
+              <FormattedMessage id="NewGame.player3" />
+            </td>
+            <td style={newGameStyle.cellule}>
+              {player3}
+            </td>
+          </tr>
+          <tr>
+            <td style={newGameStyle.cellule}>
+              <FormattedMessage id="NewGame.player4" />
+            </td>
+            <td style={newGameStyle.cellule}>
+              {player4}
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    )
+
     return (
       <div style={newGameStyle}>
         <h1 style={newGameStyle.title}>
           <FormattedMessage id="NewGame.title" />
         </h1>
-
         <Link to="/">
           <FormattedMessage id="NewGame.backToMenu" />
         </Link>
-
-        <table style={newGameStyle.table}>
-          <tbody>
-            <tr>
-              <td style={newGameStyle.cellule}>
-                <FormattedMessage id="NewGame.player1" />
-              </td>
-              <td style={newGameStyle.cellule}>
-                {this.state.game.game_infos.players[0].name}
-              </td>
-            </tr>
-            <tr>
-              <td style={newGameStyle.cellule}>
-                <FormattedMessage id="NewGame.player2" />
-              </td>
-              <td style={newGameStyle.cellule}>
-                <form>
-                  <select
-                    style={newGameStyle.select}
-                    data-slot="0"
-                    data-gameid={this.state.game.game_id}
-                    value={
-                      this.state.game.game_infos.slots
-                        ? this.state.game.game_infos.slots[0]
-                        : 0
-                    }
-                    onChange={this.change}
-                  >
-                    <option value="0">
-                      {this.state.game.game_infos.players.length > 1
-                        ? this.state.game.game_infos.players[1].name
-                        : formatMessage({ id: 'NewGame.player' })}
-                    </option>
-                    <option value="1">
-                      {formatMessage({ id: 'NewGame.IA_easy' })}
-                    </option>
-                    <option value="2">
-                      {formatMessage({ id: 'NewGame.IA_normal' })}
-                    </option>
-                  </select>
-                </form>
-              </td>
-            </tr>
-            <tr>
-              <td style={newGameStyle.cellule}>
-                <FormattedMessage id="NewGame.player3" />
-              </td>
-              <td style={newGameStyle.cellule}>
-                <form>
-                  <select
-                    style={newGameStyle.select}
-                    data-slot="1"
-                    data-gameid={this.state.game.game_id}
-                    value={
-                      this.state.game.game_infos.slots
-                        ? this.state.game.game_infos.slots[1]
-                        : 0
-                    }
-                    onChange={this.change}
-                  >
-                    <option value="0">
-                      {this.state.game.game_infos.players.length > 2
-                        ? this.state.game.game_infos.players[2].name
-                        : formatMessage({ id: 'NewGame.player' })}
-                    </option>
-                    <option value="1">
-                      {formatMessage({ id: 'NewGame.IA_easy' })}
-                    </option>
-                    <option value="2">
-                      {formatMessage({ id: 'NewGame.IA_normal' })}
-                    </option>
-                    <option value="-1">
-                      {formatMessage({ id: 'NewGame.none' })}
-                    </option>
-                  </select>
-                </form>
-              </td>
-            </tr>
-            <tr>
-              <td style={newGameStyle.cellule}>
-                <FormattedMessage id="NewGame.player4" />
-              </td>
-              <td style={newGameStyle.cellule}>
-                <form>
-                  <select
-                    style={newGameStyle.select}
-                    data-slot="2"
-                    data-gameid={this.state.game.game_id}
-                    value={
-                      this.state.game.game_infos.slots
-                        ? this.state.game.game_infos.slots[2]
-                        : 0
-                    }
-                    onChange={this.change}
-                  >
-                    <option value="0">
-                      {this.state.game.game_infos.players.length > 3
-                        ? this.state.game.game_infos.players[3].name
-                        : formatMessage({ id: 'NewGame.player' })}
-                    </option>
-                    <option value="1">
-                      {formatMessage({ id: 'NewGame.IA_easy' })}
-                    </option>
-                    <option value="2">
-                      {formatMessage({ id: 'NewGame.IA_normal' })}
-                    </option>
-                    <option value="-1">
-                      {formatMessage({ id: 'NewGame.none' })}
-                    </option>
-                  </select>
-                </form>
-              </td>
-            </tr>
-          </tbody>
-        </table>
+        <p style={newGameStyle.center}>{select} </p>
         <p style={newGameStyle.center}>{launchBtn}</p>
       </div>
     );
   }
 }
 
-export default injectIntl(NewGame);
+export default Radium(injectIntl(NewGame));

@@ -24,7 +24,7 @@ export const gameStyle = {
     light: {
       borderRadius: '15px',
       boxShadow: `10px 10px 10px ${colors.whiteColor}`,
-      cursor: 'pointer'
+      cursor: 'pointer',
     },
 
     left: {

@@ -131,18 +131,16 @@ export default class Game extends Component {
 
     let nbPlayers = players.length;
 
-    if(nbPlayers === 0) {
+    if (nbPlayers === 0) {
       console.error("Il n'y a plus aucun joueur ici");
-      return (
-        <p>Houston, nous avons un problème. (Aucun joueur présent)</p>
-      );
+      return <p>Houston, nous avons un problème. (Aucun joueur présent)</p>;
     }
 
     let current_player =
       ((game_infos.current_player + myIndexInArray) % nbPlayers + nbPlayers) %
       nbPlayers;
 
-    myTurn = (current_player === 0);
+    myTurn = current_player === 0;
 
     if (players[0].hand.length === 2 && myTurn) {
       myCardsStyle = { ...gameStyle.card.me, ...gameStyle.card.light };

@@ -123,21 +123,6 @@ class NewGame extends Component {
 
   setWaiting(state, bool) {
     this.setState({isWaiting: bool});
-    let i;
-    let j;
-    while(i === "0")
-    {
-      i = 1;
-      for(j = 0; j<3; j++)
-      {
-        if(this.state.game.game_infos.slots[j] === "0")
-        {
-          i = 0;
-        }
-      }
-    }
-    //si les conditions sont réunies
-    this.startGame.bind(this, state)
   }
 
   change(e) {
@@ -197,7 +182,7 @@ class NewGame extends Component {
         color: colors.whiteColor,
         fontSize: '1.5em',
         margin: '1em',
-        '@media (max-width: 768px)': {
+        '@media (maxWidth: 768px)': {
           margin: '0.5em',
         },
       }

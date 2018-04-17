@@ -24,11 +24,29 @@ export class NewGame extends Component {
     data.append('slot2', this.state.slot2);
     data.append('slot3', this.state.slot3);
     data.append('slot4', this.state.slot4);
-    axios.post(`${API_URL}/game/create?token=${userToken}`, data, {
-      headers: {
-        'Content-Type': 'application/x-www-form-urlencoded',
-      },
-    });
+    axios
+      .post(`${API_URL}/game/create?token=${userToken}`, data, {
+        headers: {
+          'Content-Type': 'application/x-www-form-urlencoded',
+        },
+      })
+      .then(response => response.data)
+      .then(json => {
+        if (!json.success) {
+          throw new Error('unable to create game');
+        }
+        this.props.history.push({
+          pathname: '/attente',
+          state: {
+            game: json.data.game_infos,
+          },
+        });
+      })
+      .catch(() => {
+        console.error('unable to create game');
+        this.props.history.push('/login');
+        window.location.reload();
+      });
   }
 
   handleChange(e) {

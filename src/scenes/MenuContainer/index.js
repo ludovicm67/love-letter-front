@@ -10,6 +10,7 @@ import Radium from 'radium';
 
 import MainMenu from './components/MainMenu';
 import NewGame from './components/NewGame/';
+import WaitGame from './components/WaitGame/';
 import JoinGame from './components/JoinGame/';
 import Rankings from './components/Rankings/';
 import Help from './components/Help/';
@@ -83,6 +84,7 @@ class MenuContainer extends Component {
           <div>
             <Route exact path="/" component={MainMenu} />
             <Route exact path="/jouer" component={NewGame} />
+            <Route exact path="/attente" component={WaitGame} />
             <Route exact path="/rejoindre" component={JoinGame} />
             <Route exact path="/classement" component={Rankings} />
             <Route exact path="/aide" component={Help} />

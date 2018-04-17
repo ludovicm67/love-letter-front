@@ -70,8 +70,8 @@ export default class JoinGame extends Component {
           throw new Error('unable to join the game');
         }
         this.props.history.push({
-          pathname: '/jouer',
-          state: { game: { game_id: game.id, game_infos: json.data.game } },
+          pathname: '/attente',
+          state: { game: json.data.game },
         });
       })
       .catch(() => {

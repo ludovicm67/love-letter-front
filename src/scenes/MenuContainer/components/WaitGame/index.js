@@ -1,140 +1,33 @@
-import axios from 'axios';
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import { FormattedMessage, injectIntl } from 'react-intl';
-import { API_URL, colors, echo } from '../../../../utils';
+import { colors, echo } from '../../../../utils';
 
 export class WaitGame extends Component {
   constructor(props) {
     super(props);
     this.state = {
       game: {
-        game_id: '',
-        game_infos: {
-          creator: {
+        creator: {
+          name: '',
+        },
+        players: [
+          {
             name: '',
           },
-          players: [
-            {
-              name: '',
-            },
-          ],
-          slots: [0, 0, 0],
-        },
+        ],
+        slots: [0, 0, 0],
       },
-      is_creator: false,
     };
 
     // if got game props from other location
     if (props.location.state && props.location.state.game) {
       this.state.game = props.location.state.game;
     }
-
-    if (
-      localStorage.getItem('name') === this.state.game.game_infos.creator.name
-    ) {
-      this.state.is_creator = true;
-    }
-
-    // create a game if not joining one
-    if (this.state.game.game_id === '') {
-      const userToken = localStorage.getItem('token');
-
-      const data = new FormData();
-      data.append('slot2', 0); // player2 is human
-      data.append('slot3', -1); // closed slot
-      data.append('slot4', -1); // closed slot
-      axios
-        .post(`${API_URL}/game/create?token=${userToken}`, data, {
-          headers: {
-            'Content-Type': 'application/x-www-form-urlencoded',
-          },
-        })
-        .then(response => response.data)
-        .then(json => {
-          if (!json.success) {
-            throw new Error('unable to create game');
-          }
-          this.setState({
-            game: json.data,
-            is_creator: true,
-          });
-          echo
-            .channel(`channel-game:${this.state.game.game_id}`)
-            .listen('UpdateGameEvent', e => {
-              this.setState({
-                game: e.content.game,
-              });
-            })
-            .listen('StartGameEvent', e => {
-              this.setState({
-                game: e.content.game,
-              });
-              this.props.history.push({
-                pathname: '/jeu',
-                state: this.state,
-              });
-            });
-        })
-        .catch(() => {
-          console.error('unable to create game');
-          this.props.history.push('/login');
-          window.location.reload();
-        });
-    } else {
-      echo
-        .channel(`channel-game:${this.state.game.game_id}`)
-        .listen('UpdateGameEvent', e => {
-          this.setState({
-            game: e.content.game,
-          });
-          console.log(e.content);
-        })
-        .listen('StartGameEvent', e => {
-          this.setState({
-            game: e.content.game,
-          });
-          this.props.history.push({
-            pathname: '/jeu',
-            state: this.state,
-          });
-        });
-    }
-  }
-
-  componentWillUnmount() {
-    // @FIXME: uncomment the following line without leaving the channel after
-    // echo.leave(`channel-game:${this.state.game.game_id}`);
-  }
-
-  startGame(state) {
-    const userToken = localStorage.getItem('token');
-    const data = new FormData();
-    data.append('game_id', state.game.game_id);
-    axios.post(`${API_URL}/game/start?token=${userToken}`, data, {
-      headers: {
-        'Content-Type': 'application/x-www-form-urlencoded',
-      },
-    });
-  }
-
-  change(e) {
-    // const userToken = localStorage.getItem('token');
-    // const data = new FormData();
-    // data.append('game_id', e.target.dataset.gameid);
-    // data.append('slot', e.target.dataset.slot);
-    // data.append('value', e.target.value);
-    // axios.post(`${API_URL}/game/slots?token=${userToken}`, data, {
-    //   headers: {
-    //     'Content-Type': 'application/x-www-form-urlencoded',
-    //   },
-    // });
   }
 
   render() {
-    let { formatMessage } = this.props.intl;
-
-    var newGameStyle = {
+    let waitGameStyle = {
       fontSize: '1.8em',
       lineHeight: '1.5',
       textColor: colors.blackColor,
@@ -170,20 +63,91 @@ export class WaitGame extends Component {
         fontSize: '0.8em',
         widht: '100%',
       },
+
+      icon: {
+        color: colors.whiteColor,
+        fontSize: '1.5em',
+        margin: '1em',
+        '@media (maxWidth: 768px)': {
+          margin: '0.5em',
+        },
+      },
     };
-    const launchBtn = this.state.is_creator ? (
-      <button
-        onClick={this.startGame.bind(this, this.state)}
-        style={newGameStyle.buttonStyle}
-      >
-        <FormattedMessage id="NewGame.startLink" />
-      </button>
-    ) : (
-      ''
-    );
+
+    let player1 = this.state.game.players[0].name;
+    let player2;
+    let player3;
+    let player4;
+
+    // player2
+    switch (this.state.game.slots[0]) {
+      case -1:
+        player2 = 'X';
+        break;
+      case -2:
+      case 0:
+        player2 =
+          this.state.game.players.length > 1
+            ? this.state.game.players[1].name
+            : 'En attente...';
+        break;
+      case 1:
+        player2 = 'IA';
+        break;
+      case 2:
+        player2 = 'IA++';
+        break;
+      default:
+        player2 = '';
+    }
+
+    // player3
+    switch (this.state.game.slots[1]) {
+      case -1:
+        player3 = 'X';
+        break;
+      case -2:
+      case 0:
+        player3 =
+          this.state.game.players.length > 2
+            ? this.state.game.players[2].name
+            : 'En attente...';
+        break;
+      case 1:
+        player3 = 'IA';
+        break;
+      case 2:
+        player3 = 'IA++';
+        break;
+      default:
+        player3 = '';
+    }
+
+    // player4
+    switch (this.state.game.slots[2]) {
+      case -1:
+        player4 = 'X';
+        break;
+      case -2:
+      case 0:
+        player4 =
+          this.state.game.players.length > 3
+            ? this.state.game.players[3].name
+            : 'En attente...';
+        break;
+      case 1:
+        player4 = 'IA';
+        break;
+      case 2:
+        player4 = 'IA++';
+        break;
+      default:
+        player4 = '';
+    }
+
     return (
-      <div style={newGameStyle}>
-        <h1 style={newGameStyle.title}>
+      <div style={waitGameStyle}>
+        <h1 style={waitGameStyle.title}>
           <FormattedMessage id="NewGame.title" />
         </h1>
 
@@ -191,124 +155,40 @@ export class WaitGame extends Component {
           <FormattedMessage id="NewGame.backToMenu" />
         </Link>
 
-        <table style={newGameStyle.table}>
+        <table style={waitGameStyle.table}>
           <tbody>
             <tr>
-              <td style={newGameStyle.cellule}>
+              <td style={waitGameStyle.cellule}>
                 <FormattedMessage id="NewGame.player1" />
               </td>
-              <td style={newGameStyle.cellule}>
-                {this.state.game.game_infos.players[0].name}
-              </td>
+              <td style={waitGameStyle.cellule}>{player1}</td>
             </tr>
             <tr>
-              <td style={newGameStyle.cellule}>
+              <td style={waitGameStyle.cellule}>
                 <FormattedMessage id="NewGame.player2" />
               </td>
-              <td style={newGameStyle.cellule}>
-                <form>
-                  <select
-                    style={newGameStyle.select}
-                    data-slot="0"
-                    data-gameid={this.state.game.game_id}
-                    value={
-                      this.state.game.game_infos.slots
-                        ? this.state.game.game_infos.slots[0]
-                        : 0
-                    }
-                    onChange={this.change}
-                  >
-                    <option value="0">
-                      {this.state.game.game_infos.players.length > 1
-                        ? this.state.game.game_infos.players[1].name
-                        : formatMessage({ id: 'NewGame.player' })}
-                    </option>
-                    <option value="1">
-                      {formatMessage({ id: 'NewGame.IA_easy' })}
-                    </option>
-                    <option value="2">
-                      {formatMessage({ id: 'NewGame.IA_normal' })}
-                    </option>
-                  </select>
-                </form>
-              </td>
+              <td style={waitGameStyle.cellule}>{player2}</td>
             </tr>
             <tr>
-              <td style={newGameStyle.cellule}>
+              <td style={waitGameStyle.cellule}>
                 <FormattedMessage id="NewGame.player3" />
               </td>
-              <td style={newGameStyle.cellule}>
-                <form>
-                  <select
-                    style={newGameStyle.select}
-                    data-slot="1"
-                    data-gameid={this.state.game.game_id}
-                    value={
-                      this.state.game.game_infos.slots
-                        ? this.state.game.game_infos.slots[1]
-                        : 0
-                    }
-                    onChange={this.change}
-                  >
-                    <option value="0">
-                      {this.state.game.game_infos.players.length > 2
-                        ? this.state.game.game_infos.players[2].name
-                        : formatMessage({ id: 'NewGame.player' })}
-                    </option>
-                    <option value="1">
-                      {formatMessage({ id: 'NewGame.IA_easy' })}
-                    </option>
-                    <option value="2">
-                      {formatMessage({ id: 'NewGame.IA_normal' })}
-                    </option>
-                    <option value="-1">
-                      {formatMessage({ id: 'NewGame.none' })}
-                    </option>
-                  </select>
-                </form>
-              </td>
+              <td style={waitGameStyle.cellule}>{player3}</td>
             </tr>
             <tr>
-              <td style={newGameStyle.cellule}>
+              <td style={waitGameStyle.cellule}>
                 <FormattedMessage id="NewGame.player4" />
               </td>
-              <td style={newGameStyle.cellule}>
-                <form>
-                  <select
-                    style={newGameStyle.select}
-                    data-slot="2"
-                    data-gameid={this.state.game.game_id}
-                    value={
-                      this.state.game.game_infos.slots
-                        ? this.state.game.game_infos.slots[2]
-                        : 0
-                    }
-                    onChange={this.change}
-                  >
-                    <option value="0">
-                      {this.state.game.game_infos.players.length > 3
-                        ? this.state.game.game_infos.players[3].name
-                        : formatMessage({ id: 'NewGame.player' })}
-                    </option>
-                    <option value="1">
-                      {formatMessage({ id: 'NewGame.IA_easy' })}
-                    </option>
-                    <option value="2">
-                      {formatMessage({ id: 'NewGame.IA_normal' })}
-                    </option>
-                    <option value="-1">
-                      {formatMessage({ id: 'NewGame.none' })}
-                    </option>
-                  </select>
-                </form>
-              </td>
+              <td style={waitGameStyle.cellule}>{player4}</td>
             </tr>
           </tbody>
         </table>
-        <p style={newGameStyle.center}>{launchBtn}</p>
+        <p style={waitGameStyle.center}>
+          <span style={waitGameStyle.icon} className="fa fa-spinner fa-spin" />
+        </p>
       </div>
     );
   }
 }
 
-export default injectIntl(NewGame);
+export default injectIntl(WaitGame);

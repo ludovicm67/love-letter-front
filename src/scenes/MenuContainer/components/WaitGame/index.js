@@ -117,9 +117,11 @@ export class WaitGame extends Component {
       case -2:
       case 0:
         player2 =
-          this.state.game.players.length > 1
-            ? this.state.game.players[1].name
-            : <FormattedMessage id="WaitGame.waitingPlayer" />;
+          this.state.game.players.length > 1 ? (
+            this.state.game.players[1].name
+          ) : (
+            <FormattedMessage id="WaitGame.waitingPlayer" />
+          );
         break;
       case 1:
         player2 = <FormattedMessage id="WaitGame.IA_easy" />;

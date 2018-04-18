@@ -4,14 +4,12 @@ import { FormattedMessage } from 'react-intl';
 import Radium from 'radium';
 import PropTypes from 'prop-types';
 
-
 import '../../../../../node_modules/font-awesome/css/font-awesome.min.css';
 import { StyledLink } from '../../../../components/';
 
 import { colors } from '../../../../utils';
 
 class MainMenu extends Component {
-
   componentWillMount() {
     this.props.setHomeButton(true);
   }
@@ -91,7 +89,7 @@ class MainMenu extends Component {
 }
 
 MainMenu.propTypes = {
-  setHomeButton: PropTypes.func.isRequired
+  setHomeButton: PropTypes.func.isRequired,
 };
 
 export default Radium(MainMenu);

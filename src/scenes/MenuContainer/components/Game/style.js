@@ -1,10 +1,21 @@
 import { colors } from '../../../../utils';
 
 export const gameStyle = {
+  position: 'relative',
+  height: '100vh',
+
   piocheContainer: {
     position: 'fixed',
     bottom: '240px', //space + cardHeight
     left: '20px',
+  },
+
+  selection: {
+    position: 'absolute',
+    left: '40%',
+    top:' 35%',
+    transform: 'translate(0, -50%)',
+    zIndex: 10
   },
 
   my_infos: {

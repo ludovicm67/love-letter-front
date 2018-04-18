@@ -99,6 +99,19 @@ let messages = {
       wonGames: ' manche(s) gagnée(s)',
       playing: 'est en train de jouer',
       me_playing: 'A toi de jouer !',
+      me_immunity: 'Tu es protégé !',
+      immunity: 'Ce joueur est protégé !',
+      chooseACard: 'Choisis une carte',
+      chooseAPlayer: 'Choisis un joueur',
+      choosePlayerCard: 'Valider',
+      clown: 'Clown',
+      princess_prince: 'Princesse - Prince',
+      general: 'Général',
+      knight: 'Chevalier',
+      soldier: 'Soldat',
+      minister: 'Ministre',
+      sorcerer: 'Sorcier',
+      priest: 'Prêtre'
     },
     Credits: {
       title: 'Crédits'
@@ -198,6 +211,19 @@ let messages = {
       wonGames: ' won game(s)',
       playing: 'is playing...',
       me_playing: 'Your turn!',
+      me_immunity: 'You\'re protected!',
+      immunity: 'This player is protected!',
+      choosePlayerCard: 'Choose',
+      chooseACard: 'Choose a card',
+      chooseAPlayer: 'Choose a player',
+      clown: 'Clown',
+      princess_prince: 'Princess - Prince',
+      general: 'General',
+      knight: 'Knight',
+      soldier: 'Solider',
+      minister: 'Minister',
+      sorcerer: 'Sorcerer',
+      priest: 'Priest'
     },
     Credits: {
       title: 'Credits'

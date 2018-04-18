@@ -1,6 +1,6 @@
 import axios from 'axios';
 import React, { Component } from 'react';
-import { FormattedMessage } from 'react-intl';
+import { FormattedMessage, injectIntl } from 'react-intl';
 import { API_URL, echo, getLanguage } from '../../../../utils';
 import { gameStyle } from './style';
 
@@ -9,7 +9,7 @@ let cardsLocale = getLanguage();
 let imgPath = `images`;
 let cardsPath = `${imgPath}/cards/${cardsLocale}`;
 
-export default class Game extends Component {
+class Game extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -17,6 +17,12 @@ export default class Game extends Component {
         id: '',
         players: [],
       },
+      choosePlayer: false,
+      chooseCard: false,
+      chosenCard: "knight",
+      chosenPlayer: 0,
+      card_played: 0,
+      allChosen: false,
     };
 
     // if got game props from other location
@@ -38,6 +44,9 @@ export default class Game extends Component {
 
     this.cardAction = this.cardAction.bind(this);
     this.playGame = this.playGame.bind(this);
+    this.handleChooseCard = this.handleChooseCard.bind(this);
+    this.handleChoosePlayer = this.handleChoosePlayer.bind(this);
+    this.setAllChosen = this.setAllChosen.bind(this);
   }
 
   componentWillUnmount() {
@@ -45,36 +54,55 @@ export default class Game extends Component {
   }
 
   cardAction(card) {
-    console.log(card);
+    if(this.state.allChosen) {
 
-    let chosen_player = null;
-    let chosen_card = null;
+      let chosen_player = null;
+      let chosen_card = null;
 
-    if (card.choose_card_name) {
-      //donner une valeur à chosen_card
+      if (card.choose_card_name) {
+        chosen_card = this.state.chosenCard;
+      }
+
+      if (card.choose_players) {
+        chosen_player = this.state.chosenPlayer;
+      }
+
+      this.playGame('play_card', card.value, chosen_player, chosen_card);
+      this.setState({allChosen: false});
+
+    } else {
+      if (card.choose_card_name) {
+        this.setState({card_played: card});
+        this.setState({chooseCard: true});
+      }
+
+      if (card.choose_players) {
+        this.setState({card_played: card});
+        this.setState({choosePlayer: true});
+      }
     }
+  }
 
-    if (card.choose_players) {
-      //donner une valeur à chosen_player
-    }
-
-    this.playGame('play_card', card.card_value, chosen_player, chosen_card);
+  setAllChosen() {
+    this.setState({allChosen: true});
+    this.cardAction(this.state.card_played);
   }
 
   playGame(action, played_card_value, chosen_player, chosen_card) {
     const userToken = localStorage.getItem('token');
     const data = new FormData();
 
-    if (action !== 'pick_card' && action !== 'play_card')
-      console.error('action invalide : ' + action);
-
     console.log({
-      game_id: this.state.game.id,
       action: action,
       played_card: played_card_value,
       choosen_player: chosen_player,
       choosen_card_name: chosen_card,
     });
+
+    if (action !== 'pick_card' && action !== 'play_card') {
+      console.error('action invalide : ' + action);
+      return;
+    }
 
     data.append('game_id', this.state.game.id);
     data.append('action', action);
@@ -87,6 +115,8 @@ export default class Game extends Component {
         'Content-Type': 'application/x-www-form-urlencoded',
       },
     });
+
+    this.setState({card_played: 0});
   }
 
   handleCardName(cardName) {
@@ -102,14 +132,23 @@ export default class Game extends Component {
     return cardName;
   }
 
+  handleChooseCard = (event) => {
+    this.setState({chosenCard: event.target.value});
+  }
+
+  handleChoosePlayer = (event) => {
+    this.setState({chosenPlayer: event.target.value});
+  }
+
   render() {
     let game_infos = this.state.game;
     let players = game_infos.players;
     let pioche = [];
     let myCardsStyle;
     let myTurn;
-
-    console.log(this.state.game);
+    let {chooseCard, choosePlayer} = this.state;
+    let {formatMessage} = this.props.intl;
+    let playersSelect = [];
 
     // get an array with the current player as the first item
     const myIndexInArray = game_infos.players
@@ -132,13 +171,15 @@ export default class Game extends Component {
 
     myTurn = current_player === 0;
 
-    if (players[0].hand.length === 2 && myTurn) {
+    if (players[0].hand.length === 2 && myTurn && !chooseCard && !choosePlayer) {
       myCardsStyle = { ...gameStyle.card.me, ...gameStyle.card.light };
     } else {
       myCardsStyle = gameStyle.card.me;
     }
 
-    //render
+    /************/
+    /***PIOCHE***/
+    /************/
     for (let i = 0; i < 5; i++) {
       let style = {
         ...gameStyle.card,
@@ -158,12 +199,70 @@ export default class Game extends Component {
           style={style}
           src={`${imgPath}/cards/back.svg`}
           alt="pioche"
+          onClick={this.playGame.bind(this, 'pick_card', null, null, null)}
         />
       );
+
+      /********************/
+      /***PLAYERS SELECT***/
+      /********************/
+
+      playersSelect.length = 0;
+      if(choosePlayer) {
+        for(let i=0; i<players.length; i++) {
+          playersSelect.push(
+            <option key={`playerSelect${i}${Math.random()}`} value={i}>{players[i].name}</option>
+          );
+        }
+      }
     }
 
     return (
       <div style={gameStyle}>
+
+        <div style={gameStyle.selection}>
+          { chooseCard &&
+            <div>
+              <form>
+                <FormattedMessage id="Game.chooseACard" />
+
+                <select
+                onChange={this.handleChooseCard}
+                value={this.state.chosenCard}>
+
+                  <option value="sorcerer">{formatMessage({ id: 'Game.sorcerer' })}</option>
+                  <option value="minister">{formatMessage({ id: 'Game.minister' })}</option>
+                  <option value="princess_prince">{formatMessage({ id: 'Game.princess_prince' })}</option>
+                  <option value="priest">{formatMessage({ id: 'Game.priest' })}</option>
+                  <option value="knight">{formatMessage({ id: 'Game.knight' })}</option>
+                  <option value="general">{formatMessage({ id: 'Game.general' })}</option>
+                  <option value="clown">{formatMessage({ id: 'Game.clown' })}</option>
+                </select>
+              </form>
+            </div>
+          }
+
+          { choosePlayer &&
+            <div>
+            <form>
+              <FormattedMessage id="Game.chooseAPlayer" />
+
+              <select
+              onChange={this.handleChoosePlayer}
+              value={this.state.chosenPlayer}>
+                {playersSelect}
+              </select>
+            </form>
+            </div>
+          }
+
+          { (choosePlayer || chooseCard) &&
+            <button onClick={this.setAllChosen}>
+              <FormattedMessage id="Game.choosePlayerCard" />
+            </button>
+          }
+        </div>
+
         <div style={gameStyle.player.row}>
           {/*joueur gauche*/ players.length >= 3 && (
             <div style={gameStyle.player.row.left}>
@@ -174,6 +273,7 @@ export default class Game extends Component {
                   <FormattedMessage id="Game.wonGames" />
                 </p>
                 {current_player === 2 && <FormattedMessage id="Game.playing" />}
+                {players[2].immunity && <FormattedMessage id="Game.immunity" />}
               </div>
 
               <div style={gameStyle.card.left}>
@@ -200,6 +300,7 @@ export default class Game extends Component {
                 </p>
 
                 {current_player === 3 && <FormattedMessage id="Game.playing" />}
+                {players[3].immunity && <FormattedMessage id="Game.immunity" />}
               </div>
 
               <div style={gameStyle.card.right}>
@@ -228,6 +329,7 @@ export default class Game extends Component {
                 </p>
 
                 {current_player === 1 && <FormattedMessage id="Game.playing" />}
+                {players[1].immunity && <FormattedMessage id="Game.immunity" />}
               </div>
 
               <div style={gameStyle.card.top}>
@@ -285,8 +387,11 @@ export default class Game extends Component {
             <FormattedMessage id="Game.wonGames" />
           </p>
           {current_player === 0 && <FormattedMessage id="Game.me_playing" />}
+          {players[0].immunity && <FormattedMessage id="Game.me_immunity" />}
         </div>
       </div>
     );
   }
 }
+
+export default injectIntl(Game);

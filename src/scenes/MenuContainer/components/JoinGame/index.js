@@ -3,10 +3,11 @@ import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import { FormattedMessage } from 'react-intl';
 import { API_URL, echo, colors } from '../../../../utils';
+import Radium from 'radium';
 
 //import '../../../../node_modules/font-awesome/css/font-awesome.min.css';
 
-export default class JoinGame extends Component {
+class JoinGame extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -92,10 +93,27 @@ export default class JoinGame extends Component {
 
   render() {
     var joinGameStyle = {
+
+      //laptop
+      // '@media (max-width: 1200px)': {
+      //   width: '95vw',
+      // },
+      // //tablet
+      // '@media (max-width: 992px)': {},
+      // //phone
+      // '@media (max-width: 768px)': {
+      // },
+
       fontSize: '1.8em',
       lineHeight: '1.5',
       textColor: colors.blackColor,
       height: '100vh',
+
+      //laptop
+      '@media (max-width: 1200px)': {
+        fontSize: '1.3em'
+      },
+
 
       title: {
         fontSize: '1.5em',
@@ -111,17 +129,45 @@ export default class JoinGame extends Component {
 
       cellule: {
         padding: '2.5vh',
+
+        //tablet
+        '@media (max-width: 992px)': {
+          padding: '1vh'
+        },
+        //phone
+        '@media (max-width: 768px)': {
+          display: 'block',
+          textAlign: 'center',
+        },
+
+        title: {
+          //phone
+          '@media (max-width: 768px)': {
+            display: 'none',
+          },
+        }
       },
 
       div_table: {
         overflowY: 'auto',
         height: '55%',
+
+        //phone
+        '@media (max-width: 768px)': {
+          margin: 'auto',
+          maxWidth: '98vw'
+        },
       },
 
       play: {
         textAlign: 'left',
         marginLeft: '5vh',
         padding: '5vh',
+
+        //phone
+        '@media (max-width: 768px)': {
+          margin: 'auto',
+        },
       },
 
       hide: {
@@ -173,10 +219,10 @@ export default class JoinGame extends Component {
           player2 = game.players.length > 1 ? game.players[1].name : '';
           break;
         case 1:
-          player2 = 'IA';
+          player2 = <FormattedMessage id="JoinGame.IA_easy" />;
           break;
         case 2:
-          player2 = 'IA++';
+          player2 = <FormattedMessage id="JoinGame.IA_normal" />;
           break;
         default:
           player2 = '';
@@ -192,10 +238,10 @@ export default class JoinGame extends Component {
           player3 = game.players.length > 2 ? game.players[2].name : '';
           break;
         case 1:
-          player3 = 'IA';
+          player3 = <FormattedMessage id="JoinGame.IA_easy" />;
           break;
         case 2:
-          player3 = 'IA++';
+          player3 = <FormattedMessage id="JoinGame.IA_normal" />;
           break;
         default:
           player3 = '';
@@ -211,10 +257,10 @@ export default class JoinGame extends Component {
           player4 = game.players.length > 3 ? game.players[3].name : '';
           break;
         case 1:
-          player4 = 'IA';
+          player4 = <FormattedMessage id="JoinGame.IA_easy" />;
           break;
         case 2:
-          player4 = 'IA++';
+          player4 = <FormattedMessage id="JoinGame.IA_normal" />;
           break;
         default:
           player4 = '';
@@ -248,16 +294,16 @@ export default class JoinGame extends Component {
             <thead>
               <tr>
                 <th style={joinGameStyle.cellule} />
-                <th style={joinGameStyle.cellule}>
+                <th style={{...joinGameStyle.cellule, ...joinGameStyle.cellule.title}}>
                   <FormattedMessage id="JoinGame.player1" />
                 </th>
-                <th style={joinGameStyle.cellule}>
+                <th style={{...joinGameStyle.cellule, ...joinGameStyle.cellule.title}}>
                   <FormattedMessage id="JoinGame.player2" />
                 </th>
-                <th style={joinGameStyle.cellule}>
+                <th style={{...joinGameStyle.cellule, ...joinGameStyle.cellule.title}}>
                   <FormattedMessage id="JoinGame.player3" />
                 </th>
-                <th style={joinGameStyle.cellule}>
+                <th style={{...joinGameStyle.cellule, ...joinGameStyle.cellule.title}}>
                   <FormattedMessage id="JoinGame.player4" />
                 </th>
                 <th style={joinGameStyle.cellule} />
@@ -270,3 +316,5 @@ export default class JoinGame extends Component {
     );
   }
 }
+
+export default Radium(JoinGame);

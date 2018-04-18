@@ -120,13 +120,13 @@ export class WaitGame extends Component {
         player2 =
           this.state.game.players.length > 1
             ? this.state.game.players[1].name
-            : 'En attente...';
+            : <FormattedMessage id="WaitGame.waitingPlayer" />;
         break;
       case 1:
-        player2 = 'IA';
+        player2 = <FormattedMessage id="WaitGame.IA_easy" />;
         break;
       case 2:
-        player2 = 'IA++';
+        player2 = <FormattedMessage id="WaitGame.IA_normal" />;
         break;
       default:
         player2 = '';
@@ -215,6 +215,7 @@ export class WaitGame extends Component {
           </tbody>
         </table>
         <p style={waitGameStyle.center}>
+          <FormattedMessage id="WaitGame.waiting" />
           <span style={waitGameStyle.icon} className="fa fa-spinner fa-spin" />
         </p>
       </div>

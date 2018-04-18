@@ -50,6 +50,12 @@ export default {
       IA_normal: 'Ordinateur moyen',
       none: 'Aucun',
     },
+    WaitGame: {
+      waiting: 'En attente de joueurs...',
+      waitingPlayer: 'En attente...',
+      IA_easy: 'Ordinateur facile',
+      IA_normal: 'Ordinateur moyen',
+    },
     JoinGame: {
       title: 'Rejoindre une partie',
       backToMenu: 'Retour au menu',
@@ -61,6 +67,8 @@ export default {
       join: 'Rejoindre',
       delete: 'Supprimer',
       salon: 'Salon de ',
+      IA_easy: 'Ordinateur facile',
+      IA_normal: 'Ordinateur moyen',
     },
     Rankings: {
       title: 'Classement',
@@ -144,6 +152,12 @@ export default {
       IA_easy: 'Easy Computer',
       IA_normal: 'Medium Computer',
       none: 'None',
+    },
+    WaitGame: {
+      waiting: 'Waiting for players...',
+      waitingPlayer: 'Waiting...',
+      IA_easy: 'Easy Computer',
+      IA_normal: 'Medium Computer',
     },
     JoinGame: {
       title: 'Join a game',

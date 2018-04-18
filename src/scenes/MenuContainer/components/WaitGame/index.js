@@ -105,76 +105,78 @@ export class WaitGame extends Component {
     };
 
     let player1 = this.state.game.players[0].name;
-    let player2;
-    let player3;
-    let player4;
+    let player2 = '';
+    let player3 = '';
+    let player4 = '';
 
-    // player2
-    switch (this.state.game.slots[0]) {
-      case -1:
-        player2 = 'X';
-        break;
-      case -2:
-      case 0:
-        player2 =
-          this.state.game.players.length > 1 ? (
-            this.state.game.players[1].name
-          ) : (
-            <FormattedMessage id="WaitGame.waitingPlayer" />
-          );
-        break;
-      case 1:
-        player2 = <FormattedMessage id="WaitGame.IA_easy" />;
-        break;
-      case 2:
-        player2 = <FormattedMessage id="WaitGame.IA_normal" />;
-        break;
-      default:
-        player2 = '';
-    }
+    if (this.state.game.hasOwnProperty('slots')) {
+      // player2
+      switch (this.state.game.slots[0]) {
+        case -1:
+          player2 = 'X';
+          break;
+        case -2:
+        case 0:
+          player2 =
+            this.state.game.players.length > 1 ? (
+              this.state.game.players[1].name
+            ) : (
+              <FormattedMessage id="WaitGame.waitingPlayer" />
+            );
+          break;
+        case 1:
+          player2 = <FormattedMessage id="WaitGame.IA_easy" />;
+          break;
+        case 2:
+          player2 = <FormattedMessage id="WaitGame.IA_normal" />;
+          break;
+        default:
+          player2 = '';
+      }
 
-    // player3
-    switch (this.state.game.slots[1]) {
-      case -1:
-        player3 = 'X';
-        break;
-      case -2:
-      case 0:
-        player3 =
-          this.state.game.players.length > 2
-            ? this.state.game.players[2].name
-            : 'En attente...';
-        break;
-      case 1:
-        player3 = 'IA';
-        break;
-      case 2:
-        player3 = 'IA++';
-        break;
-      default:
-        player3 = '';
-    }
+      // player3
+      switch (this.state.game.slots[1]) {
+        case -1:
+          player3 = 'X';
+          break;
+        case -2:
+        case 0:
+          player3 =
+            this.state.game.players.length > 2
+              ? this.state.game.players[2].name
+              : 'En attente...';
+          break;
+        case 1:
+          player3 = 'IA';
+          break;
+        case 2:
+          player3 = 'IA++';
+          break;
+        default:
+          player3 = '';
+      }
 
-    // player4
-    switch (this.state.game.slots[2]) {
-      case -1:
-        player4 = 'X';
-        break;
-      case -2:
-      case 0:
-        player4 =
-          this.state.game.players.length > 3
-            ? this.state.game.players[3].name
-            : 'En attente...';
-        break;
-      case 1:
-        player4 = 'IA';
-        break;
-      case 2:
-        player4 = 'IA++';
-        break;
-      default:
-        player4 = '';
+      // player4
+      switch (this.state.game.slots[2]) {
+        case -1:
+          player4 = 'X';
+          break;
+        case -2:
+        case 0:
+          player4 =
+            this.state.game.players.length > 3
+              ? this.state.game.players[3].name
+              : 'En attente...';
+          break;
+        case 1:
+          player4 = 'IA';
+          break;
+        case 2:
+          player4 = 'IA++';
+          break;
+        default:
+          player4 = '';
+      }
     }
 
     return (

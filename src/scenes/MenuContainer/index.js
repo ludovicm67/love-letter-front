@@ -25,18 +25,17 @@ import { colors, api_logout } from '../../utils';
 /****************************/
 
 class MenuContainer extends Component {
-
   constructor() {
     super();
     this.state = {
-      homeButton: true
+      homeButton: true,
     };
 
     this.setHomeButton = this.setHomeButton.bind(this);
   }
 
   setHomeButton(bool) {
-    this.setState({homeButton: bool});
+    this.setState({ homeButton: bool });
   }
 
   toMenu() {
@@ -87,7 +86,6 @@ class MenuContainer extends Component {
 
     return (
       <div style={menuStyle.container}>
-
         {this.state.homeButton ? (
           <Link to="/" onClick={api_logout}>
             <span style={menuStyle.icon} className="fa fa-sign-out" />
@@ -104,10 +102,13 @@ class MenuContainer extends Component {
           </h1>
         )}
 
-
         <Router>
           <div>
-            <Route exact path="/" render={ ()=> <MainMenu setHomeButton={this.setHomeButton}/> } />
+            <Route
+              exact
+              path="/"
+              render={() => <MainMenu setHomeButton={this.setHomeButton} />}
+            />
             <Route exact path="/jouer" component={NewGame} />
             <Route exact path="/attente" component={WaitGame} />
             <Route exact path="/rejoindre" component={JoinGame} />

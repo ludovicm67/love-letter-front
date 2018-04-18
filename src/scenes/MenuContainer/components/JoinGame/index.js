@@ -99,7 +99,7 @@ class JoinGame extends Component {
 
       //laptop
       '@media (max-width: 1200px)': {
-        fontSize: '1.3em'
+        fontSize: '1.3em',
       },
 
       title: {
@@ -119,7 +119,7 @@ class JoinGame extends Component {
 
         //tablet
         '@media (max-width: 992px)': {
-          padding: '1vh'
+          padding: '1vh',
         },
         //phone
         '@media (max-width: 768px)': {
@@ -132,7 +132,7 @@ class JoinGame extends Component {
           '@media (max-width: 768px)': {
             display: 'none',
           },
-        }
+        },
       },
 
       div_table: {
@@ -142,7 +142,7 @@ class JoinGame extends Component {
         //phone
         '@media (max-width: 768px)': {
           margin: 'auto',
-          maxWidth: '98vw'
+          maxWidth: '98vw',
         },
       },
 
@@ -277,16 +277,36 @@ class JoinGame extends Component {
             <thead>
               <tr>
                 <th style={joinGameStyle.cellule} />
-                <th style={{...joinGameStyle.cellule, ...joinGameStyle.cellule.title}}>
+                <th
+                  style={{
+                    ...joinGameStyle.cellule,
+                    ...joinGameStyle.cellule.title,
+                  }}
+                >
                   <FormattedMessage id="JoinGame.player1" />
                 </th>
-                <th style={{...joinGameStyle.cellule, ...joinGameStyle.cellule.title}}>
+                <th
+                  style={{
+                    ...joinGameStyle.cellule,
+                    ...joinGameStyle.cellule.title,
+                  }}
+                >
                   <FormattedMessage id="JoinGame.player2" />
                 </th>
-                <th style={{...joinGameStyle.cellule, ...joinGameStyle.cellule.title}}>
+                <th
+                  style={{
+                    ...joinGameStyle.cellule,
+                    ...joinGameStyle.cellule.title,
+                  }}
+                >
                   <FormattedMessage id="JoinGame.player3" />
                 </th>
-                <th style={{...joinGameStyle.cellule, ...joinGameStyle.cellule.title}}>
+                <th
+                  style={{
+                    ...joinGameStyle.cellule,
+                    ...joinGameStyle.cellule.title,
+                  }}
+                >
                   <FormattedMessage id="JoinGame.player4" />
                 </th>
                 <th style={joinGameStyle.cellule} />

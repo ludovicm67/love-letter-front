@@ -8,7 +8,6 @@ export default class Help extends Component {
         <h1>
           <FormattedMessage id="Help.title" />
         </h1>
-
       </div>
     );
   }

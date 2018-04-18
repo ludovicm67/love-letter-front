@@ -37,7 +37,7 @@ export class NewGame extends Component {
         this.props.history.push({
           pathname: '/attente',
           state: {
-            game: json.data.game_infos,
+            game: json.data.game,
           },
         });
       })

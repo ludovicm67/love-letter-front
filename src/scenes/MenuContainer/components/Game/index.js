@@ -41,7 +41,7 @@ class Game extends Component {
           });
         });
     }
-    
+
     this.cardAction = this.cardAction.bind(this);
     this.playGame = this.playGame.bind(this);
     this.handleChooseCard = this.handleChooseCard.bind(this);
@@ -55,7 +55,9 @@ class Game extends Component {
   }
 
   cardAction(card) {
-    if(this.state.allChosen) {
+    console.log("clic sur " + card);
+
+    if(this.state.allChosen || (!card.choose_card_name && !card.choose_players)) {
 
       let chosen_player = null;
       let chosen_card = null;

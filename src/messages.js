@@ -1,4 +1,6 @@
-export default {
+import {default as help} from './scenes/MenuContainer/components/Help/messages.js';
+
+let messages = {
   fr: {
     LoginContainer: {
       title: 'Love',
@@ -74,10 +76,7 @@ export default {
       title: 'Classement',
       backToMenu: 'Retour au menu',
     },
-    Help: {
-      title: 'Aide',
-      backToMenu: 'Retour au menu',
-    },
+    Help: help.fr,
     Histori: {
       title: 'Une petite histoire',
       backToMenu: 'Retour au menu',
@@ -101,6 +100,9 @@ export default {
       playing: 'est en train de jouer',
       me_playing: 'A toi de jouer !',
     },
+    Credits: {
+      title: 'Crédits'
+    }
   },
   en: {
     LoginContainer: {
@@ -175,10 +177,7 @@ export default {
       title: 'Rankings',
       backToMenu: 'Back to menu',
     },
-    Help: {
-      title: 'Help',
-      backToMenu: 'Back to menu',
-    },
+    Help: help.en,
     Histori: {
       title: 'History',
       backToMenu: 'Back to menu',
@@ -200,5 +199,10 @@ export default {
       playing: 'is playing...',
       me_playing: 'Your turn!',
     },
+    Credits: {
+      title: 'Credits'
+    }
   },
 };
+
+export default messages;

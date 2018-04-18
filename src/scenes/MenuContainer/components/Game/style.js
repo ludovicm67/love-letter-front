@@ -37,6 +37,11 @@ export const gameStyle = {
       position: 'relative',
       bottom: '-15vh',
     },
+    right: {
+      position: 'relative',
+      left: '70px',
+      transform: 'rotate(270deg)',
+    },
 
     pioche: {
       position: 'absolute',

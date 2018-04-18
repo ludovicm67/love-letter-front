@@ -208,6 +208,18 @@ export default class Game extends Component {
 
                 {current_player === 3 && <FormattedMessage id="Game.playing" />}
               </div>
+
+              <div style={gameStyle.card.right}>
+                {//@TODO FormattedMessage 'alt'
+                players[3].hand.map(hand => (
+                  <img
+                    key={3 + Math.random()}
+                    style={gameStyle.card}
+                    src={`${imgPath}/cards/back.svg`}
+                    alt="main joueur 3"
+                  />
+                ))}
+              </div>
             </div>
           )}
         </div>

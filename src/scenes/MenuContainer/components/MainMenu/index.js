@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import { FormattedMessage } from 'react-intl';
 import Radium from 'radium';
+import PropTypes from 'prop-types';
+
 
 import '../../../../../node_modules/font-awesome/css/font-awesome.min.css';
 import { StyledLink } from '../../../../components/';
@@ -9,6 +11,15 @@ import { StyledLink } from '../../../../components/';
 import { colors } from '../../../../utils';
 
 class MainMenu extends Component {
+
+  componentWillMount() {
+    this.props.setHomeButton(true);
+  }
+
+  componentWillUnmount() {
+    this.props.setHomeButton(false);
+  }
+
   render() {
     var menuStyle = {
       marginTop: '15vh',
@@ -55,8 +66,8 @@ class MainMenu extends Component {
         <StyledLink to="/jouer" msgId="MainMenu.linkToJouer" />
         <StyledLink to="/rejoindre" msgId="MainMenu.linkToRejoindre" />
 
-        <Link to="/classement">
-          <span style={menuStyle.icon} className="fa fa-list-ol" />
+        <Link to="/credits">
+          <span style={menuStyle.icon} className="fa fa-list-ul" />
         </Link>
 
         <Link to="/aide">
@@ -78,5 +89,9 @@ class MainMenu extends Component {
     );
   }
 }
+
+MainMenu.propTypes = {
+  setHomeButton: PropTypes.func.isRequired
+};
 
 export default Radium(MainMenu);

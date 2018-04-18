@@ -1,6 +1,5 @@
 import axios from 'axios';
 import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
 import { FormattedMessage, injectIntl } from 'react-intl';
 import { API_URL, colors } from '../../../../utils';
 
@@ -110,10 +109,6 @@ export class NewGame extends Component {
         <h1 style={newGameStyle.title}>
           <FormattedMessage id="NewGame.title" />
         </h1>
-
-        <Link to="/">
-          <FormattedMessage id="NewGame.backToMenu" />
-        </Link>
 
         <table style={newGameStyle.table}>
           <tbody>

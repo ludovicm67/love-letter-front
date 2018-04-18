@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
 import { FormattedMessage } from 'react-intl';
 import { colors } from '../../../../utils';
 import Radium from 'radium';
@@ -50,9 +49,6 @@ export class Histori extends Component {
           <FormattedMessage id="Histori.title" />
         </h1>
 
-        <Link to="/">
-          <FormattedMessage id="Histori.backToMenu" />
-        </Link>
         <div style={historyStyle.div_style}>
           <img
             src={cardsPathPrincesse}

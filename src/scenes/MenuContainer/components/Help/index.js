@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
 import { FormattedMessage } from 'react-intl';
 
 export default class Help extends Component {
@@ -10,9 +9,6 @@ export default class Help extends Component {
           <FormattedMessage id="Help.title" />
         </h1>
 
-        <Link to="/">
-          <FormattedMessage id="Help.backToMenu" />
-        </Link>
       </div>
     );
   }

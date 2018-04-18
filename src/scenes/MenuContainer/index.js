@@ -12,7 +12,6 @@ import MainMenu from './components/MainMenu';
 import NewGame from './components/NewGame/';
 import WaitGame from './components/WaitGame/';
 import JoinGame from './components/JoinGame/';
-import Rankings from './components/Rankings/';
 import Help from './components/Help/';
 import Histori from './components/Histori/';
 import Game from './components/Game/';
@@ -26,6 +25,24 @@ import { colors, api_logout } from '../../utils';
 /****************************/
 
 class MenuContainer extends Component {
+
+  constructor() {
+    super();
+    this.state = {
+      homeButton: true
+    };
+
+    this.setHomeButton = this.setHomeButton.bind(this);
+  }
+
+  setHomeButton(bool) {
+    this.setState({homeButton: bool});
+  }
+
+  toMenu() {
+    window.location = '/';
+  }
+
   render() {
     var menuStyle = {
       container: {
@@ -70,9 +87,16 @@ class MenuContainer extends Component {
 
     return (
       <div style={menuStyle.container}>
-        <Link to="/" onClick={api_logout}>
-          <span style={menuStyle.icon} className="fa fa-sign-out" />
-        </Link>
+
+        {this.state.homeButton ? (
+          <Link to="/" onClick={api_logout}>
+            <span style={menuStyle.icon} className="fa fa-sign-out" />
+          </Link>
+        ) : (
+          <Link to="/" onClick={this.toMenu}>
+            <span style={menuStyle.icon} className="fa fa-home" />
+          </Link>
+        )}
 
         {pathname !== '/jeu' && (
           <h1 style={menuStyle.title}>
@@ -80,13 +104,13 @@ class MenuContainer extends Component {
           </h1>
         )}
 
+
         <Router>
           <div>
-            <Route exact path="/" component={MainMenu} />
+            <Route exact path="/" render={ ()=> <MainMenu setHomeButton={this.setHomeButton}/> } />
             <Route exact path="/jouer" component={NewGame} />
             <Route exact path="/attente" component={WaitGame} />
             <Route exact path="/rejoindre" component={JoinGame} />
-            <Route exact path="/classement" component={Rankings} />
             <Route exact path="/aide" component={Help} />
             <Route exact path="/histoire" component={Histori} />
             <Route exact path="/jeu" component={Game} />

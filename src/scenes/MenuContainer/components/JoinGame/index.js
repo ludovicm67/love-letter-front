@@ -1,6 +1,5 @@
 import axios from 'axios';
 import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
 import { FormattedMessage } from 'react-intl';
 import { API_URL, echo, colors } from '../../../../utils';
 import Radium from 'radium';
@@ -93,17 +92,6 @@ class JoinGame extends Component {
 
   render() {
     var joinGameStyle = {
-
-      //laptop
-      // '@media (max-width: 1200px)': {
-      //   width: '95vw',
-      // },
-      // //tablet
-      // '@media (max-width: 992px)': {},
-      // //phone
-      // '@media (max-width: 768px)': {
-      // },
-
       fontSize: '1.8em',
       lineHeight: '1.5',
       textColor: colors.blackColor,
@@ -113,7 +101,6 @@ class JoinGame extends Component {
       '@media (max-width: 1200px)': {
         fontSize: '1.3em'
       },
-
 
       title: {
         fontSize: '1.5em',
@@ -284,10 +271,6 @@ class JoinGame extends Component {
         <h1 style={joinGameStyle.title}>
           <FormattedMessage id="JoinGame.title" />
         </h1>
-
-        <Link to="/">
-          <FormattedMessage id="JoinGame.backToMenu" />
-        </Link>
 
         <div style={joinGameStyle.div_table}>
           <table style={joinGameStyle.play}>

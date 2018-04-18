@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
 import { FormattedMessage, injectIntl } from 'react-intl';
 import { colors, echo } from '../../../../utils';
 
@@ -181,10 +180,6 @@ export class WaitGame extends Component {
         <h1 style={waitGameStyle.title}>
           <FormattedMessage id="NewGame.title" />
         </h1>
-
-        <Link to="/">
-          <FormattedMessage id="NewGame.backToMenu" />
-        </Link>
 
         <table style={waitGameStyle.table}>
           <tbody>

@@ -16,7 +16,7 @@ export default {
           t3: "Ainsi celui qui choisira la meilleure stratégie parviendra à apporter sa lettre d’amour à la princesse et gagnera la partie.",
           t4: "Le jeu comporte alors 16 cartes pour 8 personnages différents.",
         },
-        cartes: {
+        cards: {
           alt:{
             soldier: "Carte Soldat - Choisissez un joueur et un nom de carte (excepté “Soldat”). Si le joueur possède cette carte, il est éliminé.",
             clown: "Carte Clown - Consultez la main d’un joueur.",
@@ -65,7 +65,7 @@ export default {
       title: "The game's rules",
       gameGoal: {
           title: "Goal of the game:",
-          text: "The goal of the game is to send your love letter to the princess by having a card with higher rank.",
+          text: "The goal of the game is to send your love letter to the princess by having a card with a higher rank.",
       },
       overviewGame:{
         title: "Preview of the game:",
@@ -75,7 +75,7 @@ export default {
           t3: "So whoever chooses the best strategy will manage to bring his love letter to the princess and win the game.",
           t4: "The game then has 16 cards for 8 different characters.",
         },
-        cartes: {
+        cards: {
           alt:{
             soldier: "Card Soldier - Choose a player and a card name (except “Soldier”). If the player has this card, he is eliminated.",
             clown: "Card Clown - Look at a player’s hand.",

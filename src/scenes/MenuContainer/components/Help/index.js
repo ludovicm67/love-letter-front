@@ -61,6 +61,23 @@ export class Help extends Component {
         textAlign: 'justify',
       },
 
+      table: {
+        margin: '1vh',
+        borderCollapse: 'collapse',
+        borderColor: 'black',
+        borderStyle: 'solid',
+        borderWidth: '1px',
+      },
+
+      cellule: {
+        borderCollapse: 'collapse',
+        borderColor: 'black',
+        borderStyle: 'solid',
+        borderWidth: '1px',
+        padding: '2.5vh',
+        textAlign: 'center',
+      },
+
       ul: {
         listStyleType: 'circle',
         marginLeft: '2vw',
@@ -141,6 +158,34 @@ export class Help extends Component {
             </h3>
             <p style={styleHelp.p_style}>
               <FormattedMessage id="Help.gameRules.gameProgress.text.t1" />
+            </p>
+            <table style={styleHelp.table}>
+              <thead>
+                <tr>
+                  <th style={styleHelp.cellule}>
+                    <FormattedMessage id="Help.gameRules.gameProgress.table.nb_player" />
+                  </th>
+                  <th style={styleHelp.cellule}>
+                    <FormattedMessage id="Help.gameRules.gameProgress.table.nb_points" />
+                  </th>
+                </tr>
+              </thead>
+              <tbody>
+              <tr>
+                <td style={styleHelp.cellule}> 4 </td>
+                <td style={styleHelp.cellule}> 4 </td>
+              </tr>
+              <tr>
+                <td style={styleHelp.cellule}> 3 </td>
+                <td style={styleHelp.cellule}> 5 </td>
+              </tr>
+              <tr>
+                <td style={styleHelp.cellule}> 2 </td>
+                <td style={styleHelp.cellule}> 7 </td>
+              </tr>
+              </tbody>
+            </table>
+            <p style={styleHelp.p_style}>
               <br></br>
               <FormattedMessage id="Help.gameRules.gameProgress.text.t2.t" />
             </p>

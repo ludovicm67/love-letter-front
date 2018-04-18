@@ -54,7 +54,8 @@ export default {
           t6: "La manche se termine lorsqu’il ne reste plus qu’un seul joueur en lice ou lorsque la pioche est vide. Dans ce dernier cas, c’est le joueur ayant la carte la plus puissante qui remporte la manche.",
         },
         table: {
-          //TABLEAU DE NOMBRE DE POINTS EN FONCTION DU NOMBRE DE JOUEUR
+          nb_player: "Nombre de joueurs",
+          nb_points: "Nombre de points requis",
         },
       },
     },
@@ -113,7 +114,8 @@ export default {
           t6: "The round ends when there is only one player left or when the draw is empty. In the latter case, it is the player with the most powerful card who wins the round.",
         },
         table: {
-          //TABLEAU DE NOMBRE DE POINTS EN FONCTION DU NOMBRE DE JOUEUR
+          nb_player: "Numbers of players",
+          nb_points: "Number of points required",
         },
       },
     },

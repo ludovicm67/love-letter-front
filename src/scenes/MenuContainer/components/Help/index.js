@@ -13,7 +13,7 @@ let cardsPathClown = `${cardsPath}/clown.svg`;
 let cardsPathGeneral = `${cardsPath}/general.svg`;
 let cardsPathKnight = `${cardsPath}/knight.svg`;
 let cardsPathMinister = `${cardsPath}/minister.svg`;
-let cardsPathPriest = `${cardsPath}/priest.svg`;
+let cardsPathPriest = `${cardsPath}/priestess.svg`;
 let cardsPathSorcerer = `${cardsPath}/sorcerer.svg`;
 let cardsPathPrincesse = `${cardsPath}/princess.svg`;
 

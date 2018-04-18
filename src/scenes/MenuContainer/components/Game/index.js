@@ -25,17 +25,9 @@ class Game extends Component {
       allChosen: false,
     };
 
-    this.cardAction = this.cardAction.bind(this);
-    this.playGame = this.playGame.bind(this);
-    this.handleChooseCard = this.handleChooseCard.bind(this);
-    this.handleChoosePlayer = this.handleChoosePlayer.bind(this);
-    this.setAllChosen = this.setAllChosen.bind(this);
-  }
-
-  componentWillMount() {
     // if got game props from other location
     if (this.props.location.state && this.props.location.state.game) {
-      this.setState({game: this.props.location.state.game});
+      this.state.game = this.props.location.state.game;
     }
 
     // listen to game changes
@@ -49,6 +41,13 @@ class Game extends Component {
           });
         });
     }
+    
+    this.cardAction = this.cardAction.bind(this);
+    this.playGame = this.playGame.bind(this);
+    this.handleChooseCard = this.handleChooseCard.bind(this);
+    this.handleChoosePlayer = this.handleChoosePlayer.bind(this);
+    this.setAllChosen = this.setAllChosen.bind(this);
+
   }
 
   componentWillUnmount() {
@@ -201,7 +200,7 @@ class Game extends Component {
           style={style}
           src={`${imgPath}/cards/back.svg`}
           alt="pioche"
-          onClick={this.playGame.bind(this, 'pick_card', null, null, null)}
+          onClick={(e)=>{this.playGame.bind(this, 'pick_card', null, null, null)}}
         />
       );
 
@@ -372,7 +371,6 @@ class Game extends Component {
           style={gameStyle.piocheContainer}
           onClick={this.playGame.bind(
             this,
-            this.state,
             'pick_card',
             null,
             null,

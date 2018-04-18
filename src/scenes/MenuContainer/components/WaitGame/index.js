@@ -20,12 +20,10 @@ export class WaitGame extends Component {
         started: false,
       },
     };
-  }
 
-  componentWillMount() {
     // if got game props from other location
     if (this.props.location.state && this.props.location.state.game) {
-      this.setState({game: this.props.location.state.game});
+      this.state.game = this.props.location.state.game;
     }
 
     // if no game informations, the redirect to the homepage

@@ -30,7 +30,7 @@ export default class Game extends Component {
     if (props.location.state && props.location.state.game) {
       this.state.game = props.location.state.game;
     }
-
+    console.log('STATE', this.state);
     // listen to game changes
     if (this.state.game.id !== '') {
       echo
@@ -42,6 +42,9 @@ export default class Game extends Component {
           });
         });
     }
+
+    this.cardAction = this.cardAction.bind(this);
+    this.playGame = this.playGame.bind(this);
   }
 
   componentWillUnmount() {
@@ -62,16 +65,10 @@ export default class Game extends Component {
       //donner une valeur à chosen_player
     }
 
-    this.playGame(
-      this.state,
-      'play_card',
-      card.card_value,
-      chosen_player,
-      chosen_card
-    );
+    this.playGame('play_card', card.card_value, chosen_player, chosen_card);
   }
 
-  playGame(state, action, played_card_value, chosen_player, chosen_card) {
+  playGame(action, played_card_value, chosen_player, chosen_card) {
     const userToken = localStorage.getItem('token');
     const data = new FormData();
 
@@ -79,14 +76,14 @@ export default class Game extends Component {
       console.error('action invalide : ' + action);
 
     console.log({
-      game_id: state.id,
+      game_id: this.state.id,
       action: action,
       played_card: played_card_value,
       choosen_player: chosen_player,
       choosen_card_name: chosen_card,
     });
 
-    data.append('game_id', state.id);
+    data.append('game_id', this.state.id);
     data.append('action', action);
     data.append('played_card', played_card_value);
     data.append('choosen_player', chosen_player);

@@ -51,7 +51,9 @@ export class WaitGame extends Component {
       .listen('StartGameEvent', e => {
         this.props.history.push({
           pathname: '/jeu',
-          state: e.content.game,
+          state: {
+            game: e.content.game,
+          },
         });
       });
   }

@@ -25,9 +25,17 @@ class Game extends Component {
       allChosen: false,
     };
 
+    this.cardAction = this.cardAction.bind(this);
+    this.playGame = this.playGame.bind(this);
+    this.handleChooseCard = this.handleChooseCard.bind(this);
+    this.handleChoosePlayer = this.handleChoosePlayer.bind(this);
+    this.setAllChosen = this.setAllChosen.bind(this);
+  }
+
+  componentWillMount() {
     // if got game props from other location
-    if (props.location.state && props.location.state.game) {
-      this.state.game = props.location.state.game;
+    if (this.props.location.state && this.props.location.state.game) {
+      this.setState({game: this.props.location.state.game});
     }
 
     // listen to game changes
@@ -41,12 +49,6 @@ class Game extends Component {
           });
         });
     }
-
-    this.cardAction = this.cardAction.bind(this);
-    this.playGame = this.playGame.bind(this);
-    this.handleChooseCard = this.handleChooseCard.bind(this);
-    this.handleChoosePlayer = this.handleChoosePlayer.bind(this);
-    this.setAllChosen = this.setAllChosen.bind(this);
   }
 
   componentWillUnmount() {

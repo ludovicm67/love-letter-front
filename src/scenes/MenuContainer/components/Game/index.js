@@ -47,7 +47,6 @@ class Game extends Component {
     this.handleChooseCard = this.handleChooseCard.bind(this);
     this.handleChoosePlayer = this.handleChoosePlayer.bind(this);
     this.setAllChosen = this.setAllChosen.bind(this);
-
   }
 
   componentWillUnmount() {
@@ -55,8 +54,6 @@ class Game extends Component {
   }
 
   cardAction(card) {
-    console.log("clic sur " + card);
-
     if(this.state.allChosen || (!card.choose_card_name && !card.choose_players)) {
 
       let chosen_player = null;
@@ -169,8 +166,9 @@ class Game extends Component {
     }
 
     let current_player =
-      ((game_infos.current_player + myIndexInArray) % nbPlayers + nbPlayers) %
-      nbPlayers;
+      (game_infos.current_player + (nbPlayers - myIndexInArray))%nbPlayers;
+      // ((game_infos.current_player + myIndexInArray) % nbPlayers + nbPlayers) %
+      // nbPlayers;
 
     myTurn = current_player === 0;
 

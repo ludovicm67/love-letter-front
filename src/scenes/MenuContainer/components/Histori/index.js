@@ -16,11 +16,12 @@ export class Histori extends Component {
         textAlign: 'center',
       },
       p_style: {
+        height: '65vh',
+        textAlign: 'center',
         '@media (max-width: 1200px)': {
           width: '90vw',
           margin: 'auto',
         },
-        textAlign: 'center',
       },
       image: {
         height: '60vh',
@@ -31,7 +32,7 @@ export class Histori extends Component {
         },
       },
       div_style: {
-        height: '60vh',
+        height: '65vh',
         '@media (min-width: 1201px)': {
           columnCount: '3',
         },

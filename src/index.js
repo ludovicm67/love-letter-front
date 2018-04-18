@@ -13,24 +13,11 @@ import messages from './messages';
 import en from 'react-intl/locale-data/en';
 import fr from 'react-intl/locale-data/fr';
 
-import { flattenMessages } from './utils';
+import { flattenMessages, getLanguage } from './utils';
+
+let locale = getLanguage();
 
 addLocaleData([...en, ...fr]);
-
-let locale =
-  (navigator.languages && navigator.languages[0]) ||
-  navigator.language ||
-  navigator.userLanguage ||
-  'fr';
-
-//ignore region code & set french to default language
-if (locale.substring(0, 2) === 'en') {
-  locale = 'en';
-} else {
-  locale = 'fr';
-}
-
-export const appLocale = locale;
 
 /***********/
 /****App****/

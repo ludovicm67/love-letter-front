@@ -1,17 +1,10 @@
 import axios from 'axios';
 import React, { Component } from 'react';
 import { FormattedMessage } from 'react-intl';
-import { API_URL, echo } from '../../../../utils';
+import { API_URL, echo, getLanguage } from '../../../../utils';
 import { gameStyle } from './style';
 
-import { appLocale } from '../../../../';
-let cardsLocale;
-
-if (appLocale !== 'en' && appLocale !== 'fr') {
-  cardsLocale = 'fr';
-} else {
-  cardsLocale = appLocale;
-}
+let cardsLocale = getLanguage();
 
 let imgPath = `images`;
 let cardsPath = `${imgPath}/cards/${cardsLocale}`;

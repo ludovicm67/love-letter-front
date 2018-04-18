@@ -41,6 +41,23 @@ export const flattenMessages = (nestedMessages, prefix = '') => {
   }, {});
 };
 
+export const getLanguage = () => {
+  let locale =
+    (navigator.languages && navigator.languages[0]) ||
+    navigator.language ||
+    navigator.userLanguage ||
+    'fr';
+
+  //ignore region code & set french to default language
+  if (locale.substring(0, 2) === 'en') {
+    locale = 'en';
+  } else {
+    locale = 'fr';
+  }
+
+  return locale;
+};
+
 /*************/
 /***STORAGE***/
 /*************/

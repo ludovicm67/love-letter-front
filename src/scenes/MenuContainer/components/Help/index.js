@@ -1,19 +1,13 @@
 import React, { Component } from 'react';
 import { FormattedMessage } from 'react-intl';
 
-import { appLocale } from '../../../../';
-let cardsLocale;
+import { getLanguage } from '../../../../utils';
 
-if (appLocale !== 'en' && appLocale !== 'fr') {
-  cardsLocale = 'fr';
-} else {
-  cardsLocale = appLocale;
-}
-
-// console.log(appLocale);
+let cardsLocale = getLanguage();
 
 let imgPath = `images`;
 let cardsPath = `${imgPath}/cards/${cardsLocale}`;
+
 let cardsPathSoldier = `${cardsPath}/soldier.svg`;
 let cardsPathClown = `${cardsPath}/clown.svg`;
 let cardsPathGeneral = `${cardsPath}/general.svg`;

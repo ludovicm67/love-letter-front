@@ -38,17 +38,61 @@ export default class Credits extends Component {
 
         <ul style={CreditsStyle.list}>
           <li>Ludovic Muller
-            {/*<span style={CreditsStyle.linkContainer}>
-              <a style={CreditsStyle.links} className="fa fa-globe" href="https://www.ludovic-muller.fr/"></a>
-              <a style={CreditsStyle.links} className="fa fa-github" href="https://github.com/ludovicm67"></a>
-              <a style={CreditsStyle.links} className="fa fa-twitter" href="https://twitter.com/ludovicm67"></a>
-              <a style={CreditsStyle.links} className="fa fa-linkedin" href="https://www.linkedin.com/in/ludovicm67/"></a>
-            </span>*/}
+            <span style={CreditsStyle.linkContainer}>
+              <a style={CreditsStyle.links} aria-label="Site personnel" href="https://www.ludovic-muller.fr/">
+                <i className="fa fa-globe" aria-hidden="true"></i>
+              </a>
+              <a style={CreditsStyle.links} aria-label="Compte Github" href="https://github.com/ludovicm67">
+                <i className="fa fa-github" aria-hidden="true"></i>
+              </a>
+              <a style={CreditsStyle.links} aria-label="Compte twitter" href="https://twitter.com/ludovicm67">
+                <i className="fa fa-twitter" aria-hidden="true"></i>
+              </a>
+              <a style={CreditsStyle.links} aria-label="Compte Linkedin" href="https://www.linkedin.com/in/ludovicm67/">
+                <i className="fa fa-linkedin" aria-hidden="true"></i>
+              </a>
+            </span>
           </li>
-          <li>Martin Heitz</li>
-          <li>Méline Bour-Lang</li>
-          <li>Morgane Ritter</li>
-          <li>Pauline Capésius</li>
+          <li>Martin Heitz
+            <span style={CreditsStyle.linkContainer}>
+              <a style={CreditsStyle.links} aria-label="Compte Github" href="https://github.com/sylvestreee">
+                <i className="fa fa-github" aria-hidden="true"></i>
+              </a>
+              <a style={CreditsStyle.links} aria-label="Compte Linkedin" href="https://www.linkedin.com/in/martin-heitz-06978712b/">
+                <i className="fa fa-linkedin" aria-hidden="true"></i>
+              </a>
+            </span>
+          </li>
+          <li>Méline Bour-Lang
+          <span style={CreditsStyle.linkContainer}>
+            <a style={CreditsStyle.links} aria-label="Site personnel" href="http://meline-bourlang.fr/">
+              <i className="fa fa-globe" aria-hidden="true"></i>
+            </a>
+            <a style={CreditsStyle.links} aria-label="Compte Github" href="https://github.com/BourMel">
+              <i className="fa fa-github" aria-hidden="true"></i>
+            </a>
+            <a style={CreditsStyle.links} aria-label="Compte Linkedin" href="https://www.linkedin.com/in/m%C3%A9line-bour-lang/">
+              <i className="fa fa-linkedin" aria-hidden="true"></i>
+            </a>
+          </span>
+          </li>
+          <li>Morgane Ritter
+            <span style={CreditsStyle.linkContainer}>
+              <a style={CreditsStyle.links} aria-label="Compte Github" href="https://github.com/MorganeRitter">
+                <i className="fa fa-github" aria-hidden="true"></i>
+              </a>
+              <a style={CreditsStyle.links} aria-label="Compte Linkedin" href="https://www.linkedin.com/in/morgane-ritter/">
+                <i className="fa fa-linkedin" aria-hidden="true"></i>
+              </a>
+            </span>
+          </li>
+          <li>Pauline Capésius
+            <span style={CreditsStyle.linkContainer}>
+              <a style={CreditsStyle.links} aria-label="Compte Linkedin" href="https://www.linkedin.com/in/pauline-capésius-01a790161">
+                <i className="fa fa-linkedin" aria-hidden="true"></i>
+              </a>
+            </span>
+          </li>
         </ul>
       </div>
     );

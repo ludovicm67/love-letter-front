@@ -30,7 +30,7 @@ export default class Game extends Component {
     if (props.location.state && props.location.state.game) {
       this.state.game = props.location.state.game;
     }
-    console.log('STATE', this.state);
+
     // listen to game changes
     if (this.state.game.id !== '') {
       echo
@@ -76,14 +76,14 @@ export default class Game extends Component {
       console.error('action invalide : ' + action);
 
     console.log({
-      game_id: this.state.id,
+      game_id: this.state.game.id,
       action: action,
       played_card: played_card_value,
       choosen_player: chosen_player,
       choosen_card_name: chosen_card,
     });
 
-    data.append('game_id', this.state.id);
+    data.append('game_id', this.state.game.id);
     data.append('action', action);
     data.append('played_card', played_card_value);
     data.append('choosen_player', chosen_player);

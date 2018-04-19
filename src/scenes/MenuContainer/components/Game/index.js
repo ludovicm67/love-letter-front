@@ -21,7 +21,7 @@ class Game extends Component {
       chooseCard: false,
       chosenCard: "knight",
       chosenPlayer: 0,
-      card_played: 0,
+      card_played: {},
       allChosen: false,
     };
 
@@ -69,6 +69,8 @@ class Game extends Component {
 
       this.playGame('play_card', card.value, chosen_player, chosen_card);
       this.setState({allChosen: false});
+      this.setState({choosePlayer: false});
+      this.setState({chooseCard: false});
 
     } else {
       if (card.choose_card_name) {
@@ -150,6 +152,8 @@ class Game extends Component {
     let {formatMessage} = this.props.intl;
     let playersSelect = [];
 
+    console.log(this.state);
+
     // get an array with the current player as the first item
     const myIndexInArray = game_infos.players
       .map(p => p.name)
@@ -208,12 +212,18 @@ class Game extends Component {
       /***PLAYERS SELECT***/
       /********************/
 
+      console.log("ARRAY");
       playersSelect.length = 0;
       if(choosePlayer) {
         for(let i=0; i<players.length; i++) {
-          playersSelect.push(
-            <option key={`playerSelect${i}${Math.random()}`} value={i}>{players[i].name}</option>
-          );
+          //my name appears only if it's the card sorcerer
+          if((i === 0 && this.state.card_played.value === 5)
+          //other names appears each time
+          || i !==0) {
+            playersSelect.push(
+              <option key={`playerSelect${i}${Math.random()}`} value={i}>{players[i].name}</option>
+            );
+          }
         }
       }
     }

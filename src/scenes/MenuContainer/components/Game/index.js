@@ -288,13 +288,10 @@ class Game extends Component {
     let {current_round, winning_rounds} = this.state.game;
     let card_played = current_round.played_cards;
 
-    console.log("card_played");
-    console.log(card_played);
-
-    let card_played_0 = card_played.filter( card => card[0] === 0);
-    let card_played_1 = card_played.filter( card => card[0] === 1);
-    let card_played_2 = card_played.filter( card => card[0] === 2);
-    let card_played_3 = card_played.filter( card => card[0] === 3);
+    let card_played_0 = card_played.filter( card => card[0] === this.getOriginalIndex(0));
+    let card_played_1 = card_played.filter( card => card[0] === this.getOriginalIndex(1));
+    let card_played_2 = card_played.filter( card => card[0] === this.getOriginalIndex(2));
+    let card_played_3 = card_played.filter( card => card[0] === this.getOriginalIndex(3));
 
     let nbPlayers = players.length;
     if (nbPlayers === 0) {

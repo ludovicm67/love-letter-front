@@ -491,6 +491,13 @@ class Game extends Component {
               </p>
             )
           )}
+
+          {this.state.endGameEvent.state && (
+            <p>
+              {this.state.endGameEvent.winner}
+              <FormattedMessage id="Game.winnerOfGame"/>
+            </p>
+          )}
         </div>
 
         {/*players' cards*/}

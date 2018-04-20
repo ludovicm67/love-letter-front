@@ -13,9 +13,9 @@ export const gameStyle = {
   selection: {
     position: 'absolute',
     left: '40%',
-    top:' 35%',
+    top: ' 35%',
     transform: 'translate(0, -50%)',
-    zIndex: 10
+    zIndex: 10,
   },
 
   my_infos: {
@@ -32,13 +32,22 @@ export const gameStyle = {
       fontSize: '1.5em',
       position: 'absolute',
       bottom: '1em',
-    }
+    },
   },
 
   card: {
     width: '140px',
     margin: '5px',
 
+    showHand: {
+      width: '140px',
+      boxShadow: `10px 10px 10px ${colors.secondColor}`,
+      position: 'absolute',
+      left: '40%',
+      top: ' 40%',
+      transform: 'translate(0, -50%)',
+      zIndex: 10,
+    },
     light: {
       borderRadius: '15px',
       boxShadow: `10px 10px 10px ${colors.whiteColor}`,

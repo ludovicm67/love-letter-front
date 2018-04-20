@@ -101,7 +101,7 @@ class Game extends Component {
     let nbPlayers = this.state.game.players.length;
 
     let newIndex =
-      (originalIndex + (nbPlayers - myIndexInArray))%nbPlayers;
+      (((originalIndex + myIndexInArray) % nbPlayers) + nbPlayers) % nbPlayers;
 
     return newIndex;
   }
@@ -112,8 +112,7 @@ class Game extends Component {
   getOriginalIndex(shiftedIndex) {
     let nbPlayers = this.state.game.players.length;
     let myIndexInArray = localStorage.getItem('myIndexInArray');
-
-    return (shiftedIndex + myIndexInArray)%nbPlayers;
+    return (((shiftedIndex - myIndexInArray) % nbPlayers) + nbPlayers) % nbPlayers;
   }
 
   cardAction(card) {
@@ -329,6 +328,7 @@ class Game extends Component {
               <select
               onChange={this.handleChoosePlayer}
               value={this.state.chosenPlayer}>
+                <option key={`playerSelect-default-${Math.random()}`} value='-1'>Choose a player</option>
                 {playersSelect}
               </select>
             </form>

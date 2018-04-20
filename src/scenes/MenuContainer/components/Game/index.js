@@ -395,16 +395,11 @@ class Game extends Component {
           <p style={gameStyle.player.score}>
             {players[0].winning_rounds_count}
             <FormattedMessage id="Game.wonGames" />
+            <FormattedMessage id="Game.rounds" />
+            {winning_rounds}
           </p>
           <p>{current_player === 0 && <FormattedMessage id="Game.me_playing" />}</p>
           <p>{players[0].immunity && <FormattedMessage id="Game.me_immunity" />}</p>
-
-          <span style={gameStyle.my_infos.round}>
-            <FormattedMessage id="Game.rounds" />
-            {current_round.number}
-            <FormattedMessage id="Game.rounds_2" />
-            {winning_rounds}
-          </span>
         </div>
       </div>
     );

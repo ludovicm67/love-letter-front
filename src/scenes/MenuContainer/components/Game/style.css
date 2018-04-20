@@ -1,0 +1,4 @@
+/**efface le titre principal**/
+.AppTitle {
+  display: none;
+}

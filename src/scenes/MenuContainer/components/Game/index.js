@@ -49,6 +49,10 @@ class Game extends Component {
     this.setAllChosen = this.setAllChosen.bind(this);
   }
 
+  componentWillMount() {
+    require('./style.css');
+  }
+
   componentWillUnmount() {
     echo.leave(`channel-game:${this.state.game.id}`);
   }

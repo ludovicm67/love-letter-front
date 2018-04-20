@@ -97,7 +97,7 @@ class MenuContainer extends Component {
         )}
 
         {pathname !== '/jeu' && (
-          <h1 style={menuStyle.title}>
+          <h1 className="AppTitle" style={menuStyle.title}>
             <FormattedMessage id="MenuContainer.title" />
           </h1>
         )}

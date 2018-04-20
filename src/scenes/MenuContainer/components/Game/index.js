@@ -34,6 +34,10 @@ class Game extends Component {
         state: false,
         reason: '',
         winner: ''
+      },
+      endGameEvent: {
+        state: false,
+        winner: ''
       }
     };
 
@@ -104,21 +108,21 @@ class Game extends Component {
         })
         .listen('EndGameEvent', e => {
           console.log('got endGame Event', e);
+
+          this.setState({endGameEvent: {
+            state: true,
+            winner: e.content.game.winner_name
+          }});
+
+          let self = this;
+          setTimeout(function(){
+            self.setState({endGameEvent: {
+              state: false,
+              winner: ''
+            }});
+          }, 5000);
         });
-
-
-        /***endRound :
-0 => game_id
-1 => le nom du joueur qui a gagné
-2 => dans quelles conditions le round s'est terminé
-
- 1 (la pile était vide, les joueurs ont comparés leur carte, le vainqueur est celui qui avait la plus grand valeur)
- soit 2 (il restait plus qu'un seul joueur en jeu) -> ça te servira pour savoir qu'elle affichage faut faire
-
-0 => game_id
-1 => le nom du joueur qui a gagné
-**/
-    }
+      }
 
     this.cardAction = this.cardAction.bind(this);
     this.playGame = this.playGame.bind(this);

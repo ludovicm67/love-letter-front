@@ -29,6 +29,11 @@ class Game extends Component {
         player: '',
         attackFrom: '',
         card: ''
+      },
+      endRoundEvent: {
+        state: false,
+        reason: '',
+        winner: ''
       }
     };
 
@@ -69,20 +74,46 @@ class Game extends Component {
         })
         .listen('EndRoundEvent', e => {
           console.log('got endRound Event', e);
+
+          let reason;
+
+          switch (e.content.game.reason_end) {
+            case 1:
+            reason = 'empty_pile';
+              break;
+            case 2:
+            default:
+            reason = 'all_eliminated';
+          }
+
+          this.setState({endRoundEvent: {
+            state: true,
+            reason: reason,
+            winner: e.content.game.winner_name
+          }});
+
+          let self = this;
+          setTimeout(function(){
+            self.setState({endRoundEvent: {
+              state: false,
+              reason: null,
+              winner: ''
+            }});
+          }, 5000);
+
         })
         .listen('EndGameEvent', e => {
           console.log('got endGame Event', e);
         });
 
 
-        /***eliminatedPlayer :
-
-endRound :
+        /***endRound :
 0 => game_id
 1 => le nom du joueur qui a gagné
-2 => dans quelles conditions le round s'est terminé (soit parce qu'il n'y avait plus qu'un joueur, soit parce que la pile était vide et les joueurs ont dû comparer les valeurs de leurs cartes => celui avec la plus grande valeur remporte la manche)
-endRound j'ai donc mis une clé 'reason_end' qui vaudra soit 1 (la pile était vide, les joueurs ont comparés leur carte, le vainqueur est celui qui avait la plus grand valeur) soit 2 (il restait plus qu'un seul joueur en jeu) -
-endGame :
+2 => dans quelles conditions le round s'est terminé
+
+ 1 (la pile était vide, les joueurs ont comparés leur carte, le vainqueur est celui qui avait la plus grand valeur)
+ soit 2 (il restait plus qu'un seul joueur en jeu) -> ça te servira pour savoir qu'elle affichage faut faire
 
 0 => game_id
 1 => le nom du joueur qui a gagné
@@ -97,7 +128,6 @@ endGame :
     this.showHand = this.showHand.bind(this);
     this.shiftPlayers = this.shiftPlayers.bind(this);
     this.getOriginalIndex = this.getOriginalIndex.bind(this);
-    // this.getMyIndexInOriginalArray = this.getMyIndexInOriginalArray.bind(this);
     this.componentWillMount = this.componentWillMount.bind(this);
   }
 
@@ -360,7 +390,7 @@ endGame :
                   <option
                     key={`cardSelect-default-${Math.random()}`}
                     value=""
-                  ><FormattedMessage id="Game.chooseACard" /></option>
+                  >{formatMessage({ id: 'Game.chooseACard' })}</option>
                   <option value="sorcerer">
                     {formatMessage({ id: 'Game.sorcerer' })}
                   </option>
@@ -398,7 +428,7 @@ endGame :
                     key={`playerSelect-default-${Math.random()}`}
                     value="-1"
                   >
-                    <FormattedMessage id="Game.chooseAPlayer" />
+                    {formatMessage({ id: 'Game.chooseAPlayer' })}
                   </option>
                   {playersSelect}
                 </select>
@@ -425,25 +455,42 @@ endGame :
           }
         </div>
 
-        {/*player elimination event*/}
-        {this.state.eliminatedEvent.state && (
-          (this.state.eliminatedEvent.player === this.state.eliminatedEvent.attackFrom) ? (
-            <p style={gameStyle.eliminated}>
-              {this.state.eliminatedEvent.player}
-              <FormattedMessage id="Game.auto_eliminated" />
-              <FormattedMessage id={`Game.${this.state.eliminatedEvent.card}`} />
-            </p>
-          ) : (
-            <p style={gameStyle.eliminated}>
-              {this.state.eliminatedEvent.player}
-              <FormattedMessage id="Game.eliminated_by" />
-              {this.state.eliminatedEvent.attackFrom}
-              <FormattedMessage id="Game.eliminated_with" />
-              <FormattedMessage id={`Game.${this.state.eliminatedEvent.card}`} />
-            </p>
-          )
+        {/*EVENTS*/}
+        <div style={gameStyle.event}>
+          {/*player elimination event*/}
+          {this.state.eliminatedEvent.state && (
+            (this.state.eliminatedEvent.player === this.state.eliminatedEvent.attackFrom) ? (
+              <p>
+                {this.state.eliminatedEvent.player}
+                <FormattedMessage id="Game.auto_eliminated" />
+                <FormattedMessage id={`Game.${this.state.eliminatedEvent.card}`} />
+              </p>
+            ) : (
+              <p>
+                {this.state.eliminatedEvent.player}
+                <FormattedMessage id="Game.eliminated_by" />
+                {this.state.eliminatedEvent.attackFrom}
+                <FormattedMessage id="Game.eliminated_with" />
+                <FormattedMessage id={`Game.${this.state.eliminatedEvent.card}`} />
+              </p>
+            )
+          )}
 
-        )}
+          {/*end round event*/}
+          {this.state.endRoundEvent.state && (
+            (this.state.endRoundEvent.reason === 'all_eliminated') ? (
+              <p>
+                <FormattedMessage id="Game.winnerByElimination" />
+                {this.state.endRoundEvent.winner}
+              </p>
+              ) : (
+              <p>
+                <FormattedMessage id="Game.winnerByEmptyPile" />
+                {this.state.endRoundEvent.winner}
+              </p>
+            )
+          )}
+        </div>
 
         {/*players' cards*/}
 

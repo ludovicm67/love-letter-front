@@ -18,7 +18,7 @@ export const gameStyle = {
     zIndex: 10,
   },
 
-  eliminated: {
+  event: {
     position: 'absolute',
     left: '40%',
     top: ' 35%',

@@ -132,7 +132,7 @@ export const api_login = (name, password) => {
 
 export const api_logout = () => {
   const url = `${API_URL}/logout?token=${localStorage.getItem('token')}`;
-  axios.get(url).then(logout);
+  axios.get(url).then(logout).catch(logout);
 };
 
 export const echo = new Echo({

@@ -100,7 +100,6 @@ export class NewGame extends Component {
         borderRadius: '4px',
         backgroundColor: colors.whiteColor,
         fontSize: '0.8em',
-        widht: '100%',
       },
     };
 

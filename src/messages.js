@@ -1,4 +1,4 @@
-import {default as help} from './scenes/MenuContainer/components/Help/messages.js';
+import { default as help } from './scenes/MenuContainer/components/Help/messages.js';
 
 let messages = {
   fr: {
@@ -113,11 +113,11 @@ let messages = {
       soldier: 'Soldat',
       minister: 'Ministre',
       sorcerer: 'Sorcier',
-      priest: 'Prêtre'
+      priest: 'Prêtre',
     },
     Credits: {
-      title: 'Crédits'
-    }
+      title: 'Crédits',
+    },
   },
   en: {
     LoginContainer: {
@@ -213,7 +213,7 @@ let messages = {
       wonGames: ' won game(s)',
       playing: 'is playing...',
       me_playing: 'Your turn!',
-      me_immunity: 'You\'re protected!',
+      me_immunity: "You're protected!",
       immunity: 'This player is protected!',
       choosePlayerCard: 'Choose',
       chooseACard: 'Choose a card',
@@ -227,11 +227,11 @@ let messages = {
       soldier: 'Solider',
       minister: 'Minister',
       sorcerer: 'Sorcerer',
-      priest: 'Priest'
+      priest: 'Priest',
     },
     Credits: {
-      title: 'Credits'
-    }
+      title: 'Credits',
+    },
   },
 };
 

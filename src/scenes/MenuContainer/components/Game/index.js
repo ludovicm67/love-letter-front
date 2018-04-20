@@ -19,10 +19,10 @@ class Game extends Component {
       },
       choosePlayer: false,
       chooseCard: false,
-      chosenCard: "knight",
+      chosenCard: 'knight',
       chosenPlayer: 0,
       card_played: {},
-      allChosen: false
+      allChosen: false,
     };
 
     // if got game props from other location
@@ -66,19 +66,19 @@ class Game extends Component {
     /**********************************************************/
     /****LA FONCTION POUR MONTRER LA MAIN DU JOUEUR ADVERSE****/
     /**********************************************************/
-    console.log("chosen player");
+    console.log('chosen player');
     console.log(player);
 
-    console.log("the original index of the chosen player");
+    console.log('the original index of the chosen player');
     let originalPlayer = this.getOriginalIndex(player); //la fonction qui ne renvoie pas le bon indice
     console.log(originalPlayer);
-    console.log("player in state");
+    console.log('player in state');
     console.log(this.state.game.players[originalPlayer]);
-    console.log("player name in state");
+    console.log('player name in state');
     console.log(this.state.game.players[originalPlayer].name);
-    console.log("player immunity in state");
+    console.log('player immunity in state');
     console.log(this.state.game.players[originalPlayer].immunity);
-    console.log("player hand in state");
+    console.log('player hand in state');
     console.log(this.state.game.players[originalPlayer].hand[0]);
   }
 
@@ -101,7 +101,7 @@ class Game extends Component {
     let nbPlayers = this.state.game.players.length;
 
     let newIndex =
-      (((originalIndex + myIndexInArray) % nbPlayers) + nbPlayers) % nbPlayers;
+      ((originalIndex + myIndexInArray) % nbPlayers + nbPlayers) % nbPlayers;
 
     return newIndex;
   }
@@ -112,13 +112,17 @@ class Game extends Component {
   getOriginalIndex(shiftedIndex) {
     let nbPlayers = this.state.game.players.length;
     let myIndexInArray = localStorage.getItem('myIndexInArray');
-    return (((shiftedIndex - myIndexInArray) % nbPlayers) + nbPlayers) % nbPlayers;
+    return (
+      ((shiftedIndex - myIndexInArray) % nbPlayers + nbPlayers) % nbPlayers
+    );
   }
 
   cardAction(card) {
     //if we have all the informations we need to play
-    if(this.state.allChosen || (!card.choose_card_name && !card.choose_players)) {
-
+    if (
+      this.state.allChosen ||
+      (!card.choose_card_name && !card.choose_players)
+    ) {
       let chosen_player = null;
       let chosen_card = null;
 
@@ -133,28 +137,26 @@ class Game extends Component {
       this.playGame('play_card', card.value, chosen_player, chosen_card);
 
       //if played_card === clown
-      if(card.value === 2)
-        this.showHand(chosen_player);
+      if (card.value === 2) this.showHand(chosen_player);
 
-      this.setState({allChosen: false});
-      this.setState({choosePlayer: false});
-      this.setState({chooseCard: false});
-
+      this.setState({ allChosen: false });
+      this.setState({ choosePlayer: false });
+      this.setState({ chooseCard: false });
     } else {
       if (card.choose_card_name) {
-        this.setState({card_played: card});
-        this.setState({chooseCard: true});
+        this.setState({ card_played: card });
+        this.setState({ chooseCard: true });
       }
 
       if (card.choose_players) {
-        this.setState({card_played: card});
-        this.setState({choosePlayer: true});
+        this.setState({ card_played: card });
+        this.setState({ choosePlayer: true });
       }
     }
   }
 
   setAllChosen() {
-    this.setState({allChosen: true});
+    this.setState({ allChosen: true });
     this.cardAction(this.state.card_played);
   }
 
@@ -186,7 +188,7 @@ class Game extends Component {
       },
     });
 
-    this.setState({card_played: 0});
+    this.setState({ card_played: 0 });
   }
 
   handleCardName(cardName) {
@@ -202,13 +204,13 @@ class Game extends Component {
     return cardName;
   }
 
-  handleChooseCard = (event) => {
-    this.setState({chosenCard: event.target.value});
-  }
+  handleChooseCard = event => {
+    this.setState({ chosenCard: event.target.value });
+  };
 
-  handleChoosePlayer = (event) => {
-    this.setState({chosenPlayer: event.target.value});
-  }
+  handleChoosePlayer = event => {
+    this.setState({ chosenPlayer: event.target.value });
+  };
 
   render() {
     let game_infos = this.state.game;
@@ -216,10 +218,10 @@ class Game extends Component {
     let pioche = [];
     let myCardsStyle;
     let myTurn;
-    let {chooseCard, choosePlayer} = this.state;
-    let {formatMessage} = this.props.intl;
+    let { chooseCard, choosePlayer } = this.state;
+    let { formatMessage } = this.props.intl;
     let playersSelect = [];
-    let {current_round, winning_rounds} = this.state.game;
+    let { current_round, winning_rounds } = this.state.game;
 
     console.log(this.state);
 
@@ -233,18 +235,26 @@ class Game extends Component {
 
     localStorage.setItem('myIndexInArray', myIndexInArray);
 
-    console.log("players");
+    console.log('players');
     console.log(players);
-    console.log("myIndexInArray");
+    console.log('myIndexInArray');
     console.log(myIndexInArray);
-    console.log("game_infos.current_player");
+    console.log('game_infos.current_player');
     console.log(game_infos.current_player);
 
-    let current_player = this.getShiftPlayersIndexes(game_infos.current_player, myIndexInArray);
+    let current_player = this.getShiftPlayersIndexes(
+      game_infos.current_player,
+      myIndexInArray
+    );
 
     myTurn = current_player === 0;
 
-    if (players[0].hand.length === 2 && myTurn && !chooseCard && !choosePlayer) {
+    if (
+      players[0].hand.length === 2 &&
+      myTurn &&
+      !chooseCard &&
+      !choosePlayer
+    ) {
       myCardsStyle = { ...gameStyle.card.me, ...gameStyle.card.light };
     } else {
       myCardsStyle = gameStyle.card.me;
@@ -272,7 +282,9 @@ class Game extends Component {
           style={style}
           src={`${imgPath}/cards/back.svg`}
           alt="pioche"
-          onClick={(e)=>{this.playGame.bind(this, 'pick_card', null, null, null)}}
+          onClick={e => {
+            this.playGame.bind(this, 'pick_card', null, null, null);
+          }}
         />
       );
 
@@ -281,14 +293,18 @@ class Game extends Component {
       /********************/
 
       playersSelect.length = 0;
-      if(choosePlayer) {
-        for(let i=0; i<players.length; i++) {
+      if (choosePlayer) {
+        for (let i = 0; i < players.length; i++) {
           //my name appears only if it's the card sorcerer
-          if((i === 0 && this.state.card_played.value === 5)
-          //other names appears each time
-          || i !==0) {
+          if (
+            (i === 0 && this.state.card_played.value === 5) ||
+            //other names appears each time
+            i !== 0
+          ) {
             playersSelect.push(
-              <option key={`playerSelect${i}${Math.random()}`} value={i}>{players[i].name}</option>
+              <option key={`playerSelect${i}${Math.random()}`} value={i}>
+                {players[i].name}
+              </option>
             );
           }
         }
@@ -297,49 +313,68 @@ class Game extends Component {
 
     return (
       <div style={gameStyle}>
-
         <div style={gameStyle.selection}>
-          { chooseCard &&
+          {chooseCard && (
             <div>
               <form>
                 <FormattedMessage id="Game.chooseACard" />
 
                 <select
-                onChange={this.handleChooseCard}
-                value={this.state.chosenCard}>
-
-                  <option value="sorcerer">{formatMessage({ id: 'Game.sorcerer' })}</option>
-                  <option value="minister">{formatMessage({ id: 'Game.minister' })}</option>
-                  <option value="princess_prince">{formatMessage({ id: 'Game.princess_prince' })}</option>
-                  <option value="priest">{formatMessage({ id: 'Game.priest' })}</option>
-                  <option value="knight">{formatMessage({ id: 'Game.knight' })}</option>
-                  <option value="general">{formatMessage({ id: 'Game.general' })}</option>
-                  <option value="clown">{formatMessage({ id: 'Game.clown' })}</option>
+                  onChange={this.handleChooseCard}
+                  value={this.state.chosenCard}
+                >
+                  <option value="sorcerer">
+                    {formatMessage({ id: 'Game.sorcerer' })}
+                  </option>
+                  <option value="minister">
+                    {formatMessage({ id: 'Game.minister' })}
+                  </option>
+                  <option value="princess_prince">
+                    {formatMessage({ id: 'Game.princess_prince' })}
+                  </option>
+                  <option value="priest">
+                    {formatMessage({ id: 'Game.priest' })}
+                  </option>
+                  <option value="knight">
+                    {formatMessage({ id: 'Game.knight' })}
+                  </option>
+                  <option value="general">
+                    {formatMessage({ id: 'Game.general' })}
+                  </option>
+                  <option value="clown">
+                    {formatMessage({ id: 'Game.clown' })}
+                  </option>
                 </select>
               </form>
             </div>
-          }
+          )}
 
-          { choosePlayer &&
+          {choosePlayer && (
             <div>
-            <form>
-              <FormattedMessage id="Game.chooseAPlayer" />
+              <form>
+                <FormattedMessage id="Game.chooseAPlayer" />
 
-              <select
-              onChange={this.handleChoosePlayer}
-              value={this.state.chosenPlayer}>
-                <option key={`playerSelect-default-${Math.random()}`} value='-1'>Choose a player</option>
-                {playersSelect}
-              </select>
-            </form>
+                <select
+                  onChange={this.handleChoosePlayer}
+                  value={this.state.chosenPlayer}
+                >
+                  <option
+                    key={`playerSelect-default-${Math.random()}`}
+                    value="-1"
+                  >
+                    Choose a player
+                  </option>
+                  {playersSelect}
+                </select>
+              </form>
             </div>
-          }
+          )}
 
-          { (choosePlayer || chooseCard) &&
+          {(choosePlayer || chooseCard) && (
             <button onClick={this.setAllChosen}>
               <FormattedMessage id="Game.choosePlayerCard" />
             </button>
-          }
+          )}
         </div>
 
         <div style={gameStyle.player.row}>
@@ -351,8 +386,16 @@ class Game extends Component {
                   {players[2].winning_rounds_count}
                   <FormattedMessage id="Game.wonGames" />
                 </p>
-                <p>{current_player === 2 && <FormattedMessage id="Game.playing" />}</p>
-                <p>{players[2].immunity && <FormattedMessage id="Game.immunity" />}</p>
+                <p>
+                  {current_player === 2 && (
+                    <FormattedMessage id="Game.playing" />
+                  )}
+                </p>
+                <p>
+                  {players[2].immunity && (
+                    <FormattedMessage id="Game.immunity" />
+                  )}
+                </p>
               </div>
 
               <div style={gameStyle.card.left}>
@@ -378,8 +421,16 @@ class Game extends Component {
                   <FormattedMessage id="Game.wonGames" />
                 </p>
 
-                <p>{current_player === 3 && <FormattedMessage id="Game.playing" />}</p>
-                <p>{players[3].immunity && <FormattedMessage id="Game.immunity" />}</p>
+                <p>
+                  {current_player === 3 && (
+                    <FormattedMessage id="Game.playing" />
+                  )}
+                </p>
+                <p>
+                  {players[3].immunity && (
+                    <FormattedMessage id="Game.immunity" />
+                  )}
+                </p>
               </div>
 
               <div style={gameStyle.card.right}>
@@ -407,8 +458,16 @@ class Game extends Component {
                   <FormattedMessage id="Game.wonGames" />
                 </p>
 
-                <p>{current_player === 1 && <FormattedMessage id="Game.playing" />}</p>
-                <p>{players[1].immunity && <FormattedMessage id="Game.immunity" />}</p>
+                <p>
+                  {current_player === 1 && (
+                    <FormattedMessage id="Game.playing" />
+                  )}
+                </p>
+                <p>
+                  {players[1].immunity && (
+                    <FormattedMessage id="Game.immunity" />
+                  )}
+                </p>
               </div>
 
               <div style={gameStyle.card.top}>
@@ -447,13 +506,7 @@ class Game extends Component {
 
         <div
           style={gameStyle.piocheContainer}
-          onClick={this.playGame.bind(
-            this,
-            'pick_card',
-            null,
-            null,
-            null
-          )}
+          onClick={this.playGame.bind(this, 'pick_card', null, null, null)}
         >
           {pioche}
         </div>
@@ -466,8 +519,12 @@ class Game extends Component {
             <FormattedMessage id="Game.rounds_2" />
             {winning_rounds}
           </p>
-          <p>{current_player === 0 && <FormattedMessage id="Game.me_playing" />}</p>
-          <p>{players[0].immunity && <FormattedMessage id="Game.me_immunity" />}</p>
+          <p>
+            {current_player === 0 && <FormattedMessage id="Game.me_playing" />}
+          </p>
+          <p>
+            {players[0].immunity && <FormattedMessage id="Game.me_immunity" />}
+          </p>
 
           <span style={gameStyle.my_infos.round}>
             <FormattedMessage id="Game.rounds" />

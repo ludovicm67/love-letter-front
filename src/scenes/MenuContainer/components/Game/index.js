@@ -76,10 +76,6 @@ class Game extends Component {
 
 
         /***eliminatedPlayer :
-0 => game_id
-1 => le nom du joueur éliminé
-2 => le nom du joueur qui l'a éliminé (ça peut être lui-même par exemple s'il joue Knight, que c'est lui qui ait la carte avec la valeur la moins élevée il perd donc c'est comme s'il s'était auto-éliminé)
-3 => comment (avec quelle carte un truc du genre)
 
 endRound :
 0 => game_id
@@ -483,12 +479,14 @@ endGame :
                   />
                 ))}
               </div>
-              <div>
+
+              {/*CARDS PLAYED*/}
+              <div style={{...gameStyle.played_card, ...gameStyle.played_card.left}}>
                 {
                   card_played_2.map(card => (
                       <img
                       key={ 0 + Math.random()}
-                      style={myCardsStyle}
+                      style={gameStyle.played_card.cards}
                       src={`${cardsPath}/${this.handleCardName(
                         card[1].card_name
                       )}.svg`}
@@ -532,12 +530,14 @@ endGame :
                   />
                 ))}
               </div>
-              <div>
+
+              {/*CARDS PLAYED*/}
+              <div style={{...gameStyle.played_card, ...gameStyle.played_card.right}}>
                 {
                   card_played_3.map(card => (
                       <img
                       key={ 0 + Math.random()}
-                      style={myCardsStyle}
+                      style={gameStyle.played_card.cards}
                       src={`${cardsPath}/${this.handleCardName(
                         card[1].card_name
                       )}.svg`}
@@ -583,12 +583,14 @@ endGame :
                   />
                 ))}
               </div>
-              <div>
+
+              {/*CARDS PLAYED*/}
+              <div style={{...gameStyle.played_card, ...gameStyle.played_card.top}}>
                 {
                   card_played_1.map(card => (
                       <img
                       key={ 0 + Math.random()}
-                      style={myCardsStyle}
+                      style={gameStyle.played_card.cards}
                       src={`${cardsPath}/${this.handleCardName(
                         card[1].card_name
                       )}.svg`}
@@ -616,12 +618,14 @@ endGame :
                   />
                 ))}
               </div>
-              <div>
+
+              {/*CARDS PLAYED*/}
+              <div style={{...gameStyle.played_card, ...gameStyle.played_card.me}}>
                 {
                   card_played_0.map(card => (
                       <img
+                      style={gameStyle.played_card.cards}
                       key={ 0 + Math.random()}
-                      style={myCardsStyle.played}
                       src={`${cardsPath}/${this.handleCardName(
                         card[1].card_name
                       )}.svg`}

@@ -45,6 +45,30 @@ export const gameStyle = {
     },
   },
 
+  played_card: {
+
+    position: 'absolute',
+    display: 'flex',
+
+    cards: {
+        width: '100px',
+        position: 'relative',
+    },
+
+    me: {
+      bottom: 0
+    },
+    top: {
+      top: 0
+    },
+    right: {
+      right: 0
+    },
+    left: {
+      left: 0
+    }
+  },
+
   card: {
     width: '140px',
     margin: '5px',

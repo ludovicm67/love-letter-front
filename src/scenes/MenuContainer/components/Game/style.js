@@ -16,6 +16,26 @@ export const gameStyle = {
     top: ' 35%',
     transform: 'translate(0, -50%)',
     zIndex: 10,
+
+    select: {
+      border: 'none',
+      borderRadius: '4px',
+      backgroundColor: colors.whiteColor,
+      fontSize: '1em',
+      marginBottom: '5px',
+      height: '1.8em',
+      padding: '0 5px'
+    },
+
+    button: {
+      backgroundColor: colors.darkMainColor,
+      border: 'none',
+      fontSize: '1em',
+      cursor: 'pointer',
+      padding: '0.5em 1em',
+      fontWeight: 700,
+      marginTop: '0.3em',
+    },
   },
 
   event: {
@@ -75,7 +95,9 @@ export const gameStyle = {
 
     showHand: {
       width: '140px',
-      boxShadow: `10px 10px 10px ${colors.secondColor}`,
+      backgroundColor: colors.secondColor,
+      boxShadow: `0 0 5px 5px ${colors.secondColor}`,
+      borderRadius: '15px',
       position: 'absolute',
       left: '40%',
       top: ' 40%',

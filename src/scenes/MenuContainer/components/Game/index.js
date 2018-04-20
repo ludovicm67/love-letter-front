@@ -385,6 +385,7 @@ class Game extends Component {
             <div>
               <form>
                 <select
+                  style={gameStyle.selection.select}
                   onChange={this.handleChooseCard}
                   value={this.state.chosenCard}
                 >
@@ -422,6 +423,7 @@ class Game extends Component {
             <div>
               <form>
                 <select
+                  style={gameStyle.selection.select}
                   onChange={this.handleChoosePlayer}
                   value={this.state.chosenPlayer}
                 >
@@ -438,7 +440,7 @@ class Game extends Component {
           )}
 
           {(choosePlayer || chooseCard) && (
-            <button onClick={this.setAllChosen}>
+            <button style={gameStyle.selection.button} onClick={this.setAllChosen}>
               <FormattedMessage id="Game.choosePlayerCard" />
             </button>
           )}
@@ -450,7 +452,7 @@ class Game extends Component {
             <img
             style={gameStyle.card.showHand}
             src={`${cardsPath}/${this.handleCardName(
-              this.state.showHand.card_name
+              'soldier'/*this.state.showHand.card_name*/
             )}.svg`}
             alt={`${formatMessage({ id: 'Game.showHand' })} ${this.showHand.card_name}`} />
           }

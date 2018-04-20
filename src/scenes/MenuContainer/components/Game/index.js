@@ -151,6 +151,7 @@ class Game extends Component {
     let {chooseCard, choosePlayer} = this.state;
     let {formatMessage} = this.props.intl;
     let playersSelect = [];
+    let {current_round, winning_rounds} = this.state.game;
 
     console.log(this.state);
 
@@ -212,7 +213,6 @@ class Game extends Component {
       /***PLAYERS SELECT***/
       /********************/
 
-      console.log("ARRAY");
       playersSelect.length = 0;
       if(choosePlayer) {
         for(let i=0; i<players.length; i++) {
@@ -283,8 +283,8 @@ class Game extends Component {
                   {players[2].winning_rounds_count}
                   <FormattedMessage id="Game.wonGames" />
                 </p>
-                {current_player === 2 && <FormattedMessage id="Game.playing" />}
-                {players[2].immunity && <FormattedMessage id="Game.immunity" />}
+                <p>{current_player === 2 && <FormattedMessage id="Game.playing" />}</p>
+                <p>{players[2].immunity && <FormattedMessage id="Game.immunity" />}</p>
               </div>
 
               <div style={gameStyle.card.left}>
@@ -310,8 +310,8 @@ class Game extends Component {
                   <FormattedMessage id="Game.wonGames" />
                 </p>
 
-                {current_player === 3 && <FormattedMessage id="Game.playing" />}
-                {players[3].immunity && <FormattedMessage id="Game.immunity" />}
+                <p>{current_player === 3 && <FormattedMessage id="Game.playing" />}</p>
+                <p>{players[3].immunity && <FormattedMessage id="Game.immunity" />}</p>
               </div>
 
               <div style={gameStyle.card.right}>
@@ -339,8 +339,8 @@ class Game extends Component {
                   <FormattedMessage id="Game.wonGames" />
                 </p>
 
-                {current_player === 1 && <FormattedMessage id="Game.playing" />}
-                {players[1].immunity && <FormattedMessage id="Game.immunity" />}
+                <p>{current_player === 1 && <FormattedMessage id="Game.playing" />}</p>
+                <p>{players[1].immunity && <FormattedMessage id="Game.immunity" />}</p>
               </div>
 
               <div style={gameStyle.card.top}>
@@ -396,8 +396,15 @@ class Game extends Component {
             {players[0].winning_rounds_count}
             <FormattedMessage id="Game.wonGames" />
           </p>
-          {current_player === 0 && <FormattedMessage id="Game.me_playing" />}
-          {players[0].immunity && <FormattedMessage id="Game.me_immunity" />}
+          <p>{current_player === 0 && <FormattedMessage id="Game.me_playing" />}</p>
+          <p>{players[0].immunity && <FormattedMessage id="Game.me_immunity" />}</p>
+
+          <span style={gameStyle.my_infos.round}>
+            <FormattedMessage id="Game.rounds" />
+            {current_round.number}
+            <FormattedMessage id="Game.rounds_2" />
+            {winning_rounds}
+          </span>
         </div>
       </div>
     );

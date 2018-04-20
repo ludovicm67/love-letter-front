@@ -25,7 +25,14 @@ export const gameStyle = {
     bottom: 0,
     right: 0,
     padding: '40px',
+    paddingBottom: '60px',
     borderRadius: '10px 0 0 0',
+
+    round: {
+      fontSize: '1.5em',
+      position: 'absolute',
+      bottom: '1em',
+    }
   },
 
   card: {

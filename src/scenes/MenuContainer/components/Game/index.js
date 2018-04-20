@@ -19,10 +19,11 @@ class Game extends Component {
       },
       choosePlayer: false,
       chooseCard: false,
-      chosenCard: 'knight',
-      chosenPlayer: 0,
+      chosenCard: '',
+      chosenPlayer: -1,
       card_played: {},
       allChosen: false,
+      showHand: null
     };
 
     // if got game props from other location
@@ -63,23 +64,16 @@ class Game extends Component {
   }
 
   showHand(player) {
-    /**********************************************************/
-    /****LA FONCTION POUR MONTRER LA MAIN DU JOUEUR ADVERSE****/
-    /**********************************************************/
-    console.log('chosen player');
-    console.log(player);
+    let originalPlayer = this.getOriginalIndex(player);
 
-    console.log('the original index of the chosen player');
-    let originalPlayer = this.getOriginalIndex(player); //la fonction qui ne renvoie pas le bon indice
-    console.log(originalPlayer);
-    console.log('player in state');
-    console.log(this.state.game.players[originalPlayer]);
-    console.log('player name in state');
-    console.log(this.state.game.players[originalPlayer].name);
-    console.log('player immunity in state');
-    console.log(this.state.game.players[originalPlayer].immunity);
-    console.log('player hand in state');
-    console.log(this.state.game.players[originalPlayer].hand[0]);
+    if(!this.state.game.players[originalPlayer].immunity) {
+      this.setState({showHand: this.state.game.players[originalPlayer].hand[0]});
+    }
+
+    let self = this;
+    setTimeout(function(){
+      self.setState({showHand: null});
+    }, 5000);
   }
 
   // get an array with the current player as the first item
@@ -106,9 +100,6 @@ class Game extends Component {
     return newIndex;
   }
 
-  /****************************************************/
-  /****LA FONCTION QUI NE RENVOIE PAS LE BON INDICE****/
-  /****************************************************/
   getOriginalIndex(shiftedIndex) {
     let nbPlayers = this.state.game.players.length;
     let myIndexInArray = localStorage.getItem('myIndexInArray');
@@ -128,10 +119,12 @@ class Game extends Component {
 
       if (card.choose_card_name) {
         chosen_card = this.state.chosenCard;
+        if(chosen_player === '') return;
       }
 
       if (card.choose_players) {
         chosen_player = this.state.chosenPlayer;
+        if(chosen_player === -1) return;
       }
 
       this.playGame('play_card', card.value, chosen_player, chosen_card);
@@ -142,6 +135,8 @@ class Game extends Component {
       this.setState({ allChosen: false });
       this.setState({ choosePlayer: false });
       this.setState({ chooseCard: false });
+      this.setState({ chosenCard: '' });
+      this.setState({ chosenPlayer: -1 });
     } else {
       if (card.choose_card_name) {
         this.setState({ card_played: card });
@@ -235,13 +230,6 @@ class Game extends Component {
 
     localStorage.setItem('myIndexInArray', myIndexInArray);
 
-    console.log('players');
-    console.log(players);
-    console.log('myIndexInArray');
-    console.log(myIndexInArray);
-    console.log('game_infos.current_player');
-    console.log(game_infos.current_player);
-
     let current_player = this.getShiftPlayersIndexes(
       game_infos.current_player,
       myIndexInArray
@@ -323,6 +311,10 @@ class Game extends Component {
                   onChange={this.handleChooseCard}
                   value={this.state.chosenCard}
                 >
+                  <option
+                    key={`cardSelect-default-${Math.random()}`}
+                    value=""
+                  >Choissez une carte</option>
                   <option value="sorcerer">
                     {formatMessage({ id: 'Game.sorcerer' })}
                   </option>
@@ -375,6 +367,19 @@ class Game extends Component {
               <FormattedMessage id="Game.choosePlayerCard" />
             </button>
           )}
+        </div>
+
+        {this.showHand.card_name}
+
+        <div>
+          {this.state.showHand !== null &&
+            <img
+            style={gameStyle.card.showHand}
+            src={`${cardsPath}/${this.handleCardName(
+              this.state.showHand.card_name
+            )}.svg`}
+            alt={`Carte du joueur : ${this.showHand.card_name}`} />
+          }
         </div>
 
         <div style={gameStyle.player.row}>

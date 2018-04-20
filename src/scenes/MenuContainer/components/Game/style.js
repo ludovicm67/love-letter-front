@@ -73,6 +73,12 @@ export const gameStyle = {
       width: '160px',
       position: 'relative',
       bottom: '-15vh',
+      played : {
+        position : 'absolute',
+        margin: '5vh',
+        bottom: '-55vh',
+        width: '160px',
+      },
     },
     right: {
       position: 'relative',

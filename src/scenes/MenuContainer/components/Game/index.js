@@ -300,7 +300,7 @@ class Game extends Component {
     let nbPlayers = players.length;
     if (nbPlayers === 0) {
       console.error("Il n'y a plus aucun joueur ici");
-      return <p>Houston, nous avons un problème. (Aucun joueur présent)</p>;
+      return <p> <FormattedMessage id="Game.houston" /> </p>;
     }
 
     const myIndexInArray = this.shiftPlayers();
@@ -346,7 +346,7 @@ class Game extends Component {
           key={`pioche${i}`}
           style={style}
           src={`${imgPath}/cards/back.svg`}
-          alt="pioche"
+          alt={formatMessage({ id: 'Game.alt.pile' })}
           onClick={e => {
             this.playGame.bind(this, 'pick_card', null, null, null);
           }}
@@ -530,7 +530,7 @@ class Game extends Component {
                     key={2 + Math.random()}
                     style={gameStyle.card}
                     src={`${imgPath}/cards/back.svg`}
-                    alt="main joueur 2"
+                    alt={formatMessage({id: 'Game.alt.hand2'})}
                   />
                 ))}
               </div>
@@ -540,12 +540,12 @@ class Game extends Component {
                 {
                   card_played_2.map(card => (
                       <img
-                      key={ 0 + Math.random()}
+                      key={ 2 + Math.random()}
                       style={gameStyle.played_card.cards}
                       src={`${cardsPath}/${this.handleCardName(
                         card[1].card_name
                       )}.svg`}
-                      alt='test'
+                      alt={formatMessage({id: 'Game.alt.played_card2'})}
                       />
                   ))
                 }
@@ -581,7 +581,7 @@ class Game extends Component {
                     key={3 + Math.random()}
                     style={gameStyle.card}
                     src={`${imgPath}/cards/back.svg`}
-                    alt="main joueur 3"
+                    alt={formatMessage({id: 'Game.alt.hand3'})}
                   />
                 ))}
               </div>
@@ -596,7 +596,7 @@ class Game extends Component {
                       src={`${cardsPath}/${this.handleCardName(
                         card[1].card_name
                       )}.svg`}
-                      alt='test'
+                      alt={formatMessage({id: 'Game.alt.played_card3'})}
                       />
                   ))
                 }
@@ -634,7 +634,7 @@ class Game extends Component {
                     key={1 + Math.random()}
                     style={gameStyle.card}
                     src={`${imgPath}/cards/back.svg`}
-                    alt="main joueur 1"
+                    alt={formatMessage({id: 'Game.alt.hand1'})}
                   />
                 ))}
               </div>
@@ -649,7 +649,7 @@ class Game extends Component {
                       src={`${cardsPath}/${this.handleCardName(
                         card[1].card_name
                       )}.svg`}
-                      alt='test'
+                      alt={formatMessage({id: 'Game.alt.played_card1'})}
                       />
                   ))
                 }
@@ -668,7 +668,7 @@ class Game extends Component {
                     src={`${cardsPath}/${this.handleCardName(
                       card.card_name
                     )}.svg`}
-                    alt="main joueur 0"
+                    alt={formatMessage({id: 'Game.alt.hand0'})}
                     onClick={this.cardAction.bind(this, card)}
                   />
                 ))}
@@ -684,7 +684,7 @@ class Game extends Component {
                       src={`${cardsPath}/${this.handleCardName(
                         card[1].card_name
                       )}.svg`}
-                      alt='test'
+                      alt={formatMessage({id: 'Game.alt.played_card0'})}
                       />
                   ))
                 }

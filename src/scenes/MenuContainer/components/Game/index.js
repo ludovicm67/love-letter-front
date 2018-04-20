@@ -22,7 +22,7 @@ class Game extends Component {
       chosenCard: "knight",
       chosenPlayer: 0,
       card_played: {},
-      allChosen: false,
+      allChosen: false
     };
 
     // if got game props from other location
@@ -47,6 +47,11 @@ class Game extends Component {
     this.handleChooseCard = this.handleChooseCard.bind(this);
     this.handleChoosePlayer = this.handleChoosePlayer.bind(this);
     this.setAllChosen = this.setAllChosen.bind(this);
+    this.showHand = this.showHand.bind(this);
+    this.shiftPlayers = this.shiftPlayers.bind(this);
+    this.getOriginalIndex = this.getOriginalIndex.bind(this);
+    // this.getMyIndexInOriginalArray = this.getMyIndexInOriginalArray.bind(this);
+    this.componentWillMount = this.componentWillMount.bind(this);
   }
 
   componentWillMount() {
@@ -57,7 +62,62 @@ class Game extends Component {
     echo.leave(`channel-game:${this.state.game.id}`);
   }
 
+  showHand(player) {
+    /**********************************************************/
+    /****LA FONCTION POUR MONTRER LA MAIN DU JOUEUR ADVERSE****/
+    /**********************************************************/
+    console.log("chosen player");
+    console.log(player);
+
+    console.log("the original index of the chosen player");
+    let originalPlayer = this.getOriginalIndex(player); //la fonction qui ne renvoie pas le bon indice
+    console.log(originalPlayer);
+    console.log("player in state");
+    console.log(this.state.game.players[originalPlayer]);
+    console.log("player name in state");
+    console.log(this.state.game.players[originalPlayer].name);
+    console.log("player immunity in state");
+    console.log(this.state.game.players[originalPlayer].immunity);
+    console.log("player hand in state");
+    console.log(this.state.game.players[originalPlayer].hand[0]);
+  }
+
+  // get an array with the current player as the first item
+  shiftPlayers() {
+    let game_infos = this.state.game;
+    let players = game_infos.players;
+
+    let myIndexInArray = game_infos.players
+      .map(p => p.name)
+      .indexOf(localStorage.getItem('name'));
+
+    let i = myIndexInArray;
+    while (i-- > 0) players.push(players.shift());
+
+    return myIndexInArray;
+  }
+
+  getShiftPlayersIndexes(originalIndex, myIndexInArray) {
+    let nbPlayers = this.state.game.players.length;
+
+    let newIndex =
+      (originalIndex + (nbPlayers - myIndexInArray))%nbPlayers;
+
+    return newIndex;
+  }
+
+  /****************************************************/
+  /****LA FONCTION QUI NE RENVOIE PAS LE BON INDICE****/
+  /****************************************************/
+  getOriginalIndex(shiftedIndex) {
+    let nbPlayers = this.state.game.players.length;
+    let myIndexInArray = localStorage.getItem('myIndexInArray');
+
+    return (shiftedIndex + myIndexInArray)%nbPlayers;
+  }
+
   cardAction(card) {
+    //if we have all the informations we need to play
     if(this.state.allChosen || (!card.choose_card_name && !card.choose_players)) {
 
       let chosen_player = null;
@@ -72,6 +132,11 @@ class Game extends Component {
       }
 
       this.playGame('play_card', card.value, chosen_player, chosen_card);
+
+      //if played_card === clown
+      if(card.value === 2)
+        this.showHand(chosen_player);
+
       this.setState({allChosen: false});
       this.setState({choosePlayer: false});
       this.setState({chooseCard: false});
@@ -159,25 +224,24 @@ class Game extends Component {
 
     console.log(this.state);
 
-    // get an array with the current player as the first item
-    const myIndexInArray = game_infos.players
-      .map(p => p.name)
-      .indexOf(localStorage.getItem('name'));
-
-    let i = myIndexInArray;
-    while (i-- > 0) players.push(players.shift());
-
     let nbPlayers = players.length;
-
     if (nbPlayers === 0) {
       console.error("Il n'y a plus aucun joueur ici");
       return <p>Houston, nous avons un problème. (Aucun joueur présent)</p>;
     }
 
-    let current_player =
-      (game_infos.current_player + (nbPlayers - myIndexInArray))%nbPlayers;
-      // ((game_infos.current_player + myIndexInArray) % nbPlayers + nbPlayers) %
-      // nbPlayers;
+    const myIndexInArray = this.shiftPlayers();
+
+    localStorage.setItem('myIndexInArray', myIndexInArray);
+
+    console.log("players");
+    console.log(players);
+    console.log("myIndexInArray");
+    console.log(myIndexInArray);
+    console.log("game_infos.current_player");
+    console.log(game_infos.current_player);
+
+    let current_player = this.getShiftPlayersIndexes(game_infos.current_player, myIndexInArray);
 
     myTurn = current_player === 0;
 

@@ -23,7 +23,13 @@ class Game extends Component {
       chosenPlayer: -1,
       card_played: {},
       allChosen: false,
-      showHand: null
+      showHand: null,
+      eliminatedEvent: {
+        state: false,
+        player: '',
+        attackFrom: '',
+        card: ''
+      }
     };
 
     // if got game props from other location
@@ -40,7 +46,51 @@ class Game extends Component {
           this.setState({
             game: e.content.game,
           });
+        })
+        .listen('EliminatedPlayerEvent', e => {
+          console.log('got eliminatedPlayer Event', e);
+          this.setState({eliminatedEvent: {
+            state: true,
+            player: e.content.game.eliminated_player,
+            attackFrom: e.content.game.eliminator_player,
+            card: e.content.game.card
+          }});
+
+          let self = this;
+          setTimeout(function(){
+            self.setState({eliminatedEvent: {
+              state: false,
+              player: '',
+              attackFrom: '',
+              card: ''
+            }});
+          }, 5000);
+
+        })
+        .listen('EndRoundEvent', e => {
+          console.log('got endRound Event', e);
+        })
+        .listen('EndGameEvent', e => {
+          console.log('got endGame Event', e);
         });
+
+
+        /***eliminatedPlayer :
+0 => game_id
+1 => le nom du joueur éliminé
+2 => le nom du joueur qui l'a éliminé (ça peut être lui-même par exemple s'il joue Knight, que c'est lui qui ait la carte avec la valeur la moins élevée il perd donc c'est comme s'il s'était auto-éliminé)
+3 => comment (avec quelle carte un truc du genre)
+
+endRound :
+0 => game_id
+1 => le nom du joueur qui a gagné
+2 => dans quelles conditions le round s'est terminé (soit parce qu'il n'y avait plus qu'un joueur, soit parce que la pile était vide et les joueurs ont dû comparer les valeurs de leurs cartes => celui avec la plus grande valeur remporte la manche)
+endRound j'ai donc mis une clé 'reason_end' qui vaudra soit 1 (la pile était vide, les joueurs ont comparés leur carte, le vainqueur est celui qui avait la plus grand valeur) soit 2 (il restait plus qu'un seul joueur en jeu) -
+endGame :
+
+0 => game_id
+1 => le nom du joueur qui a gagné
+**/
     }
 
     this.cardAction = this.cardAction.bind(this);
@@ -159,13 +209,6 @@ class Game extends Component {
     const userToken = localStorage.getItem('token');
     const data = new FormData();
 
-    console.log({
-      action: action,
-      played_card: played_card_value,
-      choosen_player: chosen_player,
-      choosen_card_name: chosen_card,
-    });
-
     if (action !== 'pick_card' && action !== 'play_card') {
       console.error('action invalide : ' + action);
       return;
@@ -217,8 +260,6 @@ class Game extends Component {
     let { formatMessage } = this.props.intl;
     let playersSelect = [];
     let { current_round, winning_rounds } = this.state.game;
-
-    console.log(this.state);
 
     let nbPlayers = players.length;
     if (nbPlayers === 0) {
@@ -302,11 +343,11 @@ class Game extends Component {
     return (
       <div style={gameStyle}>
         <div style={gameStyle.selection}>
+
+          {/*choose a card / choose a player*/}
           {chooseCard && (
             <div>
               <form>
-                <FormattedMessage id="Game.chooseACard" />
-
                 <select
                   onChange={this.handleChooseCard}
                   value={this.state.chosenCard}
@@ -314,7 +355,7 @@ class Game extends Component {
                   <option
                     key={`cardSelect-default-${Math.random()}`}
                     value=""
-                  >Choissez une carte</option>
+                  ><FormattedMessage id="Game.chooseACard" /></option>
                   <option value="sorcerer">
                     {formatMessage({ id: 'Game.sorcerer' })}
                   </option>
@@ -344,8 +385,6 @@ class Game extends Component {
           {choosePlayer && (
             <div>
               <form>
-                <FormattedMessage id="Game.chooseAPlayer" />
-
                 <select
                   onChange={this.handleChoosePlayer}
                   value={this.state.chosenPlayer}
@@ -354,7 +393,7 @@ class Game extends Component {
                     key={`playerSelect-default-${Math.random()}`}
                     value="-1"
                   >
-                    Choose a player
+                    <FormattedMessage id="Game.chooseAPlayer" />
                   </option>
                   {playersSelect}
                 </select>
@@ -369,8 +408,7 @@ class Game extends Component {
           )}
         </div>
 
-        {this.showHand.card_name}
-
+        {/*Display an opponent's hand*/}
         <div>
           {this.state.showHand !== null &&
             <img
@@ -378,9 +416,31 @@ class Game extends Component {
             src={`${cardsPath}/${this.handleCardName(
               this.state.showHand.card_name
             )}.svg`}
-            alt={`Carte du joueur : ${this.showHand.card_name}`} />
+            alt={`${formatMessage({ id: 'Game.showHand' })} ${this.showHand.card_name}`} />
           }
         </div>
+
+        {/*player elimination event*/}
+        {this.state.eliminatedEvent.state && (
+          (this.state.eliminatedEvent.player === this.state.eliminatedEvent.attackFrom) ? (
+            <p style={gameStyle.eliminated}>
+              {this.state.eliminatedEvent.player}
+              <FormattedMessage id="Game.auto_eliminated" />
+              <FormattedMessage id={`Game.${this.state.eliminatedEvent.card}`} />
+            </p>
+          ) : (
+            <p style={gameStyle.eliminated}>
+              {this.state.eliminatedEvent.player}
+              <FormattedMessage id="Game.eliminated_by" />
+              {this.state.eliminatedEvent.attackFrom}
+              <FormattedMessage id="Game.eliminated_with" />
+              <FormattedMessage id={`Game.${this.state.eliminatedEvent.card}`} />
+            </p>
+          )
+
+        )}
+
+        {/*players' cards*/}
 
         <div style={gameStyle.player.row}>
           {/*joueur gauche*/ players.length >= 3 && (

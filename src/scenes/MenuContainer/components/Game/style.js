@@ -18,6 +18,16 @@ export const gameStyle = {
     zIndex: 10,
   },
 
+  eliminated: {
+    position: 'absolute',
+    left: '40%',
+    top: ' 35%',
+    transform: 'translate(0, -50%)',
+    zIndex: 10,
+    fontSize: '1.5em',
+    color: colors.whiteColor
+  },
+
   my_infos: {
     backgroundColor: colors.darkMainColor,
     color: colors.whiteColor,

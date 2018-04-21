@@ -37,6 +37,14 @@ export const gameStyle = {
     top: ' 35%',
     transform: 'translate(0, -50%)',
     zIndex: 10,
+    backgroundColor: colors.lightMainColor,
+    boxShadow: `0 0 10px 10px ${colors.whiteColor}`,
+    padding: '10px',
+
+    //phone
+    '@media (max-width: 768px)': {
+      left: '20%',
+    },
 
     select: {
       border: 'none',

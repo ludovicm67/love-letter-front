@@ -360,73 +360,74 @@ class Game extends Component {
 
     return (
       <div style={gameStyle}>
-        <div style={gameStyle.selection}>
+        {(choosePlayer || chooseCard) && (
+          <div style={gameStyle.selection}>
 
-          {/*choose a card / choose a player*/}
-          {chooseCard && (
-            <div>
-              <form>
-                <select
-                  style={gameStyle.selection.select}
-                  onChange={this.handleChooseCard}
-                  value={this.state.chosenCard}
-                >
-                  <option
-                    key={`cardSelect-default-${Math.random()}`}
-                    value=""
-                  >{formatMessage({ id: 'Game.chooseACard' })}</option>
-                  <option value="sorcerer">
-                    {formatMessage({ id: 'Game.sorcerer' })}
-                  </option>
-                  <option value="minister">
-                    {formatMessage({ id: 'Game.minister' })}
-                  </option>
-                  <option value="princess_prince">
-                    {formatMessage({ id: 'Game.princess_prince' })}
-                  </option>
-                  <option value="priest">
-                    {formatMessage({ id: 'Game.priest' })}
-                  </option>
-                  <option value="knight">
-                    {formatMessage({ id: 'Game.knight' })}
-                  </option>
-                  <option value="general">
-                    {formatMessage({ id: 'Game.general' })}
-                  </option>
-                  <option value="clown">
-                    {formatMessage({ id: 'Game.clown' })}
-                  </option>
-                </select>
-              </form>
-            </div>
-          )}
-
-          {choosePlayer && (
-            <div>
-              <form>
-                <select
-                  style={gameStyle.selection.select}
-                  onChange={this.handleChoosePlayer}
-                  value={this.state.chosenPlayer}
-                >
-                  <option
-                    key={`playerSelect-default-${Math.random()}`}
-                    value="-1"
+            {/*choose a card / choose a player*/}
+            {chooseCard && (
+              <div>
+                <form>
+                  <select
+                    style={gameStyle.selection.select}
+                    onChange={this.handleChooseCard}
+                    value={this.state.chosenCard}
                   >
-                    {formatMessage({ id: 'Game.chooseAPlayer' })}
-                  </option>
-                  {playersSelect}
-                </select>
-              </form>
-            </div>
-          )}
+                    <option
+                      key={`cardSelect-default-${Math.random()}`}
+                      value=""
+                    >{formatMessage({ id: 'Game.chooseACard' })}</option>
+                    <option value="sorcerer">
+                      {formatMessage({ id: 'Game.sorcerer' })}
+                    </option>
+                    <option value="minister">
+                      {formatMessage({ id: 'Game.minister' })}
+                    </option>
+                    <option value="princess_prince">
+                      {formatMessage({ id: 'Game.princess_prince' })}
+                    </option>
+                    <option value="priest">
+                      {formatMessage({ id: 'Game.priest' })}
+                    </option>
+                    <option value="knight">
+                      {formatMessage({ id: 'Game.knight' })}
+                    </option>
+                    <option value="general">
+                      {formatMessage({ id: 'Game.general' })}
+                    </option>
+                    <option value="clown">
+                      {formatMessage({ id: 'Game.clown' })}
+                    </option>
+                  </select>
+                </form>
+              </div>
+            )}
 
-          {(choosePlayer || chooseCard) && (
+            {choosePlayer && (
+              <div>
+                <form>
+                  <select
+                    style={gameStyle.selection.select}
+                    onChange={this.handleChoosePlayer}
+                    value={this.state.chosenPlayer}
+                  >
+                    <option
+                      key={`playerSelect-default-${Math.random()}`}
+                      value="-1"
+                    >
+                      {formatMessage({ id: 'Game.chooseAPlayer' })}
+                    </option>
+                    {playersSelect}
+                  </select>
+                </form>
+              </div>
+            )}
+
+
             <button style={gameStyle.selection.button} onClick={this.setAllChosen}>
               <FormattedMessage id="Game.choosePlayerCard" />
             </button>
-          )}
-        </div>
+          </div>
+        )}
 
         {/*Display an opponent's hand*/}
         <div>

@@ -135,7 +135,28 @@ export const api_logout = () => {
   axios.get(url).then(logout).catch(logout);
 };
 
+export const api_refresh = () => {
+  const url = `${API_URL}/me?token=${localStorage.getItem('token')}`;
+
+  axios
+    .get(url)
+    .then(response => {
+      if (response.data.success) {
+        localStorage.setItem('token', response.data.data.token);
+        localStorage.setItem('name', response.data.data.user.name);
+        localStorage.setItem('points', response.data.data.user.points);
+      } else {
+        console.log('ERROR:', response.data.error);
+        window.location.replace('/login');
+      }
+    })
+    .catch(error => {
+      console.log(error);
+      window.location.replace('/login');
+    });
+};
+
 export const echo = new Echo({
   broadcaster: 'socket.io',
-  host: 'back.love-letter.ludovic-muller.fr:3001',
+  host: process.env.REACT_APP_SOCK_URL.replace(/^(https?)?:\/\//,''),
 });

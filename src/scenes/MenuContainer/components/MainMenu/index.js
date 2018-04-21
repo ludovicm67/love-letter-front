@@ -7,11 +7,12 @@ import PropTypes from 'prop-types';
 import '../../../../../node_modules/font-awesome/css/font-awesome.min.css';
 import { StyledLink } from '../../../../components/';
 
-import { colors } from '../../../../utils';
+import { colors, api_refresh } from '../../../../utils';
 
 class MainMenu extends Component {
   componentWillMount() {
     this.props.setHomeButton(true);
+    api_refresh();
   }
 
   componentWillUnmount() {

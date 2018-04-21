@@ -130,8 +130,6 @@ class Game extends Component {
     this.handleChoosePlayer = this.handleChoosePlayer.bind(this);
     this.setAllChosen = this.setAllChosen.bind(this);
     this.showHand = this.showHand.bind(this);
-    this.shiftPlayers = this.shiftPlayers.bind(this);
-    this.getOriginalIndex = this.getOriginalIndex.bind(this);
     this.componentWillMount = this.componentWillMount.bind(this);
   }
 
@@ -144,48 +142,16 @@ class Game extends Component {
   }
 
   showHand(player) {
-    let originalPlayer = this.getOriginalIndex(player);
+    // let originalPlayer = this.getOriginalIndex(player);
 
-    if(!this.state.game.players[originalPlayer].immunity) {
-      this.setState({showHand: this.state.game.players[originalPlayer].hand[0]});
+    if(!this.state.game.players[player].immunity) {
+      this.setState({showHand: this.state.game.players[player].hand[0]});
     }
 
     let self = this;
     setTimeout(function(){
       self.setState({showHand: null});
     }, 5000);
-  }
-
-  // get an array with the current player as the first item
-  shiftPlayers() {
-    let game_infos = this.state.game;
-    let players = game_infos.players;
-
-    let myIndexInArray = game_infos.players
-      .map(p => p.name)
-      .indexOf(localStorage.getItem('name'));
-
-    let i = myIndexInArray;
-    while (i-- > 0) players.push(players.shift());
-
-    return myIndexInArray;
-  }
-
-  getShiftPlayersIndexes(originalIndex, myIndexInArray) {
-    let nbPlayers = this.state.game.players.length;
-
-    let newIndex =
-      ((originalIndex + myIndexInArray) % nbPlayers + nbPlayers) % nbPlayers;
-
-    return newIndex;
-  }
-
-  getOriginalIndex(shiftedIndex) {
-    let nbPlayers = this.state.game.players.length;
-    let myIndexInArray = localStorage.getItem('myIndexInArray');
-    return (
-      ((shiftedIndex - myIndexInArray) % nbPlayers + nbPlayers) % nbPlayers
-    );
   }
 
   cardAction(card) {
@@ -290,32 +256,43 @@ class Game extends Component {
     let { formatMessage } = this.props.intl;
     let playersSelect = [];
     let {current_round, winning_rounds} = this.state.game;
-    let card_played = current_round.played_cards;
+    let players_cards = current_round.played_cards;
 
-    let card_played_0 = card_played.filter( card => card[0] === this.getOriginalIndex(0));
-    let card_played_1 = card_played.filter( card => card[0] === this.getOriginalIndex(1));
-    let card_played_2 = card_played.filter( card => card[0] === this.getOriginalIndex(2));
-    let card_played_3 = card_played.filter( card => card[0] === this.getOriginalIndex(3));
-
+    let styleMap = {top: -1, bottom: -1, left: -1, right: -1};
     let nbPlayers = players.length;
+
+    for(let i=0; i<nbPlayers; i++) {
+      if(players[i].name === localStorage.getItem('name')) {
+        styleMap.bottom = i;
+
+      } else {
+        if(styleMap.top === -1) {
+          styleMap.top = i;
+        } else if (styleMap.left === -1) {
+          styleMap.left = i;
+        } else if (styleMap.right === -1) {
+          styleMap.right = i;
+        }
+      }
+    }
+
+    let card_played = [];
+
+    card_played[0] = players_cards.filter( card => card[0] === 0);
+    card_played[1] = players_cards.filter( card => card[0] === 1);
+    card_played[2] = players_cards.filter( card => card[0] === 2);
+    card_played[3] = players_cards.filter( card => card[0] === 3);
+
     if (nbPlayers === 0) {
       console.error("Il n'y a plus aucun joueur ici");
       return <p> <FormattedMessage id="Game.houston" /> </p>;
     }
 
-    const myIndexInArray = this.shiftPlayers();
-
-    localStorage.setItem('myIndexInArray', myIndexInArray);
-
-    let current_player = this.getShiftPlayersIndexes(
-      game_infos.current_player,
-      myIndexInArray
-    );
-
-    myTurn = current_player === 0;
+    let current_player = game_infos.current_player;
+    myTurn = current_player === styleMap.bottom;
 
     if (
-      players[0].hand.length === 2 &&
+      players[styleMap.bottom].hand.length === 2 &&
       myTurn &&
       !chooseCard &&
       !choosePlayer
@@ -337,7 +314,7 @@ class Game extends Component {
       };
 
       //if time to use the pile/pioche, set a halo on the last card
-      if (i === 4 && players[0].hand.length === 1 && myTurn) {
+      if (i === 4 && players[styleMap.bottom].hand.length === 1 && myTurn) {
         style = { ...style, ...gameStyle.card.light };
       }
 
@@ -362,9 +339,9 @@ class Game extends Component {
         for (let i = 0; i < players.length; i++) {
           //my name appears only if it's the card sorcerer
           if (
-            (i === 0 && this.state.card_played.value === 5) ||
+            (i === styleMap.bottom && this.state.card_played.value === 5) ||
             //other names appears each time
-            i !== 0
+            i !== styleMap.bottom
           ) {
             playersSelect.push(
               <option key={`playerSelect${i}${Math.random()}`} value={i}>
@@ -505,22 +482,22 @@ class Game extends Component {
         {/*players' cards*/}
 
         <div style={gameStyle.player.row}>
-          {/*joueur gauche*/ players.length >= 3 && (
+          {/*joueur gauche*/ styleMap.left !== -1 && (
             <div style={gameStyle.player.row.left}>
               <div style={gameStyle.player.row.left.text}>
-                <p style={gameStyle.player.name}>{players[2].name}</p>
+                <p style={gameStyle.player.name}>{players[styleMap.left].name}</p>
 
                 <p style={gameStyle.player.score}>
-                  {players[2].winning_rounds_count}
+                  {players[styleMap.left].winning_rounds_count}
                   <FormattedMessage id="Game.wonGames" />
                 </p>
                 <p>
-                  {current_player === 2 && (
+                  {current_player === styleMap.left && (
                     <FormattedMessage id="Game.playing" />
                   )}
                 </p>
                 <p>
-                  {players[2].immunity && (
+                  {players[styleMap.left].immunity && (
                     <FormattedMessage id="Game.immunity" />
                   )}
                 </p>
@@ -528,12 +505,12 @@ class Game extends Component {
 
               <div style={gameStyle.card.left}>
                 {//@TODO FormattedMessage 'alt'
-                players[2].hand.map(hand => (
+                players[styleMap.left].hand.map(hand => (
                   <img
-                    key={2 + Math.random()}
+                    key={styleMap.left + Math.random()}
                     style={gameStyle.card}
                     src={`${imgPath}/cards/back.svg`}
-                    alt={formatMessage({id: 'Game.alt.hand2'})}
+                    alt={formatMessage({id: `Game.alt.hand${styleMap.left}`})}
                   />
                 ))}
               </div>
@@ -541,9 +518,9 @@ class Game extends Component {
               {/*CARDS PLAYED*/}
               <div style={{...gameStyle.played_card, ...gameStyle.played_card.left}}>
                 {
-                  card_played_2.map(card => (
+                  card_played[styleMap.left].map(card => (
                       <img
-                      key={ 2 + Math.random()}
+                      key={ styleMap.left + Math.random()}
                       style={gameStyle.played_card.cards}
                       src={`${cardsPath}/${this.handleCardName(
                         card[1].card_name
@@ -556,22 +533,22 @@ class Game extends Component {
             </div>
           )}
 
-          {/*joueur droite*/ players.length === 4 && (
+          {/*joueur droite*/ styleMap.right !== -1 && (
             <div style={gameStyle.player.row.right}>
               <div style={gameStyle.player.row.right.text}>
-                <p style={gameStyle.player.name}>{players[3].name}</p>
+                <p style={gameStyle.player.name}>{players[styleMap.right].name}</p>
                 <p style={gameStyle.player.score}>
-                  {players[3].winning_rounds_count}
+                  {players[styleMap.right].winning_rounds_count}
                   <FormattedMessage id="Game.wonGames" />
                 </p>
 
                 <p>
-                  {current_player === 3 && (
+                  {current_player === styleMap.right && (
                     <FormattedMessage id="Game.playing" />
                   )}
                 </p>
                 <p>
-                  {players[3].immunity && (
+                  {players[styleMap.right].immunity && (
                     <FormattedMessage id="Game.immunity" />
                   )}
                 </p>
@@ -579,9 +556,9 @@ class Game extends Component {
 
               <div style={gameStyle.card.right}>
                 {//@TODO FormattedMessage 'alt'
-                players[3].hand.map(hand => (
+                players[styleMap.right].hand.map(hand => (
                   <img
-                    key={3 + Math.random()}
+                    key={styleMap.right + Math.random()}
                     style={gameStyle.card}
                     src={`${imgPath}/cards/back.svg`}
                     alt={formatMessage({id: 'Game.alt.hand3'})}
@@ -592,9 +569,9 @@ class Game extends Component {
               {/*CARDS PLAYED*/}
               <div style={{...gameStyle.played_card, ...gameStyle.played_card.right}}>
                 {
-                  card_played_3.map(card => (
+                  card_played[styleMap.right].map(card => (
                       <img
-                      key={ 0 + Math.random()}
+                      key={ styleMap.right + Math.random()}
                       style={gameStyle.played_card.cards}
                       src={`${cardsPath}/${this.handleCardName(
                         card[1].card_name
@@ -609,23 +586,23 @@ class Game extends Component {
         </div>
 
         <div style={gameStyle.player.column}>
-          {/*joueur haut*/ players.length >= 2 && (
+          {/*joueur haut*/ styleMap.top !== -1 && (
             <div style={gameStyle.player.column.top}>
               <div style={gameStyle.player.column.top.text}>
-                <p style={gameStyle.player.name}>{players[1].name}</p>
+                <p style={gameStyle.player.name}>{players[styleMap.top].name}</p>
 
                 <p style={gameStyle.player.score}>
-                  {players[1].winning_rounds_count}
+                  {players[styleMap.top].winning_rounds_count}
                   <FormattedMessage id="Game.wonGames" />
                 </p>
 
                 <p>
-                  {current_player === 1 && (
+                  {current_player === styleMap.top && (
                     <FormattedMessage id="Game.playing" />
                   )}
                 </p>
                 <p>
-                  {players[1].immunity && (
+                  {players[styleMap.top].immunity && (
                     <FormattedMessage id="Game.immunity" />
                   )}
                 </p>
@@ -633,9 +610,9 @@ class Game extends Component {
 
               <div style={gameStyle.card.top}>
                 {//@TODO FormattedMessage 'alt'
-                players[1].hand.map(hand => (
+                players[styleMap.top].hand.map(hand => (
                   <img
-                    key={1 + Math.random()}
+                    key={styleMap.top + Math.random()}
                     style={gameStyle.card}
                     src={`${imgPath}/cards/back.svg`}
                     alt={formatMessage({id: 'Game.alt.hand1'})}
@@ -646,9 +623,9 @@ class Game extends Component {
               {/*CARDS PLAYED*/}
               <div style={{...gameStyle.played_card, ...gameStyle.played_card.top}}>
                 {
-                  card_played_1.map(card => (
+                  card_played[styleMap.top].map(card => (
                       <img
-                      key={ 0 + Math.random()}
+                      key={ styleMap.top + Math.random()}
                       style={gameStyle.played_card.cards}
                       src={`${cardsPath}/${this.handleCardName(
                         card[1].card_name
@@ -661,13 +638,13 @@ class Game extends Component {
             </div>
           )}
 
-          {/*joueur bas*/ players.length >= 1 && (
+          {/*joueur bas*/ styleMap.bottom !== -1 && (
             <div style={gameStyle.player.column.me}>
               <div>
                 {//@TODO FormattedMessage 'alt'
-                players[0].hand.map(card => (
+                players[styleMap.bottom].hand.map(card => (
                   <img
-                    key={0 + Math.random()}
+                    key={styleMap.bottom + Math.random()}
                     style={myCardsStyle}
                     src={`${cardsPath}/${this.handleCardName(
                       card.card_name
@@ -681,10 +658,10 @@ class Game extends Component {
               {/*CARDS PLAYED*/}
               <div style={{...gameStyle.played_card, ...gameStyle.played_card.me}}>
                 {
-                  card_played_0.map(card => (
+                  card_played[styleMap.bottom].map(card => (
                       <img
                       style={gameStyle.played_card.cards}
-                      key={ 0 + Math.random()}
+                      key={styleMap.bottom + Math.random()}
                       src={`${cardsPath}/${this.handleCardName(
                         card[1].card_name
                       )}.svg`}
@@ -705,19 +682,19 @@ class Game extends Component {
         </div>
 
         <div style={gameStyle.my_infos}>
-          <p style={gameStyle.player.name}>{players[0].name}</p>
+          <p style={gameStyle.player.name}>{players[styleMap.bottom].name}</p>
 
           <p style={gameStyle.player.score}>
-            {players[0].winning_rounds_count}
+            {players[styleMap.bottom].winning_rounds_count}
             <FormattedMessage id="Game.wonGames" />
             <FormattedMessage id="Game.rounds_2" />
             {winning_rounds}
           </p>
           <p>
-            {current_player === 0 && <FormattedMessage id="Game.me_playing" />}
+            {current_player === styleMap.bottom && <FormattedMessage id="Game.me_playing" />}
           </p>
           <p>
-            {players[0].immunity && <FormattedMessage id="Game.me_immunity" />}
+            {players[styleMap.bottom].immunity && <FormattedMessage id="Game.me_immunity" />}
           </p>
 
           <span style={gameStyle.my_infos.round}>

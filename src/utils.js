@@ -132,7 +132,10 @@ export const api_login = (name, password) => {
 
 export const api_logout = () => {
   const url = `${API_URL}/logout?token=${localStorage.getItem('token')}`;
-  axios.get(url).then(logout).catch(logout);
+  axios
+    .get(url)
+    .then(logout)
+    .catch(logout);
 };
 
 export const api_refresh = () => {
@@ -158,5 +161,5 @@ export const api_refresh = () => {
 
 export const echo = new Echo({
   broadcaster: 'socket.io',
-  host: process.env.REACT_APP_SOCK_URL.replace(/^(https?)?:\/\//,''),
+  host: process.env.REACT_APP_SOCK_URL.replace(/^(https?)?:\/\//, ''),
 });

@@ -29,17 +29,17 @@ class Game extends Component {
         state: false,
         player: '',
         attackFrom: '',
-        card: ''
+        card: '',
       },
       endRoundEvent: {
         state: false,
         reason: '',
-        winner: ''
+        winner: '',
       },
       endGameEvent: {
         state: false,
-        winner: ''
-      }
+        winner: '',
+      },
     };
 
     // if got game props from other location
@@ -59,23 +59,26 @@ class Game extends Component {
         })
         .listen('EliminatedPlayerEvent', e => {
           console.log('got eliminatedPlayer Event', e);
-          this.setState({eliminatedEvent: {
-            state: true,
-            player: e.content.game.eliminated_player,
-            attackFrom: e.content.game.eliminator_player,
-            card: e.content.game.card
-          }});
+          this.setState({
+            eliminatedEvent: {
+              state: true,
+              player: e.content.game.eliminated_player,
+              attackFrom: e.content.game.eliminator_player,
+              card: e.content.game.card,
+            },
+          });
 
           let self = this;
-          setTimeout(function(){
-            self.setState({eliminatedEvent: {
-              state: false,
-              player: '',
-              attackFrom: '',
-              card: ''
-            }});
+          setTimeout(function() {
+            self.setState({
+              eliminatedEvent: {
+                state: false,
+                player: '',
+                attackFrom: '',
+                card: '',
+              },
+            });
           }, 5000);
-
         })
         .listen('EndRoundEvent', e => {
           console.log('got endRound Event', e);
@@ -84,46 +87,53 @@ class Game extends Component {
 
           switch (e.content.game.reason_end) {
             case 1:
-            reason = 'empty_pile';
+              reason = 'empty_pile';
               break;
             case 2:
             default:
-            reason = 'all_eliminated';
+              reason = 'all_eliminated';
           }
 
-          this.setState({endRoundEvent: {
-            state: true,
-            reason: reason,
-            winner: e.content.game.winner_name
-          }});
+          this.setState({
+            endRoundEvent: {
+              state: true,
+              reason: reason,
+              winner: e.content.game.winner_name,
+            },
+          });
 
           let self = this;
-          setTimeout(function(){
-            self.setState({endRoundEvent: {
-              state: false,
-              reason: null,
-              winner: ''
-            }});
+          setTimeout(function() {
+            self.setState({
+              endRoundEvent: {
+                state: false,
+                reason: null,
+                winner: '',
+              },
+            });
           }, 5000);
-
         })
         .listen('EndGameEvent', e => {
           console.log('got endGame Event', e);
 
-          this.setState({endGameEvent: {
-            state: true,
-            winner: e.content.game.winner_name
-          }});
+          this.setState({
+            endGameEvent: {
+              state: true,
+              winner: e.content.game.winner_name,
+            },
+          });
 
           let self = this;
-          setTimeout(function(){
-            self.setState({endGameEvent: {
-              state: false,
-              winner: ''
-            }});
+          setTimeout(function() {
+            self.setState({
+              endGameEvent: {
+                state: false,
+                winner: '',
+              },
+            });
           }, 5000);
         });
-      }
+    }
 
     this.cardAction = this.cardAction.bind(this);
     this.playGame = this.playGame.bind(this);
@@ -143,13 +153,13 @@ class Game extends Component {
   }
 
   showHand(player) {
-    if(!this.state.game.players[player].immunity) {
-      this.setState({showHand: this.state.game.players[player].hand[0]});
+    if (!this.state.game.players[player].immunity) {
+      this.setState({ showHand: this.state.game.players[player].hand[0] });
     }
 
     let self = this;
-    setTimeout(function(){
-      self.setState({showHand: null});
+    setTimeout(function() {
+      self.setState({ showHand: null });
     }, 5000);
   }
 
@@ -164,12 +174,12 @@ class Game extends Component {
 
       if (card.choose_card_name) {
         chosen_card = this.state.chosenCard;
-        if(chosen_player === '') return;
+        if (chosen_player === '') return;
       }
 
       if (card.choose_players) {
         chosen_player = this.state.chosenPlayer;
-        if(chosen_player === -1) return;
+        if (chosen_player === -1) return;
       }
 
       this.playGame('play_card', card.value, chosen_player, chosen_card);
@@ -254,19 +264,18 @@ class Game extends Component {
     let { chooseCard, choosePlayer } = this.state;
     let { formatMessage } = this.props.intl;
     let playersSelect = [];
-    let {current_round, winning_rounds} = this.state.game;
+    let { current_round, winning_rounds } = this.state.game;
     let players_cards = current_round.played_cards;
     let number_pile = this.state.game.current_round.pile.length;
 
-    let styleMap = {top: -1, bottom: -1, left: -1, right: -1};
+    let styleMap = { top: -1, bottom: -1, left: -1, right: -1 };
     let nbPlayers = players.length;
 
-    for(let i=0; i<nbPlayers; i++) {
-      if(players[i].name === localStorage.getItem('name')) {
+    for (let i = 0; i < nbPlayers; i++) {
+      if (players[i].name === localStorage.getItem('name')) {
         styleMap.bottom = i;
-
       } else {
-        if(styleMap.top === -1) {
+        if (styleMap.top === -1) {
           styleMap.top = i;
         } else if (styleMap.left === -1) {
           styleMap.left = i;
@@ -278,14 +287,19 @@ class Game extends Component {
 
     let card_played = [];
 
-    card_played[0] = players_cards.filter( card => card[0] === 0);
-    card_played[1] = players_cards.filter( card => card[0] === 1);
-    card_played[2] = players_cards.filter( card => card[0] === 2);
-    card_played[3] = players_cards.filter( card => card[0] === 3);
+    card_played[0] = players_cards.filter(card => card[0] === 0);
+    card_played[1] = players_cards.filter(card => card[0] === 1);
+    card_played[2] = players_cards.filter(card => card[0] === 2);
+    card_played[3] = players_cards.filter(card => card[0] === 3);
 
     if (nbPlayers === 0) {
       console.error("Il n'y a plus aucun joueur ici");
-      return <p> <FormattedMessage id="Game.houston" /> </p>;
+      return (
+        <p>
+          {' '}
+          <FormattedMessage id="Game.houston" />{' '}
+        </p>
+      );
     }
 
     let current_player = game_infos.current_player;
@@ -332,35 +346,38 @@ class Game extends Component {
       );
     }
 
-    pioche.push(<p key='number_pile' style={gameStyle.piocheContainer.text}>{number_pile}</p>);
+    pioche.push(
+      <p key="number_pile" style={gameStyle.piocheContainer.text}>
+        {number_pile}
+      </p>
+    );
 
-      /********************/
-      /***PLAYERS SELECT***/
-      /********************/
+    /********************/
+    /***PLAYERS SELECT***/
+    /********************/
 
-      playersSelect.length = 0;
-      if (choosePlayer) {
-        for (let i = 0; i < players.length; i++) {
-          //my name appears only if it's the card sorcerer
-          if (
-            (i === styleMap.bottom && this.state.card_played.value === 5) ||
-            //other names appears each time
-            i !== styleMap.bottom
-          ) {
-            playersSelect.push(
-              <option key={`playerSelect${i}${Math.random()}`} value={i}>
-                {players[i].name}
-              </option>
-            );
-          }
+    playersSelect.length = 0;
+    if (choosePlayer) {
+      for (let i = 0; i < players.length; i++) {
+        //my name appears only if it's the card sorcerer
+        if (
+          (i === styleMap.bottom && this.state.card_played.value === 5) ||
+          //other names appears each time
+          i !== styleMap.bottom
+        ) {
+          playersSelect.push(
+            <option key={`playerSelect${i}${Math.random()}`} value={i}>
+              {players[i].name}
+            </option>
+          );
         }
       }
+    }
 
     return (
       <div style={gameStyle}>
         {(choosePlayer || chooseCard) && (
           <div style={gameStyle.selection}>
-
             {/*choose a card / choose a player*/}
             {chooseCard && (
               <div>
@@ -373,7 +390,9 @@ class Game extends Component {
                     <option
                       key={`cardSelect-default-${Math.random()}`}
                       value=""
-                    >{formatMessage({ id: 'Game.chooseACard' })}</option>
+                    >
+                      {formatMessage({ id: 'Game.chooseACard' })}
+                    </option>
                     <option value="sorcerer">
                       {formatMessage({ id: 'Game.sorcerer' })}
                     </option>
@@ -420,8 +439,10 @@ class Game extends Component {
               </div>
             )}
 
-
-            <button style={gameStyle.selection.button} onClick={this.setAllChosen}>
+            <button
+              style={gameStyle.selection.button}
+              onClick={this.setAllChosen}
+            >
               <FormattedMessage id="Game.choosePlayerCard" />
             </button>
           </div>
@@ -429,28 +450,34 @@ class Game extends Component {
 
         {/*Display an opponent's hand*/}
         <div>
-          {this.state.showHand !== null &&
+          {this.state.showHand !== null && (
             <img
-            style={gameStyle.card.showHand}
-            src={`${cardsPath}/${this.handleCardName(
-              this.state.showHand.card_name
-            )}.svg`}
-            alt={`${formatMessage({ id: 'Game.showHand' })} ${this.showHand.card_name}`} />
-          }
+              style={gameStyle.card.showHand}
+              src={`${cardsPath}/${this.handleCardName(
+                this.state.showHand.card_name
+              )}.svg`}
+              alt={`${formatMessage({ id: 'Game.showHand' })} ${
+                this.showHand.card_name
+              }`}
+            />
+          )}
         </div>
 
         {/*EVENTS*/}
-        {(this.state.eliminatedEvent.state
-          || this.state.endRoundEvent.state
-          || this.state.endGameEvent.state) && (
+        {(this.state.eliminatedEvent.state ||
+          this.state.endRoundEvent.state ||
+          this.state.endGameEvent.state) && (
           <div style={gameStyle.event}>
             {/*player elimination event*/}
-            {this.state.eliminatedEvent.state && (
-              (this.state.eliminatedEvent.player === this.state.eliminatedEvent.attackFrom) ? (
+            {this.state.eliminatedEvent.state &&
+              (this.state.eliminatedEvent.player ===
+              this.state.eliminatedEvent.attackFrom ? (
                 <p>
                   {this.state.eliminatedEvent.player}
                   <FormattedMessage id="Game.auto_eliminated" />
-                  <FormattedMessage id={`Game.${this.state.eliminatedEvent.card}`} />
+                  <FormattedMessage
+                    id={`Game.${this.state.eliminatedEvent.card}`}
+                  />
                 </p>
               ) : (
                 <p>
@@ -458,30 +485,30 @@ class Game extends Component {
                   <FormattedMessage id="Game.eliminated_by" />
                   {this.state.eliminatedEvent.attackFrom}
                   <FormattedMessage id="Game.eliminated_with" />
-                  <FormattedMessage id={`Game.${this.state.eliminatedEvent.card}`} />
+                  <FormattedMessage
+                    id={`Game.${this.state.eliminatedEvent.card}`}
+                  />
                 </p>
-              )
-            )}
+              ))}
 
             {/*end round event*/}
-            {this.state.endRoundEvent.state && (
-              (this.state.endRoundEvent.reason === 'all_eliminated') ? (
+            {this.state.endRoundEvent.state &&
+              (this.state.endRoundEvent.reason === 'all_eliminated' ? (
                 <p>
                   <FormattedMessage id="Game.winnerByElimination" />
                   {this.state.endRoundEvent.winner}
                 </p>
-                ) : (
+              ) : (
                 <p>
                   <FormattedMessage id="Game.winnerByEmptyPile" />
                   {this.state.endRoundEvent.winner}
                 </p>
-              )
-            )}
+              ))}
 
             {this.state.endGameEvent.state && (
               <p>
                 {this.state.endGameEvent.winner}
-                <FormattedMessage id="Game.winnerOfGame"/>
+                <FormattedMessage id="Game.winnerOfGame" />
               </p>
             )}
           </div>
@@ -493,7 +520,9 @@ class Game extends Component {
           {/*joueur gauche*/ styleMap.left !== -1 && (
             <div style={gameStyle.player.row.left}>
               <div style={gameStyle.player.row.left.text}>
-                <p style={gameStyle.player.name}>{players[styleMap.left].name}</p>
+                <p style={gameStyle.player.name}>
+                  {players[styleMap.left].name}
+                </p>
 
                 <p style={gameStyle.player.score}>
                   {players[styleMap.left].winning_rounds_count}
@@ -520,33 +549,38 @@ class Game extends Component {
                     key={styleMap.left + Math.random()}
                     style={gameStyle.card}
                     src={`${imgPath}/cards/back.svg`}
-                    alt={formatMessage({id: `Game.alt.hand${styleMap.left}`})}
+                    alt={formatMessage({ id: `Game.alt.hand${styleMap.left}` })}
                   />
                 ))}
               </div>
 
               {/*CARDS PLAYED*/}
-              <div style={{...gameStyle.played_card, ...gameStyle.played_card.left}}>
-                {
-                  card_played[styleMap.left].map(card => (
-                      <img
-                      key={ styleMap.left + Math.random()}
-                      style={gameStyle.played_card.cards}
-                      src={`${cardsPath}/${this.handleCardName(
-                        card[1].card_name
-                      )}.svg`}
-                      alt={formatMessage({id: 'Game.alt.played_card2'})}
-                      />
-                  ))
-                }
-                </div>
+              <div
+                style={{
+                  ...gameStyle.played_card,
+                  ...gameStyle.played_card.left,
+                }}
+              >
+                {card_played[styleMap.left].map(card => (
+                  <img
+                    key={styleMap.left + Math.random()}
+                    style={gameStyle.played_card.cards}
+                    src={`${cardsPath}/${this.handleCardName(
+                      card[1].card_name
+                    )}.svg`}
+                    alt={formatMessage({ id: 'Game.alt.played_card2' })}
+                  />
+                ))}
+              </div>
             </div>
           )}
 
           {/*joueur droite*/ styleMap.right !== -1 && (
             <div style={gameStyle.player.row.right}>
               <div style={gameStyle.player.row.right.text}>
-                <p style={gameStyle.player.name}>{players[styleMap.right].name}</p>
+                <p style={gameStyle.player.name}>
+                  {players[styleMap.right].name}
+                </p>
                 <p style={gameStyle.player.score}>
                   {players[styleMap.right].winning_rounds_count}
                   <span style={gameStyle.player.score.text}>
@@ -573,26 +607,29 @@ class Game extends Component {
                     key={styleMap.right + Math.random()}
                     style={gameStyle.card}
                     src={`${imgPath}/cards/back.svg`}
-                    alt={formatMessage({id: 'Game.alt.hand3'})}
+                    alt={formatMessage({ id: 'Game.alt.hand3' })}
                   />
                 ))}
               </div>
 
               {/*CARDS PLAYED*/}
-              <div style={{...gameStyle.played_card, ...gameStyle.played_card.right}}>
-                {
-                  card_played[styleMap.right].map(card => (
-                      <img
-                      key={ styleMap.right + Math.random()}
-                      style={gameStyle.played_card.cards}
-                      src={`${cardsPath}/${this.handleCardName(
-                        card[1].card_name
-                      )}.svg`}
-                      alt={formatMessage({id: 'Game.alt.played_card3'})}
-                      />
-                  ))
-                }
-                </div>
+              <div
+                style={{
+                  ...gameStyle.played_card,
+                  ...gameStyle.played_card.right,
+                }}
+              >
+                {card_played[styleMap.right].map(card => (
+                  <img
+                    key={styleMap.right + Math.random()}
+                    style={gameStyle.played_card.cards}
+                    src={`${cardsPath}/${this.handleCardName(
+                      card[1].card_name
+                    )}.svg`}
+                    alt={formatMessage({ id: 'Game.alt.played_card3' })}
+                  />
+                ))}
+              </div>
             </div>
           )}
         </div>
@@ -601,7 +638,9 @@ class Game extends Component {
           {/*joueur haut*/ styleMap.top !== -1 && (
             <div style={gameStyle.player.column.top}>
               <div style={gameStyle.player.column.top.text}>
-                <p style={gameStyle.player.name}>{players[styleMap.top].name}</p>
+                <p style={gameStyle.player.name}>
+                  {players[styleMap.top].name}
+                </p>
 
                 <p style={gameStyle.player.score}>
                   {players[styleMap.top].winning_rounds_count}
@@ -629,26 +668,29 @@ class Game extends Component {
                     key={styleMap.top + Math.random()}
                     style={gameStyle.card}
                     src={`${imgPath}/cards/back.svg`}
-                    alt={formatMessage({id: 'Game.alt.hand1'})}
+                    alt={formatMessage({ id: 'Game.alt.hand1' })}
                   />
                 ))}
               </div>
 
               {/*CARDS PLAYED*/}
-              <div style={{...gameStyle.played_card, ...gameStyle.played_card.top}}>
-                {
-                  card_played[styleMap.top].map(card => (
-                      <img
-                      key={ styleMap.top + Math.random()}
-                      style={gameStyle.played_card.cards}
-                      src={`${cardsPath}/${this.handleCardName(
-                        card[1].card_name
-                      )}.svg`}
-                      alt={formatMessage({id: 'Game.alt.played_card1'})}
-                      />
-                  ))
-                }
-                </div>
+              <div
+                style={{
+                  ...gameStyle.played_card,
+                  ...gameStyle.played_card.top,
+                }}
+              >
+                {card_played[styleMap.top].map(card => (
+                  <img
+                    key={styleMap.top + Math.random()}
+                    style={gameStyle.played_card.cards}
+                    src={`${cardsPath}/${this.handleCardName(
+                      card[1].card_name
+                    )}.svg`}
+                    alt={formatMessage({ id: 'Game.alt.played_card1' })}
+                  />
+                ))}
+              </div>
             </div>
           )}
 
@@ -663,26 +705,29 @@ class Game extends Component {
                     src={`${cardsPath}/${this.handleCardName(
                       card.card_name
                     )}.svg`}
-                    alt={formatMessage({id: 'Game.alt.hand0'})}
+                    alt={formatMessage({ id: 'Game.alt.hand0' })}
                     onClick={this.cardAction.bind(this, card)}
                   />
                 ))}
               </div>
 
               {/*CARDS PLAYED*/}
-              <div style={{...gameStyle.played_card, ...gameStyle.played_card.me}}>
-                {
-                  card_played[styleMap.bottom].map(card => (
-                      <img
-                      style={gameStyle.played_card.cards}
-                      key={styleMap.bottom + Math.random()}
-                      src={`${cardsPath}/${this.handleCardName(
-                        card[1].card_name
-                      )}.svg`}
-                      alt={formatMessage({id: 'Game.alt.played_card0'})}
-                      />
-                  ))
-                }
+              <div
+                style={{
+                  ...gameStyle.played_card,
+                  ...gameStyle.played_card.me,
+                }}
+              >
+                {card_played[styleMap.bottom].map(card => (
+                  <img
+                    style={gameStyle.played_card.cards}
+                    key={styleMap.bottom + Math.random()}
+                    src={`${cardsPath}/${this.handleCardName(
+                      card[1].card_name
+                    )}.svg`}
+                    alt={formatMessage({ id: 'Game.alt.played_card0' })}
+                  />
+                ))}
               </div>
             </div>
           )}
@@ -690,28 +735,33 @@ class Game extends Component {
 
         <div
           style={gameStyle.piocheContainer}
-          onClick={this.playGame.bind(this, 'pick_card', null, null, null)}>
+          onClick={this.playGame.bind(this, 'pick_card', null, null, null)}
+        >
           {pioche}
         </div>
 
         <div style={gameStyle.my_infos}>
-          <p style={{...gameStyle.player.name, ...gameStyle.my_infos.name}}>
+          <p style={{ ...gameStyle.player.name, ...gameStyle.my_infos.name }}>
             {players[styleMap.bottom].name}
           </p>
 
-          <p style={{...gameStyle.player.score, ...gameStyle.my_infos.score}}>
+          <p style={{ ...gameStyle.player.score, ...gameStyle.my_infos.score }}>
             {players[styleMap.bottom].winning_rounds_count}
             <span style={gameStyle.player.score.text}>
               <FormattedMessage id="Game.wonGames" />
               <FormattedMessage id="Game.rounds_2" />
-            {winning_rounds}
+              {winning_rounds}
             </span>
           </p>
           <p style={gameStyle.my_infos.me_playing}>
-            {current_player === styleMap.bottom && <FormattedMessage id="Game.me_playing" />}
+            {current_player === styleMap.bottom && (
+              <FormattedMessage id="Game.me_playing" />
+            )}
           </p>
           <p style={gameStyle.my_infos.immunity}>
-            {players[styleMap.bottom].immunity && <FormattedMessage id="Game.me_immunity" />}
+            {players[styleMap.bottom].immunity && (
+              <FormattedMessage id="Game.me_immunity" />
+            )}
           </p>
 
           <span style={gameStyle.my_infos.round}>

@@ -11,24 +11,24 @@ export const gameStyle = {
 
     //laptop
     '@media (max-width: 1200px)': {
-      bottom: '200px'
+      bottom: '200px',
     },
     //tablet
     '@media (max-width: 992px)': {
-      bottom: '130px'
+      bottom: '130px',
     },
     //phone
     '@media (max-width: 768px)': {
       bottom: '50px',
-      left: '10px'
+      left: '10px',
     },
 
-    text:{
+    text: {
       fontSize: '2em',
       position: 'relative',
       zIndex: '10',
-      color: colors.whiteColor
-    }
+      color: colors.whiteColor,
+    },
   },
 
   selection: {
@@ -53,7 +53,7 @@ export const gameStyle = {
       fontSize: '1em',
       marginBottom: '5px',
       height: '1.8em',
-      padding: '0 5px'
+      padding: '0 5px',
     },
 
     button: {
@@ -84,7 +84,7 @@ export const gameStyle = {
     '@media (max-width: 768px)': {
       left: '20%',
       fontSize: '1em',
-      maxWidth: '200px'
+      maxWidth: '200px',
     },
   },
 
@@ -101,7 +101,7 @@ export const gameStyle = {
     //tablet
     '@media (max-width: 992px)': {
       padding: '15px 15px 30px 15px',
-      fontSize: '0.8em'
+      fontSize: '0.8em',
     },
     //phone
     '@media (max-width: 768px)': {
@@ -124,7 +124,7 @@ export const gameStyle = {
       '@media (max-width: 768px)': {
         display: 'inline',
         paddingLeft: '10px',
-        lineHeight: '3px'
+        lineHeight: '3px',
       },
     },
 
@@ -148,16 +148,16 @@ export const gameStyle = {
       //phone
       '@media (max-width: 768px)': {
         display: 'inline',
-        paddingLeft: '10px'
+        paddingLeft: '10px',
       },
     },
 
     immunity: {
       //phone
       '@media (max-width: 768px)': {
-        display: 'inline'
+        display: 'inline',
       },
-    }
+    },
   },
 
   played_card: {
@@ -166,14 +166,14 @@ export const gameStyle = {
     zIndex: 0,
 
     cards: {
-        width: '100px',
-        position: 'relative',
-        marginLeft: '-30px',
-        //phone
-        '@media (max-width: 768px)': {
-          marginLeft: '-55px',
-          width: '70px'
-        },
+      width: '100px',
+      position: 'relative',
+      marginLeft: '-30px',
+      //phone
+      '@media (max-width: 768px)': {
+        marginLeft: '-55px',
+        width: '70px',
+      },
     },
 
     me: {
@@ -181,7 +181,7 @@ export const gameStyle = {
       //phone
       '@media (max-width: 768px)': {
         left: '-30vw',
-        bottom: '-5vh'
+        bottom: '-5vh',
       },
     },
     top: {
@@ -199,7 +199,7 @@ export const gameStyle = {
       transform: 'rotate(270deg)',
       //phone
       '@media (max-width: 768px)': {
-      right: '20vw',
+        right: '20vw',
       },
     },
     left: {
@@ -208,9 +208,9 @@ export const gameStyle = {
       transform: 'rotate(90deg)',
       //phone
       '@media (max-width: 768px)': {
-      left: '20vw',
+        left: '20vw',
       },
-    }
+    },
   },
 
   card: {
@@ -218,7 +218,7 @@ export const gameStyle = {
     margin: '5px',
     //phone
     '@media (max-width: 768px)': {
-      width: '100px'
+      width: '100px',
     },
 
     showHand: {
@@ -268,8 +268,8 @@ export const gameStyle = {
         width: '90px',
       },
 
-      played : {
-        position : 'absolute',
+      played: {
+        position: 'absolute',
         margin: '5vh',
         bottom: '-55vh',
         width: '160px',
@@ -318,22 +318,22 @@ export const gameStyle = {
       '@media (max-width: 768px)': {
         fontSize: '1em',
         fontWeight: '800',
-        display: 'inline'
+        display: 'inline',
       },
     },
     score: {
       //phone
       '@media (max-width: 768px)': {
         width: '10px',
-        display: 'inline'
+        display: 'inline',
       },
 
       text: {
         //phone
         '@media (max-width: 768px)': {
-          display: 'none'
+          display: 'none',
         },
-      }
+      },
     },
 
     row: {
@@ -367,7 +367,7 @@ export const gameStyle = {
           position: 'absolute',
           bottom: '20px',
           right: '20px',
-          zIndex: 10
+          zIndex: 10,
         },
 
         text: {},

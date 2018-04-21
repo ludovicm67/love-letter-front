@@ -452,7 +452,7 @@ class Game extends Component {
             <img
             style={gameStyle.card.showHand}
             src={`${cardsPath}/${this.handleCardName(
-              'soldier'/*this.state.showHand.card_name*/
+              this.state.showHand.card_name
             )}.svg`}
             alt={`${formatMessage({ id: 'Game.showHand' })} ${this.showHand.card_name}`} />
           }
@@ -509,6 +509,7 @@ class Game extends Component {
             <div style={gameStyle.player.row.left}>
               <div style={gameStyle.player.row.left.text}>
                 <p style={gameStyle.player.name}>{players[2].name}</p>
+
                 <p style={gameStyle.player.score}>
                   {players[2].winning_rounds_count}
                   <FormattedMessage id="Game.wonGames" />
@@ -612,6 +613,7 @@ class Game extends Component {
             <div style={gameStyle.player.column.top}>
               <div style={gameStyle.player.column.top.text}>
                 <p style={gameStyle.player.name}>{players[1].name}</p>
+
                 <p style={gameStyle.player.score}>
                   {players[1].winning_rounds_count}
                   <FormattedMessage id="Game.wonGames" />
@@ -704,6 +706,7 @@ class Game extends Component {
 
         <div style={gameStyle.my_infos}>
           <p style={gameStyle.player.name}>{players[0].name}</p>
+
           <p style={gameStyle.player.score}>
             {players[0].winning_rounds_count}
             <FormattedMessage id="Game.wonGames" />

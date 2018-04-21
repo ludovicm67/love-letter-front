@@ -8,6 +8,13 @@ export const gameStyle = {
     position: 'fixed',
     bottom: '240px', //space + cardHeight
     left: '20px',
+
+    text:{
+      fontSize: '2em',
+      position: 'relative',
+      zIndex: '10',
+      color: colors.whiteColor
+    }
   },
 
   selection: {

@@ -257,6 +257,7 @@ class Game extends Component {
     let playersSelect = [];
     let {current_round, winning_rounds} = this.state.game;
     let players_cards = current_round.played_cards;
+    let number_pile = this.state.game.current_round.pile.length;
 
     let styleMap = {top: -1, bottom: -1, left: -1, right: -1};
     let nbPlayers = players.length;
@@ -305,6 +306,7 @@ class Game extends Component {
     /************/
     /***PIOCHE***/
     /************/
+
     for (let i = 0; i < 5; i++) {
       let style = {
         ...gameStyle.card,
@@ -329,6 +331,9 @@ class Game extends Component {
           }}
         />
       );
+    }
+
+    pioche.push(<p key='number_pile' style={gameStyle.piocheContainer.text}>{number_pile}</p>);
 
       /********************/
       /***PLAYERS SELECT***/
@@ -351,7 +356,6 @@ class Game extends Component {
           }
         }
       }
-    }
 
     return (
       <div style={gameStyle}>
@@ -676,8 +680,7 @@ class Game extends Component {
 
         <div
           style={gameStyle.piocheContainer}
-          onClick={this.playGame.bind(this, 'pick_card', null, null, null)}
-        >
+          onClick={this.playGame.bind(this, 'pick_card', null, null, null)}>
           {pioche}
         </div>
 

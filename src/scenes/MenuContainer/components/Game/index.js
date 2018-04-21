@@ -442,48 +442,52 @@ class Game extends Component {
         </div>
 
         {/*EVENTS*/}
-        <div style={gameStyle.event}>
-          {/*player elimination event*/}
-          {this.state.eliminatedEvent.state && (
-            (this.state.eliminatedEvent.player === this.state.eliminatedEvent.attackFrom) ? (
-              <p>
-                {this.state.eliminatedEvent.player}
-                <FormattedMessage id="Game.auto_eliminated" />
-                <FormattedMessage id={`Game.${this.state.eliminatedEvent.card}`} />
-              </p>
-            ) : (
-              <p>
-                {this.state.eliminatedEvent.player}
-                <FormattedMessage id="Game.eliminated_by" />
-                {this.state.eliminatedEvent.attackFrom}
-                <FormattedMessage id="Game.eliminated_with" />
-                <FormattedMessage id={`Game.${this.state.eliminatedEvent.card}`} />
-              </p>
-            )
-          )}
-
-          {/*end round event*/}
-          {this.state.endRoundEvent.state && (
-            (this.state.endRoundEvent.reason === 'all_eliminated') ? (
-              <p>
-                <FormattedMessage id="Game.winnerByElimination" />
-                {this.state.endRoundEvent.winner}
-              </p>
+        {(this.state.eliminatedEvent.state
+          || this.state.endRoundEvent.state
+          || this.state.endGameEvent.state) && (
+          <div style={gameStyle.event}>
+            {/*player elimination event*/}
+            {this.state.eliminatedEvent.state && (
+              (this.state.eliminatedEvent.player === this.state.eliminatedEvent.attackFrom) ? (
+                <p>
+                  {this.state.eliminatedEvent.player}
+                  <FormattedMessage id="Game.auto_eliminated" />
+                  <FormattedMessage id={`Game.${this.state.eliminatedEvent.card}`} />
+                </p>
               ) : (
-              <p>
-                <FormattedMessage id="Game.winnerByEmptyPile" />
-                {this.state.endRoundEvent.winner}
-              </p>
-            )
-          )}
+                <p>
+                  {this.state.eliminatedEvent.player}
+                  <FormattedMessage id="Game.eliminated_by" />
+                  {this.state.eliminatedEvent.attackFrom}
+                  <FormattedMessage id="Game.eliminated_with" />
+                  <FormattedMessage id={`Game.${this.state.eliminatedEvent.card}`} />
+                </p>
+              )
+            )}
 
-          {this.state.endGameEvent.state && (
-            <p>
-              {this.state.endGameEvent.winner}
-              <FormattedMessage id="Game.winnerOfGame"/>
-            </p>
-          )}
-        </div>
+            {/*end round event*/}
+            {this.state.endRoundEvent.state && (
+              (this.state.endRoundEvent.reason === 'all_eliminated') ? (
+                <p>
+                  <FormattedMessage id="Game.winnerByElimination" />
+                  {this.state.endRoundEvent.winner}
+                </p>
+                ) : (
+                <p>
+                  <FormattedMessage id="Game.winnerByEmptyPile" />
+                  {this.state.endRoundEvent.winner}
+                </p>
+              )
+            )}
+
+            {this.state.endGameEvent.state && (
+              <p>
+                {this.state.endGameEvent.winner}
+                <FormattedMessage id="Game.winnerOfGame"/>
+              </p>
+            )}
+          </div>
+        )}
 
         {/*players' cards*/}
 

@@ -71,10 +71,21 @@ export const gameStyle = {
     position: 'absolute',
     left: '40%',
     top: ' 35%',
+    maxWidth: '300px',
     transform: 'translate(0, -50%)',
     zIndex: 10,
     fontSize: '1.5em',
-    color: colors.whiteColor
+    color: colors.whiteColor,
+    padding: '10px',
+    backgroundColor: colors.secondColor,
+    boxShadow: `0 0 10px 10px ${colors.secondColor}`,
+
+    //phone
+    '@media (max-width: 768px)': {
+      left: '20%',
+      fontSize: '1em',
+      maxWidth: '200px'
+    },
   },
 
   my_infos: {
@@ -190,6 +201,11 @@ export const gameStyle = {
       top: ' 40%',
       transform: 'translate(0, -50%)',
       zIndex: 10,
+
+      //phone
+      '@media (max-width: 768px)': {
+        width: '100px',
+      },
     },
     light: {
       borderRadius: '15px',

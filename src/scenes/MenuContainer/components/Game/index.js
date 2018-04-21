@@ -143,8 +143,6 @@ class Game extends Component {
   }
 
   showHand(player) {
-    // let originalPlayer = this.getOriginalIndex(player);
-
     if(!this.state.game.players[player].immunity) {
       this.setState({showHand: this.state.game.players[player].hand[0]});
     }

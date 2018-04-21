@@ -163,23 +163,53 @@ export const gameStyle = {
   played_card: {
     position: 'absolute',
     display: 'flex',
+    zIndex: 0,
 
     cards: {
         width: '100px',
         position: 'relative',
+        marginLeft: '-30px',
+        //phone
+        '@media (max-width: 768px)': {
+          marginLeft: '-55px',
+          width: '70px'
+        },
     },
 
     me: {
-      bottom: 0
+      left: '40%',
+      //phone
+      '@media (max-width: 768px)': {
+        left: '-30vw',
+        bottom: '-5vh'
+      },
     },
     top: {
-      top: 0
+      top: '10vh',
+      transform: 'rotate(180deg)',
+
+      //phone
+      '@media (max-width: 768px)': {
+        top: 0,
+      },
     },
     right: {
-      right: 0
+      right: '10vw',
+      bottom: '5vh',
+      transform: 'rotate(270deg)',
+      //phone
+      '@media (max-width: 768px)': {
+      right: '20vw',
+      },
     },
     left: {
-      left: 0
+      left: '10vw',
+      bottom: '5vh',
+      transform: 'rotate(90deg)',
+      //phone
+      '@media (max-width: 768px)': {
+      left: '20vw',
+      },
     }
   },
 
@@ -231,6 +261,7 @@ export const gameStyle = {
       width: '160px',
       position: 'relative',
       bottom: '-15vh',
+      zIndex: 5,
 
       //phone
       '@media (max-width: 768px)': {

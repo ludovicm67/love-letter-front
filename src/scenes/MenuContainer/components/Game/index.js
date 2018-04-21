@@ -3,6 +3,7 @@ import React, { Component } from 'react';
 import { FormattedMessage, injectIntl } from 'react-intl';
 import { API_URL, echo, getLanguage } from '../../../../utils';
 import { gameStyle } from './style';
+import Radium from 'radium';
 
 let cardsLocale = getLanguage();
 
@@ -493,7 +494,9 @@ class Game extends Component {
 
                 <p style={gameStyle.player.score}>
                   {players[styleMap.left].winning_rounds_count}
-                  <FormattedMessage id="Game.wonGames" />
+                  <span style={gameStyle.player.score.text}>
+                    <FormattedMessage id="Game.wonGames" />
+                  </span>
                 </p>
                 <p>
                   {current_player === styleMap.left && (
@@ -543,7 +546,9 @@ class Game extends Component {
                 <p style={gameStyle.player.name}>{players[styleMap.right].name}</p>
                 <p style={gameStyle.player.score}>
                   {players[styleMap.right].winning_rounds_count}
-                  <FormattedMessage id="Game.wonGames" />
+                  <span style={gameStyle.player.score.text}>
+                    <FormattedMessage id="Game.wonGames" />
+                  </span>
                 </p>
 
                 <p>
@@ -597,7 +602,9 @@ class Game extends Component {
 
                 <p style={gameStyle.player.score}>
                   {players[styleMap.top].winning_rounds_count}
-                  <FormattedMessage id="Game.wonGames" />
+                  <span style={gameStyle.player.score.text}>
+                    <FormattedMessage id="Game.wonGames" />
+                  </span>
                 </p>
 
                 <p>
@@ -685,18 +692,22 @@ class Game extends Component {
         </div>
 
         <div style={gameStyle.my_infos}>
-          <p style={gameStyle.player.name}>{players[styleMap.bottom].name}</p>
-
-          <p style={gameStyle.player.score}>
-            {players[styleMap.bottom].winning_rounds_count}
-            <FormattedMessage id="Game.wonGames" />
-            <FormattedMessage id="Game.rounds_2" />
-            {winning_rounds}
+          <p style={{...gameStyle.player.name, ...gameStyle.my_infos.name}}>
+            {players[styleMap.bottom].name}
           </p>
-          <p>
+
+          <p style={{...gameStyle.player.score, ...gameStyle.my_infos.score}}>
+            {players[styleMap.bottom].winning_rounds_count}
+            <span style={gameStyle.player.score.text}>
+              <FormattedMessage id="Game.wonGames" />
+              <FormattedMessage id="Game.rounds_2" />
+            {winning_rounds}
+            </span>
+          </p>
+          <p style={gameStyle.my_infos.me_playing}>
             {current_player === styleMap.bottom && <FormattedMessage id="Game.me_playing" />}
           </p>
-          <p>
+          <p style={gameStyle.my_infos.immunity}>
             {players[styleMap.bottom].immunity && <FormattedMessage id="Game.me_immunity" />}
           </p>
 
@@ -710,4 +721,4 @@ class Game extends Component {
   }
 }
 
-export default injectIntl(Game);
+export default injectIntl(Radium(Game));

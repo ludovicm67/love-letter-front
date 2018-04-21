@@ -3,6 +3,7 @@ import React, { Component } from 'react';
 import { FormattedMessage, injectIntl } from 'react-intl';
 import { API_URL, echo, getLanguage } from '../../../../utils';
 import { gameStyle } from './style';
+import Radium from 'radium';
 
 let cardsLocale = getLanguage();
 
@@ -359,73 +360,74 @@ class Game extends Component {
 
     return (
       <div style={gameStyle}>
-        <div style={gameStyle.selection}>
+        {(choosePlayer || chooseCard) && (
+          <div style={gameStyle.selection}>
 
-          {/*choose a card / choose a player*/}
-          {chooseCard && (
-            <div>
-              <form>
-                <select
-                  style={gameStyle.selection.select}
-                  onChange={this.handleChooseCard}
-                  value={this.state.chosenCard}
-                >
-                  <option
-                    key={`cardSelect-default-${Math.random()}`}
-                    value=""
-                  >{formatMessage({ id: 'Game.chooseACard' })}</option>
-                  <option value="sorcerer">
-                    {formatMessage({ id: 'Game.sorcerer' })}
-                  </option>
-                  <option value="minister">
-                    {formatMessage({ id: 'Game.minister' })}
-                  </option>
-                  <option value="princess_prince">
-                    {formatMessage({ id: 'Game.princess_prince' })}
-                  </option>
-                  <option value="priest">
-                    {formatMessage({ id: 'Game.priest' })}
-                  </option>
-                  <option value="knight">
-                    {formatMessage({ id: 'Game.knight' })}
-                  </option>
-                  <option value="general">
-                    {formatMessage({ id: 'Game.general' })}
-                  </option>
-                  <option value="clown">
-                    {formatMessage({ id: 'Game.clown' })}
-                  </option>
-                </select>
-              </form>
-            </div>
-          )}
-
-          {choosePlayer && (
-            <div>
-              <form>
-                <select
-                  style={gameStyle.selection.select}
-                  onChange={this.handleChoosePlayer}
-                  value={this.state.chosenPlayer}
-                >
-                  <option
-                    key={`playerSelect-default-${Math.random()}`}
-                    value="-1"
+            {/*choose a card / choose a player*/}
+            {chooseCard && (
+              <div>
+                <form>
+                  <select
+                    style={gameStyle.selection.select}
+                    onChange={this.handleChooseCard}
+                    value={this.state.chosenCard}
                   >
-                    {formatMessage({ id: 'Game.chooseAPlayer' })}
-                  </option>
-                  {playersSelect}
-                </select>
-              </form>
-            </div>
-          )}
+                    <option
+                      key={`cardSelect-default-${Math.random()}`}
+                      value=""
+                    >{formatMessage({ id: 'Game.chooseACard' })}</option>
+                    <option value="sorcerer">
+                      {formatMessage({ id: 'Game.sorcerer' })}
+                    </option>
+                    <option value="minister">
+                      {formatMessage({ id: 'Game.minister' })}
+                    </option>
+                    <option value="princess_prince">
+                      {formatMessage({ id: 'Game.princess_prince' })}
+                    </option>
+                    <option value="priest">
+                      {formatMessage({ id: 'Game.priest' })}
+                    </option>
+                    <option value="knight">
+                      {formatMessage({ id: 'Game.knight' })}
+                    </option>
+                    <option value="general">
+                      {formatMessage({ id: 'Game.general' })}
+                    </option>
+                    <option value="clown">
+                      {formatMessage({ id: 'Game.clown' })}
+                    </option>
+                  </select>
+                </form>
+              </div>
+            )}
 
-          {(choosePlayer || chooseCard) && (
+            {choosePlayer && (
+              <div>
+                <form>
+                  <select
+                    style={gameStyle.selection.select}
+                    onChange={this.handleChoosePlayer}
+                    value={this.state.chosenPlayer}
+                  >
+                    <option
+                      key={`playerSelect-default-${Math.random()}`}
+                      value="-1"
+                    >
+                      {formatMessage({ id: 'Game.chooseAPlayer' })}
+                    </option>
+                    {playersSelect}
+                  </select>
+                </form>
+              </div>
+            )}
+
+
             <button style={gameStyle.selection.button} onClick={this.setAllChosen}>
               <FormattedMessage id="Game.choosePlayerCard" />
             </button>
-          )}
-        </div>
+          </div>
+        )}
 
         {/*Display an opponent's hand*/}
         <div>
@@ -440,48 +442,52 @@ class Game extends Component {
         </div>
 
         {/*EVENTS*/}
-        <div style={gameStyle.event}>
-          {/*player elimination event*/}
-          {this.state.eliminatedEvent.state && (
-            (this.state.eliminatedEvent.player === this.state.eliminatedEvent.attackFrom) ? (
-              <p>
-                {this.state.eliminatedEvent.player}
-                <FormattedMessage id="Game.auto_eliminated" />
-                <FormattedMessage id={`Game.${this.state.eliminatedEvent.card}`} />
-              </p>
-            ) : (
-              <p>
-                {this.state.eliminatedEvent.player}
-                <FormattedMessage id="Game.eliminated_by" />
-                {this.state.eliminatedEvent.attackFrom}
-                <FormattedMessage id="Game.eliminated_with" />
-                <FormattedMessage id={`Game.${this.state.eliminatedEvent.card}`} />
-              </p>
-            )
-          )}
-
-          {/*end round event*/}
-          {this.state.endRoundEvent.state && (
-            (this.state.endRoundEvent.reason === 'all_eliminated') ? (
-              <p>
-                <FormattedMessage id="Game.winnerByElimination" />
-                {this.state.endRoundEvent.winner}
-              </p>
+        {(this.state.eliminatedEvent.state
+          || this.state.endRoundEvent.state
+          || this.state.endGameEvent.state) && (
+          <div style={gameStyle.event}>
+            {/*player elimination event*/}
+            {this.state.eliminatedEvent.state && (
+              (this.state.eliminatedEvent.player === this.state.eliminatedEvent.attackFrom) ? (
+                <p>
+                  {this.state.eliminatedEvent.player}
+                  <FormattedMessage id="Game.auto_eliminated" />
+                  <FormattedMessage id={`Game.${this.state.eliminatedEvent.card}`} />
+                </p>
               ) : (
-              <p>
-                <FormattedMessage id="Game.winnerByEmptyPile" />
-                {this.state.endRoundEvent.winner}
-              </p>
-            )
-          )}
+                <p>
+                  {this.state.eliminatedEvent.player}
+                  <FormattedMessage id="Game.eliminated_by" />
+                  {this.state.eliminatedEvent.attackFrom}
+                  <FormattedMessage id="Game.eliminated_with" />
+                  <FormattedMessage id={`Game.${this.state.eliminatedEvent.card}`} />
+                </p>
+              )
+            )}
 
-          {this.state.endGameEvent.state && (
-            <p>
-              {this.state.endGameEvent.winner}
-              <FormattedMessage id="Game.winnerOfGame"/>
-            </p>
-          )}
-        </div>
+            {/*end round event*/}
+            {this.state.endRoundEvent.state && (
+              (this.state.endRoundEvent.reason === 'all_eliminated') ? (
+                <p>
+                  <FormattedMessage id="Game.winnerByElimination" />
+                  {this.state.endRoundEvent.winner}
+                </p>
+                ) : (
+                <p>
+                  <FormattedMessage id="Game.winnerByEmptyPile" />
+                  {this.state.endRoundEvent.winner}
+                </p>
+              )
+            )}
+
+            {this.state.endGameEvent.state && (
+              <p>
+                {this.state.endGameEvent.winner}
+                <FormattedMessage id="Game.winnerOfGame"/>
+              </p>
+            )}
+          </div>
+        )}
 
         {/*players' cards*/}
 
@@ -493,7 +499,9 @@ class Game extends Component {
 
                 <p style={gameStyle.player.score}>
                   {players[styleMap.left].winning_rounds_count}
-                  <FormattedMessage id="Game.wonGames" />
+                  <span style={gameStyle.player.score.text}>
+                    <FormattedMessage id="Game.wonGames" />
+                  </span>
                 </p>
                 <p>
                   {current_player === styleMap.left && (
@@ -543,7 +551,9 @@ class Game extends Component {
                 <p style={gameStyle.player.name}>{players[styleMap.right].name}</p>
                 <p style={gameStyle.player.score}>
                   {players[styleMap.right].winning_rounds_count}
-                  <FormattedMessage id="Game.wonGames" />
+                  <span style={gameStyle.player.score.text}>
+                    <FormattedMessage id="Game.wonGames" />
+                  </span>
                 </p>
 
                 <p>
@@ -597,7 +607,9 @@ class Game extends Component {
 
                 <p style={gameStyle.player.score}>
                   {players[styleMap.top].winning_rounds_count}
-                  <FormattedMessage id="Game.wonGames" />
+                  <span style={gameStyle.player.score.text}>
+                    <FormattedMessage id="Game.wonGames" />
+                  </span>
                 </p>
 
                 <p>
@@ -685,18 +697,22 @@ class Game extends Component {
         </div>
 
         <div style={gameStyle.my_infos}>
-          <p style={gameStyle.player.name}>{players[styleMap.bottom].name}</p>
-
-          <p style={gameStyle.player.score}>
-            {players[styleMap.bottom].winning_rounds_count}
-            <FormattedMessage id="Game.wonGames" />
-            <FormattedMessage id="Game.rounds_2" />
-            {winning_rounds}
+          <p style={{...gameStyle.player.name, ...gameStyle.my_infos.name}}>
+            {players[styleMap.bottom].name}
           </p>
-          <p>
+
+          <p style={{...gameStyle.player.score, ...gameStyle.my_infos.score}}>
+            {players[styleMap.bottom].winning_rounds_count}
+            <span style={gameStyle.player.score.text}>
+              <FormattedMessage id="Game.wonGames" />
+              <FormattedMessage id="Game.rounds_2" />
+            {winning_rounds}
+            </span>
+          </p>
+          <p style={gameStyle.my_infos.me_playing}>
             {current_player === styleMap.bottom && <FormattedMessage id="Game.me_playing" />}
           </p>
-          <p>
+          <p style={gameStyle.my_infos.immunity}>
             {players[styleMap.bottom].immunity && <FormattedMessage id="Game.me_immunity" />}
           </p>
 
@@ -710,4 +726,4 @@ class Game extends Component {
   }
 }
 
-export default injectIntl(Game);
+export default injectIntl(Radium(Game));

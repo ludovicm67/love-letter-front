@@ -9,4 +9,10 @@ https://github.com/ludovicm67/projet-ihm-back
 
 `npm install` pour installer les dépendances du projet
 
-`npm start` pour lancer l'application
+## Lancement
+
+  - `npm start`,  pour lancer l'application, en utilisant le backend hébergé en
+    ligne
+  - `npm run docker`, pour lancer l'application en utilisant le backend
+    hébergé dans un conteneur Docker local (voir le README du backend pour
+    savoir comment le lancer)

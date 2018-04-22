@@ -1,4 +1,4 @@
-[![Build Status](https://travis-ci.com/ludovicm67/projet-ihm-front.svg?token=4LgtqqAc8ZPrPBEdLaF6&branch=master)](https://travis-ci.com/ludovicm67/projet-ihm-front)
+[![Build Status](https://travis-ci.org/ludovicm67/projet-ihm-front.svg?branch=master)](https://travis-ci.org/ludovicm67/projet-ihm-front)
 
 # Projet IHM (partie Front)
 

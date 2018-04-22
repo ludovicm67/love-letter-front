@@ -77,6 +77,39 @@ export default {
         },
       },
     },
+    interface: {
+      title: "Présentation de l'interface",
+      create: {
+        title: "La page de création de partie",
+        text: "Les parties sont de minimum de 2 joueurs. On peut choisir de faire une partie contre un ou plusieurs autres joueurs ou contre des intelligences artificiels plus ou moins difficile",
+        alt: "Page creation d'une partie",
+      },
+      join: {
+        title: "La page pour rejoindre une partie",
+        text: "On peut choisir de rejoindre des parties déjà crées par d'autre joueur",
+        alt: "Page rejoindre une partie",
+      },
+      game: {
+        title: "Présentation du plateau du jeu",
+        text: "Le plateau de jeu comporte une pioche, notre carte, les cartes des adversaire, nos cartes jouées, les cartes jouéees pas les adversaires ainsi que le nom des adversaires, leurs nombre de manches gagnés, notre nom et nos nombres de manches gagnés",
+        alt: "Page du plateau de jeu",
+        lost: {
+          title: "Affichage de fin de manche",
+          text: "Lorsqu'une manche est terminé un text s'affiche précisant qui est ce qui a gagné et pour quel raison (soit la pioche est vide, soit tout les joueurs on été éliminés sauf un)",
+          alt: "Page du plateau de jeu perdu",
+        },
+        clown: {
+          title: "Affichage de l'effet de la carte clown",
+          text: "Lorsque l'on défausse une carte clown, celle-ci nous permet de voir la carte d'un adversaire qui est ainsi afficher brièvement à l'écran",
+          alt: "Page du plateau de jeu clown",
+        },
+        select: {
+          title: "Choix d'une carte et/ou d'un joueur",
+          text: "Certaines cartes nécessiste de choisir un joueur et éventuellement une carte. Ce choix s'effectue après avoir cliqué sur la carte voulue. L'effet de la carte est applliqué lorsque le formulaire est validé.",
+          alt: "Page du plateau de jeu choix d'une carte et/ou d'un joueur",
+        },
+      },
+    },
   },
   en: {
     title: 'Help',
@@ -155,5 +188,38 @@ export default {
         },
       },
     },
-  },
+    interface: {
+      title: "Presentation of the interface",
+      create: {
+        title: "The party creation page",
+        text: "The games are at least 2 players. You can choose to play a game against one or more other players or artificial intelligences more or less difficult",
+        alt: "Page creation party",
+      },
+      join: {
+        title: "The page to join a party",
+        text: "You can choose to join games already created by other players",
+        alt: "Page join party",
+      },
+      game: {
+        title: "Presentation of the game board",
+        text: "The game board includes a pile, our card, opponent cards, played cards, cards played by opponents, opponents' names, number of wonest races, name, and number of wins",
+        alt: "Page game bord",
+        lost: {
+          title: "End of game display",
+          text: "When a round is over a text is displayed stating who won and why (either the draw is empty or all players have been eliminated except one)",
+          alt: "Page game bord lost"
+        },
+        clown: {
+          title: "Showing the effect of the clown card",
+          text: "When we discard a clown card, it allows us to see the card of an opponent who is thus briefly displayed on the screen",
+          alt: "Page game bord clown",
+        },
+        select: {
+          title: "Choice of a card and / or a player",
+          text: "Some cards need to choose a player and possibly a card. This choice is made after clicking on the desired map. The effect of the card is applied when the form is validated.",
+          alt: "Page game bord Choice of a card and / or a player",
+        },
+      },
+    },
+  }
 };

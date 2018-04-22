@@ -94,8 +94,7 @@ export const gameStyle = {
     position: 'fixed',
     bottom: 0,
     right: 0,
-    padding: '40px',
-    paddingBottom: '60px',
+    padding: '40px 40px 60px 40px',
     borderRadius: '10px 0 0 0',
 
     //tablet

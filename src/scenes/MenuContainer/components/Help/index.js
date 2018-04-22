@@ -18,12 +18,12 @@ let cardsPathPriest = `${cardsPath}/priestess.svg`;
 let cardsPathSorcerer = `${cardsPath}/sorcerer.svg`;
 let cardsPathPrincesse = `${cardsPath}/princess.svg`;
 
-let interfacePathClown = `${interfacePath}/Clown.png`;
-let interfacePathPerdu = `${interfacePath}/Perdu.png`;
-let interfacePathSelect = `${interfacePath}/Select.png`;
-let interfacePathCreation = `${interfacePath}/Creation.png`;
-let interfacePathPlateauJeu = `${interfacePath}/Plateau_Jeu.png`;
-let interfacePathRejoindre = `${interfacePath}/Rejoindre.png`;
+let interfacePathClown = `${interfacePath}/Clown.PNG`;
+let interfacePathPerdu = `${interfacePath}/Perdu.PNG`;
+let interfacePathSelect = `${interfacePath}/Select.PNG`;
+let interfacePathCreation = `${interfacePath}/Creation.PNG`;
+let interfacePathPlateauJeu = `${interfacePath}/Plateau_Jeu.PNG`;
+let interfacePathRejoindre = `${interfacePath}/Rejoindre.PNG`;
 
 export class Help extends Component {
   render() {

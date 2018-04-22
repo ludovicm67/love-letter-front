@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { FormattedMessage, injectIntl } from 'react-intl';
+import Radium from 'radium';
 
 import { getLanguage } from '../../../../utils';
 
@@ -48,14 +49,23 @@ export class Help extends Component {
 
       image_inter: {
         height: '45vh',
-        marginTop: '3vh',
-        marginBottom: '3vh',
-        marginLeft: '1.5vw',
-        marginRight: '1.5vw',
+        margin: '3vh auto',
         borderCollapse: 'collapse',
         borderColor: 'black',
         borderStyle: 'solid',
         borderWidth: '1px',
+
+        //laptop
+        '@media (max-width: 1200px)': {
+          height: 'auto',
+          width: '80vw',
+        },
+        //phone
+        '@media (max-width: 768px)': {
+          width: '90vw',
+          marginLeft: 'auto',
+          marginRight: 'auto'
+        },
       },
 
       title: {
@@ -339,4 +349,4 @@ export class Help extends Component {
   }
 }
 
-export default injectIntl(Help);
+export default injectIntl(Radium(Help));

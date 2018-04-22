@@ -123,7 +123,7 @@ let messages = {
       minister: 'Ministre',
       sorcerer: 'Sorcier',
       priest: 'Prêtre',
-      houston: 'Houston, nous avons un problème. (Aucun joueur présent)',
+      noPlayer: 'Aucun joueur présent',
       alt: {
         pile: 'pioche',
         hand0: 'main joueur 0',
@@ -259,7 +259,7 @@ let messages = {
       minister: 'Minister',
       sorcerer: 'Sorcerer',
       priest: 'Priest',
-      houston: 'Houston, we have a problem. (No player present)',
+      noPlayer: 'No player present',
       alt: {
         pile: 'pile',
         hand0: 'player hand 0',

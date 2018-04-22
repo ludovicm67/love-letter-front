@@ -263,13 +263,15 @@ class Game extends Component {
     let myTurn;
     let { chooseCard, choosePlayer } = this.state;
     let { formatMessage } = this.props.intl;
+    let playersSelectList;
     let playersSelect = [];
     let { current_round, winning_rounds } = this.state.game;
     let players_cards = current_round.played_cards;
     let number_pile = this.state.game.current_round.pile.length;
-
     let styleMap = { top: -1, bottom: -1, left: -1, right: -1 };
     let nbPlayers = players.length;
+    let card_played = [];
+    let current_players = this.state.game.current_round.current_players;
 
     for (let i = 0; i < nbPlayers; i++) {
       if (players[i].name === localStorage.getItem('name')) {
@@ -285,19 +287,16 @@ class Game extends Component {
       }
     }
 
-    let card_played = [];
-
     card_played[0] = players_cards.filter(card => card[0] === 0);
     card_played[1] = players_cards.filter(card => card[0] === 1);
     card_played[2] = players_cards.filter(card => card[0] === 2);
     card_played[3] = players_cards.filter(card => card[0] === 3);
 
     if (nbPlayers === 0) {
-      console.error("Il n'y a plus aucun joueur ici");
       return (
         <p>
           {' '}
-          <FormattedMessage id="Game.houston" />{' '}
+          <FormattedMessage id="Game.noPlayer" />{' '}
         </p>
       );
     }
@@ -357,8 +356,15 @@ class Game extends Component {
     /********************/
 
     playersSelect.length = 0;
+
     if (choosePlayer) {
-      for (let i = 0; i < players.length; i++) {
+      playersSelectList = players.filter(function(p) {
+        let index = players.indexOf(p)
+        //check if player still in game
+        return (current_players.indexOf(index) > -1);
+      });
+
+      for (let i = 0; i < playersSelectList.length; i++) {
         //my name appears only if it's the card sorcerer
         if (
           (i === styleMap.bottom && this.state.card_played.value === 5) ||
@@ -367,7 +373,7 @@ class Game extends Component {
         ) {
           playersSelect.push(
             <option key={`playerSelect${i}${Math.random()}`} value={i}>
-              {players[i].name}
+              {playersSelectList[i].name}
             </option>
           );
         }

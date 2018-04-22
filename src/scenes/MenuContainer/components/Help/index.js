@@ -7,6 +7,7 @@ let cardsLocale = getLanguage();
 
 let imgPath = `images`;
 let cardsPath = `${imgPath}/cards/${cardsLocale}`;
+let interfacePath = `${imgPath}/help/${cardsLocale}`;
 
 let cardsPathSoldier = `${cardsPath}/soldier.svg`;
 let cardsPathClown = `${cardsPath}/clown.svg`;
@@ -16,6 +17,13 @@ let cardsPathMinister = `${cardsPath}/minister.svg`;
 let cardsPathPriest = `${cardsPath}/priestess.svg`;
 let cardsPathSorcerer = `${cardsPath}/sorcerer.svg`;
 let cardsPathPrincesse = `${cardsPath}/princess.svg`;
+
+let interfacePathClown = `${interfacePath}/Clown.png`;
+let interfacePathPerdu = `${interfacePath}/Perdu.png`;
+let interfacePathSelect = `${interfacePath}/Select.png`;
+let interfacePathCreation = `${interfacePath}/Creation.png`;
+let interfacePathPlateauJeu = `${interfacePath}/Plateau_Jeu.png`;
+let interfacePathRejoindre = `${interfacePath}/Rejoindre.png`;
 
 export class Help extends Component {
   render() {
@@ -38,6 +46,18 @@ export class Help extends Component {
         marginRight: '1.5vw',
       },
 
+      image_inter: {
+        height: '45vh',
+        marginTop: '3vh',
+        marginBottom: '3vh',
+        marginLeft: '1.5vw',
+        marginRight: '1.5vw',
+        borderCollapse: 'collapse',
+        borderColor: 'black',
+        borderStyle: 'solid',
+        borderWidth: '1px',
+      },
+
       title: {
         t1: {
           textAlign: 'center',
@@ -55,6 +75,12 @@ export class Help extends Component {
           marginTop: '2vh',
           marginBottom: '2vh',
         },
+        t4: {
+          fontSize: '1.1em',
+          marginLeft: '6vw',
+          marginTop: '1vh',
+          marginBottom: '1vh',
+        }
       },
 
       p_style: {
@@ -225,6 +251,88 @@ export class Help extends Component {
             <br />
             <FormattedMessage id="Help.gameRules.gameProgress.text.t6" />
           </p>
+
+          <h2 style={styleHelp.title.t2}>
+            <FormattedMessage id="Help.interface.title" />
+          </h2>
+            <h3 style={styleHelp.title.t3}>
+              <FormattedMessage id="Help.interface.create.title" />
+            </h3>
+            <p style={styleHelp.p_style}>
+              <FormattedMessage id="Help.interface.create.text" />
+            </p>
+            <img
+              src={interfacePathCreation}
+              style={styleHelp.image_inter}
+              alt={formatMessage({
+                id: 'Help.interface.create.alt',
+              })}
+            />
+            <h3 style={styleHelp.title.t3}>
+              <FormattedMessage id="Help.interface.join.title" />
+            </h3>
+            <p style={styleHelp.p_style}>
+              <FormattedMessage id="Help.interface.join.text" />
+            </p>
+            <img
+              src={interfacePathRejoindre}
+              style={styleHelp.image_inter}
+              alt={formatMessage({
+                id: 'Help.interface.join.alt',
+              })}
+            />
+            <h3 style={styleHelp.title.t3}>
+              <FormattedMessage id="Help.interface.game.title" />
+            </h3>
+            <p style={styleHelp.p_style}>
+              <FormattedMessage id="Help.interface.game.text" />
+            </p>
+            <img
+              src={interfacePathPlateauJeu}
+              style={styleHelp.image_inter}
+              alt={formatMessage({
+                id: 'Help.interface.game.alt',
+              })}
+            />
+              <h4 style={styleHelp.title.t4}>
+                <FormattedMessage id="Help.interface.game.lost.title" />
+              </h4>
+              <p style={styleHelp.p_style}>
+                <FormattedMessage id="Help.interface.game.lost.text" />
+              </p>
+              <img
+                src={interfacePathPerdu}
+                style={styleHelp.image_inter}
+                alt={formatMessage({
+                  id: 'Help.interface.game.lost.alt',
+                })}
+              />
+              <h4 style={styleHelp.title.t4}>
+                <FormattedMessage id="Help.interface.game.clown.title" />
+              </h4>
+              <p style={styleHelp.p_style}>
+                <FormattedMessage id="Help.interface.game.clown.text" />
+              </p>
+              <img
+                src={interfacePathClown}
+                style={styleHelp.image_inter}
+                alt={formatMessage({
+                  id: 'Help.interface.game.clown.alt',
+                })}
+              />
+              <h4 style={styleHelp.title.t4}>
+                <FormattedMessage id="Help.interface.game.select.title" />
+              </h4>
+              <p style={styleHelp.p_style}>
+                <FormattedMessage id="Help.interface.game.select.text" />
+              </p>
+              <img
+                src={interfacePathSelect}
+                style={styleHelp.image_inter}
+                alt={formatMessage({
+                  id: 'Help.interface.game.select.alt',
+                })}
+              />
         </div>
       </div>
     );

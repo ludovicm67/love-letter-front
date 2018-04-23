@@ -268,7 +268,7 @@ class Game extends Component {
     let { current_round, winning_rounds } = this.state.game;
     let players_cards = current_round.played_cards;
     let number_pile = this.state.game.current_round.pile.length;
-    let styleMap = { top: -1, bottom: -1, left: -1, right: -1 };
+    let styleMap = { top: -1, bottom: -1, left: -1, right: -1 , twoPlayers: -1};
     let nbPlayers = players.length;
     let card_played = [];
     let current_players = this.state.game.current_round.current_players;
@@ -286,11 +286,15 @@ class Game extends Component {
         }
       }
     }
+    if( nbPlayers === 2){
+      styleMap.twoPlayers = 4;
+    }
 
     card_played[0] = players_cards.filter(card => card[0] === 0);
     card_played[1] = players_cards.filter(card => card[0] === 1);
     card_played[2] = players_cards.filter(card => card[0] === 2);
     card_played[3] = players_cards.filter(card => card[0] === 3);
+    card_played[4] = players_cards.filter(card => card[0] === -1);
 
     if (nbPlayers === 0) {
       return (
@@ -314,6 +318,11 @@ class Game extends Component {
     } else {
       myCardsStyle = gameStyle.card.me;
     }
+
+    /***************/
+    /*CARTE RETIRES*/
+    /**************/
+
 
     /************/
     /***PIOCHE***/
@@ -549,7 +558,7 @@ class Game extends Component {
               </div>
 
               <div style={gameStyle.card.left}>
-                {//@TODO FormattedMessage 'alt'
+                {
                 players[styleMap.left].hand.map(hand => (
                   <img
                     key={styleMap.left + Math.random()}
@@ -607,7 +616,7 @@ class Game extends Component {
               </div>
 
               <div style={gameStyle.card.right}>
-                {//@TODO FormattedMessage 'alt'
+                {
                 players[styleMap.right].hand.map(hand => (
                   <img
                     key={styleMap.right + Math.random()}
@@ -738,6 +747,27 @@ class Game extends Component {
             </div>
           )}
         </div>
+
+
+        {styleMap.twoPlayers !== -1 && (
+          <div style={{flexDirection: 'column', width: '12vw'}}>
+          {card_played[styleMap.twoPlayers].map(card => (
+            <img
+                key={`secretCards`+ Math.random()}
+                style={{  ...gameStyle.card,
+                          width: '10vw',
+                          marginBottom: '-18vh',
+                        }}
+                src={`${cardsPath}/${this.handleCardName(
+                  card[1].card_name
+                )}.svg`}
+                alt={formatMessage({ id: 'Game.alt.pile' })}
+              />
+            ))
+          }
+          </div>
+        )
+      }
 
         <div
           style={gameStyle.piocheContainer}

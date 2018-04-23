@@ -408,7 +408,7 @@ class Game extends Component {
                     <option value="princess_prince">
                       {formatMessage({ id: 'Game.princess_prince' })}
                     </option>
-                    <option value="priest">
+                    <option value="priestess">
                       {formatMessage({ id: 'Game.priest' })}
                     </option>
                     <option value="knight">

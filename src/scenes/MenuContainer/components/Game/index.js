@@ -52,13 +52,11 @@ class Game extends Component {
       echo
         .channel(`channel-game:${this.state.game.id}`)
         .listen('UpdateGameEvent', e => {
-          console.log('got UpdateGameEvent', e);
           this.setState({
             game: e.content.game,
           });
         })
         .listen('EliminatedPlayerEvent', e => {
-          console.log('got eliminatedPlayer Event', e);
           this.setState({
             eliminatedEvent: {
               state: true,
@@ -81,10 +79,7 @@ class Game extends Component {
           }, 5000);
         })
         .listen('EndRoundEvent', e => {
-          console.log('got endRound Event', e);
-
           let reason;
-
           switch (e.content.game.reason_end) {
             case 1:
               reason = 'empty_pile';
@@ -114,24 +109,12 @@ class Game extends Component {
           }, 5000);
         })
         .listen('EndGameEvent', e => {
-          console.log('got endGame Event', e);
-
           this.setState({
             endGameEvent: {
               state: true,
               winner: e.content.game.winner_name,
             },
           });
-
-          let self = this;
-          setTimeout(function() {
-            self.setState({
-              endGameEvent: {
-                state: false,
-                winner: '',
-              },
-            });
-          }, 5000);
         });
     }
 

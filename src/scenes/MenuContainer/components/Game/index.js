@@ -302,11 +302,6 @@ class Game extends Component {
       myCardsStyle = gameStyle.card.me;
     }
 
-    /***************/
-    /*CARTE RETIRES*/
-    /**************/
-
-
     /************/
     /***PIOCHE***/
     /************/
@@ -731,16 +726,13 @@ class Game extends Component {
           )}
         </div>
 
-
+        {/*cartes retirées*/}
         {styleMap.twoPlayers !== -1 && (
-          <div style={{flexDirection: 'column', width: '12vw'}}>
+          <div style={gameStyle.retired_container}>
           {card_played[styleMap.twoPlayers].map(card => (
             <img
                 key={`secretCards`+ Math.random()}
-                style={{  ...gameStyle.card,
-                          width: '10vw',
-                          marginBottom: '-18vh',
-                        }}
+                style={gameStyle.retired_container.cards}
                 src={`${cardsPath}/${this.handleCardName(
                   card[1].card_name
                 )}.svg`}
@@ -752,13 +744,14 @@ class Game extends Component {
         )
       }
 
+        {/*pioche*/}
         <div
           style={gameStyle.piocheContainer}
-          onClick={this.playGame.bind(this, 'pick_card', null, null, null)}
-        >
+          onClick={this.playGame.bind(this, 'pick_card', null, null, null)}>
           {pioche}
         </div>
 
+        {/*infos du joueur actif*/}
         <div style={gameStyle.my_infos}>
           <p style={{ ...gameStyle.player.name, ...gameStyle.my_infos.name }}>
             {players[styleMap.bottom].name}

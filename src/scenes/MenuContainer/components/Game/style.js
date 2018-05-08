@@ -31,6 +31,22 @@ export const gameStyle = {
     },
   },
 
+  retired_container: {
+    flexDirection: 'column',
+    width: '100px',
+    margin: '70px 0 0 30px',
+
+    cards: {
+      width: '100px',
+      position: 'relative',
+      marginBottom: '-120px',
+      //phone
+      '@media (max-width: 768px)': {
+        width: '70px',
+      },
+    }
+  },
+
   selection: {
     position: 'absolute',
     left: '40%',

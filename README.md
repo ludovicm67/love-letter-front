@@ -1,9 +1,9 @@
-[![Build Status](https://travis-ci.org/ludovicm67/projet-ihm-front.svg?branch=master)](https://travis-ci.org/ludovicm67/projet-ihm-front)
+[![Build Status](https://travis-ci.org/ludovicm67/love-letter-front.svg?branch=master)](https://travis-ci.org/ludovicm67/love-letter-front)
 
-# Projet IHM (partie Front)
+# Love Letter (partie front)
 
 Pour accéder au back-end de l'application :
-https://github.com/ludovicm67/projet-ihm-back
+https://github.com/ludovicm67/love-letter-back
 
 ## Installation
 

@@ -44,7 +44,7 @@ export const gameStyle = {
       '@media (max-width: 768px)': {
         width: '70px',
       },
-    }
+    },
   },
 
   selection: {

@@ -251,7 +251,7 @@ class Game extends Component {
     let { current_round, winning_rounds } = this.state.game;
     let players_cards = current_round.played_cards;
     let number_pile = this.state.game.current_round.pile.length;
-    let styleMap = { top: -1, bottom: -1, left: -1, right: -1 , twoPlayers: -1};
+    let styleMap = { top: -1, bottom: -1, left: -1, right: -1, twoPlayers: -1 };
     let nbPlayers = players.length;
     let card_played = [];
     let current_players = this.state.game.current_round.current_players;
@@ -269,7 +269,7 @@ class Game extends Component {
         }
       }
     }
-    if( nbPlayers === 2){
+    if (nbPlayers === 2) {
       styleMap.twoPlayers = 4;
     }
 
@@ -346,9 +346,9 @@ class Game extends Component {
 
     if (choosePlayer) {
       playersSelectList = players.filter(function(p) {
-        let index = players.indexOf(p)
+        let index = players.indexOf(p);
         //check if player still in game
-        return (current_players.indexOf(index) > -1);
+        return current_players.indexOf(index) > -1;
       });
 
       for (let i = 0; i < playersSelectList.length; i++) {
@@ -536,8 +536,7 @@ class Game extends Component {
               </div>
 
               <div style={gameStyle.card.left}>
-                {
-                players[styleMap.left].hand.map(hand => (
+                {players[styleMap.left].hand.map(hand => (
                   <img
                     key={styleMap.left + Math.random()}
                     style={gameStyle.card}
@@ -594,8 +593,7 @@ class Game extends Component {
               </div>
 
               <div style={gameStyle.card.right}>
-                {
-                players[styleMap.right].hand.map(hand => (
+                {players[styleMap.right].hand.map(hand => (
                   <img
                     key={styleMap.right + Math.random()}
                     style={gameStyle.card}
@@ -729,25 +727,24 @@ class Game extends Component {
         {/*cartes retirées*/}
         {styleMap.twoPlayers !== -1 && (
           <div style={gameStyle.retired_container}>
-          {card_played[styleMap.twoPlayers].map(card => (
-            <img
-                key={`secretCards`+ Math.random()}
+            {card_played[styleMap.twoPlayers].map(card => (
+              <img
+                key={`secretCards` + Math.random()}
                 style={gameStyle.retired_container.cards}
                 src={`${cardsPath}/${this.handleCardName(
                   card[1].card_name
                 )}.svg`}
                 alt={formatMessage({ id: 'Game.alt.pile' })}
               />
-            ))
-          }
+            ))}
           </div>
-        )
-      }
+        )}
 
         {/*pioche*/}
         <div
           style={gameStyle.piocheContainer}
-          onClick={this.playGame.bind(this, 'pick_card', null, null, null)}>
+          onClick={this.playGame.bind(this, 'pick_card', null, null, null)}
+        >
           {pioche}
         </div>
 
